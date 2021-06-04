@@ -1,0 +1,14 @@
+{
+    "manifest_version": 2,
+    "name": "EPNS",
+    "version": "0.0.0",
+    "description": "Mockup for an EPNS chrome extension",
+    "browser_action": {
+        "default_icon": "epns-small2.png",
+        "default_popup": "popup.html",
+        "default_title": "EPNS Extension"
+    },
+    "permissions": [
+        "activeTab"
+    ]
+}
