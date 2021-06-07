@@ -9,6 +9,13 @@
         "default_title": "EPNS Extension"
     },
     "permissions": [
-        "activeTab"
-    ]
+        "activeTab",
+        "<all_urls>",
+        "tabs"
+    ],
+    "background" : {
+        "scripts" : ["js/background.js"],
+        "persistent": false
+    },
+    "content_security_policy": "script-src 'self' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com; object-src 'self'; connect-src 'self' wss://*.firebaseio.com;"
 }
