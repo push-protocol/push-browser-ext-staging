@@ -16,64 +16,55 @@ import Container from '@material-ui/core/Container'
 import Button from '@material-ui/core/Button'
 import AddressPage from '../AddressPage/AddressPage'
 import { getToken } from '../firebase'
-const useStyles = makeStyles((theme) => ({
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}))
+import './HomePage.css'
+import Info from './Info'
+import Circle1 from '../Circle/Circle1'
+import Circle2 from '../Circle/Circle2'
+import Circle3 from '../Circle/Circle3'
+
 export default function Home() {
   const [token, setToken] = useState('')
-  const classes = useStyles()
+  const [seen, setSeen] = useState(false)
   useEffect(() => {
-    console.log("home")
+    console.log('home')
     // console.log(getToken())
-    getToken().then((res) => {console.log(res);setToken(res)})
+    getToken().then((res) => {
+      console.log(res)
+      setToken(res)
+    })
   }, [])
-  return (
-    <div style={{ height: '550px', width: '350px' }}>
-      <Container component="main" maxWidth="xs">
-        <Typography component="h4" variant="h3">
-          Welcome!
-        </Typography>
-        <div>
-          <Typography>
-            Welcome to <b>Ethereum Push Notification Service</b> (EPNS)
-          </Typography>
-        </div>
 
-        <div>
-          <Typography>
-            <b>EPNS</b> is an innovative way to receive notifications from
-          </Typography>
-        </div>
-        <div>
-          <Typography>
-            different <b>dApps</b> or <b>Smart Contracts</b>.
-          </Typography>
-        </div>
-        <div>
-          {' '}
-          <Typography>
-            Think notifications but coming from blockchain ecosystem.
-          </Typography>
-        </div>
-        <div>
-          <Typography>
-            Visit <a href="https://epns.io/">epns.io</a> to learn more about it
-          </Typography>
-        </div>
-        <Link component={AddressPage} props={{ token }}>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Next
-          </Button>
-        </Link>
-      </Container>
+  const toggle = () => {
+    setSeen(!seen)
+  }
+  return (
+    <div style={{ height: '600px', width: '360px' }}>
+      {/* <Container component="main" maxWidth="xs"> */}
+      <div>Welcome!</div>
+      <div>
+        <Circle1 side="left" />
+        <Circle2 side="left" />
+        <Circle3 side="left" />
+        <div id="epns-logo"></div>
+      </div>
+      <div>
+        <div id="welcome"><b>Welcome!</b></div>
+
+        <spn id="welcome-text">Welcome to</spn>
+        <span id="description">
+          <span onMouseEnter={() => toggle()} onMouseLeave={() => toggle()}>
+            <span id="ethereum-text">Ethereum </span>
+            <span id="push-text">Push </span>
+            <span id="notification-text">Notification </span>
+            <span id="service-text">Service </span>
+          </span>
+        </span>
+      </div>
+
+      {seen ? <Info /> : <div></div>}
+      <Link component={AddressPage} props={{ token }}>
+      <button id="button"><span id="button-text">Continue</span></button>
+      </Link>
     </div>
   )
 }

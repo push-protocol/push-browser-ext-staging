@@ -1,0 +1,12 @@
+#circle3-right {
+    position: absolute;
+    width: 363.58px;
+    height: 363.58px;
+    left: 154.91px;
+    top: -208.47px;
+    
+    background: linear-gradient(180deg, #674C9F 0%, rgba(103, 76, 159, 0) 100%);
+    transform: matrix(0.07, 1, 1, -0.07, 0, 0);
+    border-radius: 50%;
+    z-index:1;
+}

@@ -18,6 +18,7 @@ import NotificationPage from './components/NotificationPage/NotificationPage'
 
 function App() {
   const [registered, setRegistered] = useState(false)
+  const [walletAddr, setWalletAddr] =useState(null)
   useEffect(() => {
     const { component, props } = getCurrent()
     console.log(
@@ -28,7 +29,11 @@ function App() {
     const components = getComponentStack()
     console.log(`The stack has ${components.length} components on the stack`)
     chrome.storage.local.get(['epns'], function (result) {
+      console.log(result.epns)
       if (result.epns) {
+        console.log("app")
+        console.log(result.epns.wallet)
+        setWalletAddr(result.epns.wallet)
         setRegistered(true)
       }
     })

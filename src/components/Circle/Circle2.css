@@ -1,0 +1,15 @@
+#circle2 {
+  position: absolute;
+  width: 413.87px;
+  height: 413.87px;
+
+  left: -207.14px;
+  top: -204.18px;
+
+ 
+
+  background: linear-gradient(180deg, #35c5f3 0%, rgba(53, 197, 243, 0) 100%);
+  transform: rotate(-152.51deg);
+  border-radius: 50%;
+  z-index:2;
+}

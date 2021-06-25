@@ -1,4 +1,4 @@
- /*global chrome*/
+/*global chrome*/
 import React from 'react'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
@@ -11,8 +11,24 @@ import {
   getCurrent,
   getComponentStack,
 } from 'react-chrome-extension-router'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import { makeStyles } from '@material-ui/core/styles';
+import Circle1 from "../Circle/Circle1"
+import Circle2 from "../Circle/Circle2"
+import Circle3 from "../Circle/Circle3"
+import './Last.css'
+
+const useStyles = makeStyles((theme) => ({
+  loader: {
+      display: "flex",
+      justifyContent: "center",
+      height: "100%",
+      alignItems: "center",
+  },
+}));
 
 export default function LastPage(props) {
+  const classes = useStyles();
   const [status, setStatus] = useState(null)
   const [loader, setLoader] = useState(true)
   useEffect(() => {
@@ -21,9 +37,9 @@ export default function LastPage(props) {
     const token = props.token
     const object = {
       op: 'register',
-      wallet: address,
+      wallet: address.toLowerCase(),
       device_token: token,
-      platform: 'android',
+      platform: 'web',
     }
     axios
       .post(
@@ -48,15 +64,36 @@ export default function LastPage(props) {
   //0x25ccED8002Da0934b2FDfb52c98356EdeBBA00B9
 
   return (
-    <div style={{ height: '550px', width: '350px' }}>
+    <div style={{ height: '600px', width: '360px' }}>
       {loader ? (
-        <div>
-          <h2>Loading</h2>
+        <div className={classes.loader}>
+          <CircularProgress color="secondary" />
         </div>
       ) : status ? (
         <div>
-          <h2>All Done</h2>
-          You are all set to receive notifications!!
+          <div id="congrats">
+            <p id="congrats-text"><b>Congrats!</b></p>
+          </div>
+          <div>
+            <Circle1 side="center" />
+            <Circle2 side="center" />
+            <Circle3 side="center" />
+            <div id="check-icon"></div>
+          </div>
+          <div>
+            <p id="epns-text">
+              <spn id="bold-epns">EPNS</spn> is all setup and ready to rock!
+            </p>
+          </div>
+          <div id="description-text">
+            <p id="decription">
+              Visit <span id="epnsio-text">app.epns.io</span> from a{' '}
+              <span id="bold-text">Web3 Enabled Browser</span> to subscribe to
+              your favorite <span id="bold-text">dApp channels</span> and start
+              receiving <span id="bold-text">messages</span>.
+            </p>
+          </div>
+          <button id="complete-button">Complete Setup!</button>
         </div>
       ) : (
         <div>

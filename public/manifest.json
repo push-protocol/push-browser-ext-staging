@@ -8,14 +8,24 @@
   "browser_action": {
     "default_icon": "epns-small2.png",
     "default_popup": "index.html",
-    "default_title": "Open the popup"
+    "default_title": "EPNS Ectension"
   },
-  "background":{
-    "scripts":["background.js"],
-    "persistent":true
+  "icons": {
+    "16": "./epns-small2.png",
+    "32": "./epns-small2.png",
+    "48": "./epns-small2.png",
+    "128": "./epns-small2.png"
   },
-  "content_security_policy": "script-src 'self' 'sha256-shpRLid+sdnnB34hN3cB+/0NvCgm4ydxJMTjK4oirSY=' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com; object-src 'self'",
-  "permissions": ["identity","background", "tabs", "storage", "notifications", "webRequest", "webRequestBlocking", "<all_urls>", "unlimitedStorage"],
-  "gcm_sender_id": "532398581043"
-
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  },
+  "content_security_policy": "script-src 'self' 'sha256-zxSg/tHozTvTt+oc+awguNv/zQJw35Bm9ZQclmoxLQQ=' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com; object-src 'self'",
+  "permissions": [
+    "background",
+    "storage",
+    "notifications",
+    "webRequest",
+    "unlimitedStorage"
+  ]
 }
