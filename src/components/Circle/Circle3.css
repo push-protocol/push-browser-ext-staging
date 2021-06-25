@@ -1,0 +1,13 @@
+#circle3{position: absolute;
+width: 363.58px;
+height: 363.58px;
+
+left: -107.27px;
+top: -190.47px;
+
+border-radius: 50%;
+background: linear-gradient(180deg, #674C9F 0%, rgba(103, 76, 159, 0) 100%);
+transform: rotate(93.89deg);
+z-index:1;
+
+}

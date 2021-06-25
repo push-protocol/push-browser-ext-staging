@@ -1,8 +1,11 @@
 /*global chrome*/
 import firebase from 'firebase/app'
+
+import * as dotenv from "dotenv";
 import 'firebase/messaging'
+dotenv.config();
 //epns
-var firebaseConfig = {
+var firebaseConfig ={
   apiKey: "AIzaSyClOk4qP0ttFW-BPnXy7WT920xfdXSbFu8",
   authDomain: "epns-internal.firebaseapp.com",
   databaseURL: "https://epns-internal.firebaseio.com",
@@ -30,7 +33,7 @@ export const getToken = () => {
     .getToken({
       vapidKey:
       //epns
-        'BFRmmAEEXOhk31FIsooph5CxlXKh6N0_NocUWHzvtpoUEvqQTwLXu6XtwkrH7ckyr2CvVz1ll-8q4oo6-ZqFJPY',
+      "BFRmmAEEXOhk31FIsooph5CxlXKh6N0_NocUWHzvtpoUEvqQTwLXu6XtwkrH7ckyr2CvVz1ll-8q4oo6-ZqFJPY",
         //my
         // "BGJ_k4q_AdVe96XvPNUn7ERbNA4n9oq6B6x8hu670XZEKXCqc_VpEWUsbwfuZXjfiA55cy6geN_dekwxkSxIsGA",
     })
