@@ -16,7 +16,7 @@
 
 #wallet-decription-text {
   position: absolute;
-  width: 300px;
+  width: 320px;
   height: 28px;
   left: 30px;
   top: 258px;
@@ -35,7 +35,8 @@ font-style: normal;
 font-weight: normal;
 font-size: 12px;
 line-height: 14px;
-
+top: 3px;
+    display: inline-block;
 color: #000000;
 }
 
@@ -45,7 +46,7 @@ font-style: normal;
 font-weight: normal;
 font-size: 12px;
 line-height: 14px;
-
+margin-left: 4px;
 color: #E20880;
 }
 
@@ -90,8 +91,8 @@ background:white;
     position: absolute;
 width: 67px;
 height: 50px;
-left: 270px;
-top: 40px;
+left: 275px;
+top: 32px;
 z-index: 4;
 background: url("../../assests/wallet\ 1.png");
 }

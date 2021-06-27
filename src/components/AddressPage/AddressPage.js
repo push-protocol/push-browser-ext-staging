@@ -52,8 +52,9 @@ export default function AddressPage(props) {
         <div id="wallet-logo"></div>
       </div>
       <p id="wallet-text"><b>Wallet Address!</b></p>
+      
       <div id="wallet-decription-text">
-        <span id="epns-text">EPNS</span> requires your wallet address to deliver{' '}
+        <b>EPNS</b> requires your wallet address to deliver
         <span id="notification-text">notifications</span> meant for you!
       </div>
       <TextField

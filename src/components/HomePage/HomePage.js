@@ -40,7 +40,7 @@ export default function Home() {
   return (
     <div style={{ height: '600px', width: '360px' }}>
       {/* <Container component="main" maxWidth="xs"> */}
-      <div>Welcome!</div>
+     
       <div>
         <Circle1 side="left" />
         <Circle2 side="left" />
@@ -52,7 +52,7 @@ export default function Home() {
 
         <spn id="welcome-text">Welcome to</spn>
         <span id="description">
-          <span onMouseEnter={() => toggle()} onMouseLeave={() => toggle()}>
+          <span onMouseEnter={() => toggle()} onMouseLeave={() => toggle()} style={{padding:"4px"}}>
             <span id="ethereum-text">Ethereum </span>
             <span id="push-text">Push </span>
             <span id="notification-text">Notification </span>

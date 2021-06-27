@@ -20,7 +20,7 @@
     "scripts": ["background.js"],
     "persistent": true
   },
-  "content_security_policy": "script-src 'self' 'sha256-zxSg/tHozTvTt+oc+awguNv/zQJw35Bm9ZQclmoxLQQ=' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com; object-src 'self'",
+  "content_security_policy": "script-src 'self' 'sha256-VaAnP2J3IR6odQXL8lBt9mNxNYS/U3Eh+wJ6nr5I82A=' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com; object-src 'self'",
   "permissions": [
     "background",
     "storage",
