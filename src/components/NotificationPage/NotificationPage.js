@@ -13,9 +13,7 @@ import {
 import TextField from '@material-ui/core/TextField'
 import Checkbox from '@material-ui/core/Checkbox'
 import { makeStyles } from '@material-ui/core/styles'
-import Circle1 from '../Circle/Circle1'
-import Circle2 from '../Circle/Circle2'
-import Circle3 from '../Circle/Circle3'
+import Blockies from 'react-blockies'
 import ChannelIcon from '../UI/ChannelIcon'
 import './Notification.css'
 import  AddressPage from '../AddressPage/AddressPage'
@@ -152,7 +150,7 @@ export default function NotificationPage() {
   return (
     <div style={{ height: '600px', width: '360px' }}>
       {model?<div id="model-div">
-				<div onClick={()=>{setModel(false)}} id="cross"><b>X</b></div>
+				<div onClick={()=>{setModel(false)}} id="cross"><span id="X"><b>X</b></span></div>
         <Link component={AddressPage} props={{ object, type: 'renter' }}>
 				<button id="switch-button"><span id="switch-button-text">Switch Account</span></button>
         </Link>
@@ -165,7 +163,13 @@ export default function NotificationPage() {
           marginTop: '15px',
         }}
       >
-        <div id="profile-image" onClick={()=>{setModel(true)}}></div>
+        <div id="profile-image" onClick={()=>{setModel(true)}}><Blockies
+            seed={wallet}
+            size={10}
+            scale={3}
+           
+            className="identicon"
+          /></div>
         <div id="wallet-address">{addr}</div>
         <div
           style={{

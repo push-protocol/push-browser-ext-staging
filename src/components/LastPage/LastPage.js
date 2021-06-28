@@ -12,23 +12,24 @@ import {
   getComponentStack,
 } from 'react-chrome-extension-router'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import { makeStyles } from '@material-ui/core/styles';
-import Circle1 from "../Circle/Circle1"
-import Circle2 from "../Circle/Circle2"
-import Circle3 from "../Circle/Circle3"
+import { makeStyles } from '@material-ui/core/styles'
+import Circle1 from '../Circle/Circle1'
+import Circle2 from '../Circle/Circle2'
+import Circle3 from '../Circle/Circle3'
+import NotificationPage from '../NotificationPage/NotificationPage'
 import './Last.css'
 
 const useStyles = makeStyles((theme) => ({
   loader: {
-      display: "flex",
-      justifyContent: "center",
-      height: "100%",
-      alignItems: "center",
+    display: 'flex',
+    justifyContent: 'center',
+    height: '100%',
+    alignItems: 'center',
   },
-}));
+}))
 
 export default function LastPage(props) {
-  const classes = useStyles();
+  const classes = useStyles()
   const [status, setStatus] = useState(null)
   const [loader, setLoader] = useState(true)
   useEffect(() => {
@@ -72,7 +73,9 @@ export default function LastPage(props) {
       ) : status ? (
         <div>
           <div id="congrats">
-            <p id="congrats-text"><b>Congrats!</b></p>
+            <p id="congrats-text">
+              <b>Congrats!</b>
+            </p>
           </div>
           <div>
             <Circle1 side="center" />
@@ -81,8 +84,8 @@ export default function LastPage(props) {
             <div id="check-icon"></div>
           </div>
           <div>
-            <p id="epns-text">
-              <spn id="bold-epns">EPNS</spn> is all setup and ready to rock!
+            <p id="last-epns-text">
+              <spn id="bold-epns"><p></p>EPNS</spn> is all setup and ready to rock!
             </p>
           </div>
           <div id="description-text">
@@ -93,7 +96,9 @@ export default function LastPage(props) {
               receiving <span id="bold-text">messages</span>.
             </p>
           </div>
-          <button id="complete-button">Complete Setup!</button>
+          <Link component={NotificationPage}>
+            <button id="complete-button">Complete Setup!</button>
+          </Link>
         </div>
       ) : (
         <div>

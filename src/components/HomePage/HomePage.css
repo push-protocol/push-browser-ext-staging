@@ -18,7 +18,7 @@
     width: 74px;
     height: 16px;
     left: 30px;
-    top: 323px;
+    top: 322px;
   
     font-family: Roboto;
     font-style: normal;
@@ -98,8 +98,8 @@
     position: absolute;
   width: 104px;
   height: 47px;
-  left: 20px;
-  top: 64px;
+  left: 23px;
+    top: 47px;
   z-index:4;
   background: url("../../assests/logofull_white\ 1.png");
   }
