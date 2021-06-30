@@ -1,6 +1,6 @@
 {
   "name": "EPNS Staging Protocol (Alpha)",
-  "description": "Introducing Ethereum Push Notification Service (EPNS) - The Missing Piece of Web3.\n\nEPNS is one of it’s kind service that allows users (wallet addresses) to receive notifications. Any dApps / Smart Contracts / Services can now send decentralized notifications to their users.",
+  "description": "Receive Notificaions from Web3.0.\n\nIntroducing Ethereum Push Notification Service (EPNS) - The Missing Piece of Web3.",
   "version": "0.1",
   "manifest_version": 2,
   "browser_action": {
@@ -23,7 +23,7 @@
     "scripts": ["background.js"],
     "persistent": true
   },
-  "content_security_policy": "script-src 'self' 'sha256-VaAnP2J3IR6odQXL8lBt9mNxNYS/U3Eh+wJ6nr5I82A=' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com; object-src 'self'",
+  "content_security_policy": "script-src 'self' 'sha256-h4iEldfA65G5aBgxZ0eUKcuYZrLyAOAFK95LCyZd8AU=' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com; object-src 'self'",
   "permissions": [
     "background",
     "storage",
