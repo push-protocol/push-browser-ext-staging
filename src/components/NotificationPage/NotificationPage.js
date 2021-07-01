@@ -52,63 +52,11 @@ export default function NotificationPage() {
   const [addr, setAddr] = useState('')
   const [object, setObject] = useState('')
   const [model, setModel] = useState(false)
-  // console.log(props)
-  // onMessageListener()
-  //   .then((payload) => {
-  //     // setShow(true);
-  //     setNotify({
-  //       title: payload.notification.title,
-  //       body: payload.notification.body,
-  //     })
-  //     console.log("Message")
-  //     console.log(payload)
-  //     chrome.storage.local.set(
-  //       { epnsNot: payload.notification },
-  //       function () {},
-  //     )
-  //   })
-  //   .catch((err) => console.log('failed: ', err))
-  // const channel = new BroadcastChannel('sw-messages')
-  // channel.addEventListener('message', (event) => {
-  //   // chrome.storage.local.get(['epnsNot'], function (result)
-  //   if (event.data.data) console.log('Noti')
-  //   console.log(event.data.data)
-  //   chrome.storage.local.set(
-  //     { epnsNot: event.data.data.notification },
-  //     function () {},
-  //   )
-  //   console.log('Received', event.data.data.notification)
-  //   setNotify(event.data.data.notification)
-  // })
-  // useEffect(() => {
-  //   chrome.storage.local.get(['epnsNot'], function (result) {
-  //     if (result.epnsNot) {
-  //       console.log('efi')
-  //       console.log(result)
-  //       setNotify(result.epnsNot)
-  //       chrome.storage.local.remove(['epnsNot'], function () {
-  //         var error = chrome.runtime.lastError
-  //         if (error) {
-  //           console.error(error)
-  //         }
-  //       })
-  //     }
-  //   })
-  // chrome.storage.local.get(['epnsNot'], function (result) {
-  //   if (result.epnsNot) {
-  //     setNotification2(result.epnsNot)
-  //     chrome.storage.local.set({ epnsNot: null }, function () {
-  //       console.log('inside chrome')
-  //     })
-  //   }
-  // })
-  // }, [])
   useEffect(() => {
     chrome.storage.local.get(['epns'], function (result) {
-      console.log(result.epns)
+      
       if (result.epns) {
-        console.log('noti')
-        console.log(result.epns.wallet)
+       
         setWallet(result.epns.wallet)
         setObject(result.epns)
       }
@@ -118,13 +66,13 @@ export default function NotificationPage() {
     let walletTemp = wallet
     let fh = walletTemp.slice(0, 6)
     let sh = walletTemp.slice(-6)
-    console.log('WALLET ADDR', fh, sh)
+    
     let final = fh + '......' + sh
     setAddr(final)
   }, [wallet])
 
   const callAPI = async () => {
-    console.log(wallet)
+   
     const walletAddr = wallet.toLowerCase()
     const apiURL = 'https://backend-staging.epns.io/apis/feeds/get_feeds'
     const response = await fetch(apiURL, {
@@ -141,7 +89,7 @@ export default function NotificationPage() {
       }),
     })
     const resJson = await response.json()
-    console.log(resJson)
+    
     setNotifications(resJson.results)
     setWallet(walletAddr)
   }
@@ -183,9 +131,6 @@ export default function NotificationPage() {
           <div id="settings"></div>
         </div>
         <div>
-          {/* <Link component={AddressPage} props={{ object, type: 'renter' }}>
-          <button id="button"><span id="button-text">Switch Account</span></button>
-          </Link> */}
         </div>
       </div>
 
@@ -202,7 +147,7 @@ export default function NotificationPage() {
               }}
               onClick={() => {
                 if (notif.payload.data.acta) {
-                  console.log('Clicked')
+                 
                 }
               }}
             >

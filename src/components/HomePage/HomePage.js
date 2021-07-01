@@ -26,10 +26,7 @@ export default function Home() {
   const [token, setToken] = useState('')
   const [seen, setSeen] = useState(false)
   useEffect(() => {
-    console.log('home')
-    // console.log(getToken())
     getToken().then((res) => {
-      console.log(res)
       setToken(res)
     })
   }, [])
@@ -39,8 +36,6 @@ export default function Home() {
   }
   return (
     <div style={{ height: '600px', width: '360px' }}>
-      {/* <Container component="main" maxWidth="xs"> */}
-     
       <div>
         <Circle1 side="left" />
         <Circle2 side="left" />
@@ -48,11 +43,17 @@ export default function Home() {
         <div id="epns-logo"></div>
       </div>
       <div>
-        <div id="welcome"><b>Welcome!</b></div>
+        <div id="welcome">
+          <b>Welcome!</b>
+        </div>
 
         <spn id="welcome-text">Welcome to</spn>
         <span id="description">
-          <span onMouseEnter={() => toggle()} onMouseLeave={() => toggle()} style={{padding:"4px"}}>
+          <span
+            onMouseEnter={() => toggle()}
+            onMouseLeave={() => toggle()}
+            style={{ padding: '4px' }}
+          >
             <span id="ethereum-text">Ethereum </span>
             <span id="push-text">Push </span>
             <span id="notification-text">Notification </span>
@@ -63,7 +64,9 @@ export default function Home() {
 
       {seen ? <Info /> : <div></div>}
       <Link component={AddressPage} props={{ token }}>
-      <button id="button"><span id="button-text">Continue</span></button>
+        <button id="button">
+          <span id="button-text">Continue</span>
+        </button>
       </Link>
     </div>
   )
