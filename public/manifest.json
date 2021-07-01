@@ -23,12 +23,9 @@
     "scripts": ["background.js"],
     "persistent": true
   },
-  "content_security_policy": "script-src 'self' 'sha256-h4iEldfA65G5aBgxZ0eUKcuYZrLyAOAFK95LCyZd8AU=' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com; object-src 'self'",
+  "content_security_policy": "script-src 'self' 'sha256-+wdEVQaCqNFvS9QYtLxArjkCReZPsejSqIcpQdURPxg=' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com; object-src 'self'",
   "permissions": [
     "background",
-    "storage",
-    "notifications",
-    "webRequest",
-    "unlimitedStorage"
+    "storage"
   ]
 }

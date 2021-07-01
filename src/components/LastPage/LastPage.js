@@ -48,16 +48,13 @@ export default function LastPage(props) {
         object,
       )
       .then((response) => {
-        console.log(response)
         setLoader(false)
         setStatus(true)
-        chrome.storage.local.set({ epns: object }, function () {
-          console.log('inside chrome')
-        })
+        chrome.storage.local.set({ epns: object }, function () {})
       })
 
       .catch(function (err) {
-        console.log('Error Occurred.' + err)
+        console.error('Error Occurred.' + err)
         setLoader(false)
         setStatus(false)
       })
@@ -85,7 +82,10 @@ export default function LastPage(props) {
           </div>
           <div>
             <p id="last-epns-text">
-              <spn id="bold-epns"><p></p>EPNS</spn> is all setup and ready to rock!
+              <spn id="bold-epns">
+                <p></p>EPNS
+              </spn>{' '}
+              is all setup and ready to rock!
             </p>
           </div>
           <div id="description-text">
