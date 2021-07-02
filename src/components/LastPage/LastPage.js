@@ -32,7 +32,8 @@ export default function LastPage(props) {
   const classes = useStyles()
   const [status, setStatus] = useState(null)
   const [loader, setLoader] = useState(true)
-  useEffect(() => {
+
+  useEffect(async () => {
     const address = props.address
     // const password=props.password
     const token = props.token
@@ -42,22 +43,33 @@ export default function LastPage(props) {
       device_token: token,
       platform: 'web',
     }
-    axios
-      .post(
-        'https://backend-staging.epns.io/apis/pushtokens/register_no_auth',
-        object,
-      )
-      .then((response) => {
+
+    console.log("Trying to register object %o", object)
+
+    const numOfAttempts = 3
+    let tries = 1
+    let attempting = true
+
+    while (attempting) {
+      try {
+        const response = await axios.post('https://backend-staging.epns.io/apis/pushtokens/register_no_auth', object)
+
         setLoader(false)
         setStatus(true)
         chrome.storage.local.set({ epns: object }, function () {})
-      })
+      }
+      catch (err) {
+        if (tries > numOfAttempts) {
+          attempting = false;
+          console.error('EPNS Backend | Request retries failed, Error: ', err)
+        }
+        else {
+          console.log("EPNS Backend | Request Failed... Retrying: " + tries + " / " + numOfAttempts)
+        }
+      }
 
-      .catch(function (err) {
-        console.error('Error Occurred.' + err)
-        setLoader(false)
-        setStatus(false)
-      })
+      tries = tries + 1
+    }
   }, [])
   //0x25ccED8002Da0934b2FDfb52c98356EdeBBA00B9
 
