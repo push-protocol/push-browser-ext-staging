@@ -76,7 +76,7 @@ export default function AddressPage(props) {
             </button>
           </div>
           <div>
-            <button id="cancel-button" disabled>
+            <button id="cancel-button" onClick={()=>{window.close()}}>
               Cancel
             </button>
           </div>
@@ -88,7 +88,7 @@ export default function AddressPage(props) {
               <button id="verify-button">Verify</button>
             </div>
             <div>
-              <button id="cancel-button">Cancel</button>
+              <button id="cancel-button" onClick={()=>{window.close()}}>Cancel</button>
             </div>
           </div>
         </Link>

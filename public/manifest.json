@@ -26,6 +26,7 @@
   "content_security_policy": "script-src 'self' 'sha256-+wdEVQaCqNFvS9QYtLxArjkCReZPsejSqIcpQdURPxg=' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com; object-src 'self'",
   "permissions": [
     "background",
-    "storage"
+    "storage",
+    "notifications"
   ]
 }
