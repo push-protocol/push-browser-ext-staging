@@ -9,7 +9,7 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
-    "firebase": "^8.6.7",
+    "firebase": "^8.7.0",
     "react": "^17.0.2",
     "react-blockies": "^1.4.1",
     "react-chrome-extension-router": "^1.2.0",
