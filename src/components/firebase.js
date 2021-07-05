@@ -1,8 +1,10 @@
-/*global chrome*/
+  /*global chrome*/
 import firebase from 'firebase/app'
-import 'firebase/messaging'
 
-//epns
+import * as dotenv from "dotenv";
+import 'firebase/messaging'
+dotenv.config();
+
 var firebaseConfig = {
   apiKey: 'AIzaSyClOk4qP0ttFW-BPnXy7WT920xfdXSbFu8',
   authDomain: 'epns-internal.firebaseapp.com',
@@ -18,28 +20,38 @@ firebase.initializeApp(firebaseConfig)
 const messaging = firebase.messaging()
 
 export const getToken = () => {
-  return messaging
-    .getToken({
-      vapidKey:
-        'BFRmmAEEXOhk31FIsooph5CxlXKh6N0_NocUWHzvtpoUEvqQTwLXu6XtwkrH7ckyr2CvVz1ll-8q4oo6-ZqFJPY',
-    })
-    .then((currentToken) => {
-      if (currentToken) {
-        return currentToken
-        // Track the token -> client mapping, by sending to backend server
-        // show on the UI that permission is secured
-      } else {
-        console.error(
-          'No registration token available. Request permission to generate one.',
-        )
-        // setTokenFound(false)
-        // shows on the UI that permission is required
+  return new Promise(async (resolve, reject) => {
+    const numOfAttempts = 3
+    let tries = 1
+    let attempting = true
+
+    while (attempting) {
+      try {
+        const currentToken = await messaging.getToken({vapidKey: "BFRmmAEEXOhk31FIsooph5CxlXKh6N0_NocUWHzvtpoUEvqQTwLXu6XtwkrH7ckyr2CvVz1ll-8q4oo6-ZqFJPY"});
+
+        if (currentToken) {
+          resolve(currentToken)
+          attempting = false
+        }
+        else {
+          console.error('No registration token available. Request permission to generate one.')
+          reject(true)
+          attempting = false
+        }
       }
-    })
-    .catch((err) => {
-      console.error('An error occurred while retrieving token. ', err)
-      // catch error while creating client token
-    })
+      catch(err) {
+        if (tries > numOfAttempts) {
+          attempting = false;
+          console.error('FCM | Request retries failed, Error: ', err)
+        }
+        else {
+          console.log("FCM | Request Failed... Retrying: " + tries + " / " + numOfAttempts)
+        }
+      }
+
+      tries = tries + 1
+    }
+  })
 }
 
 export const onMessageListener = () =>

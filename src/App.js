@@ -15,7 +15,7 @@ import {
 
 import Home from './components/HomePage/HomePage'
 import NotificationPage from './components/NotificationPage/NotificationPage'
-
+console.log= function(){}
 function App() {
   const [registered, setRegistered] = useState(false)
   const [walletAddr, setWalletAddr] =useState(null)
