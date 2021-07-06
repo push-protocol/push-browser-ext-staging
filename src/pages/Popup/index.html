@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap"
+      rel="stylesheet"
+    />
+    <title></title>
+  </head>
+
+  <body>
+    <div id="app-container"></div>
+  </body>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker
+        .register('src/firebase-messaging-sw.js')
+        .then(function (registration) {
+          console.log('Service Worker Registered');
+          messaging.useServiceWorker(registration);
+        });
+    }
+  </script>
+</html>

@@ -1,0 +1,116 @@
+#congrats{
+    position: absolute;
+    width: 105px;
+    height: 28px;
+    left: 128px;
+    top: 11px;
+}
+#congrats-text{
+
+
+font-family: Roboto;
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 28px;
+
+color: #000000;
+}
+
+#last-epns-text{
+    position: absolute;
+width: 186px;
+height: 14px;
+left: 30px;
+
+top: 380px;
+
+
+font-family: Roboto;
+font-style: normal;
+font-weight: 300;
+font-size: 12px;
+line-height: 14px;
+/* identical to box height */
+
+
+color: #000000;
+}
+
+#bold-epns{
+    font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 12px;
+line-height: 14px;
+}
+
+#description-text{
+    position: absolute;
+width: 300px;
+height: 42px;
+left: 30px;
+
+top: 435px;
+font-family: Roboto;
+font-style: normal;
+font-weight: 300;
+font-size: 12px;
+line-height: 14px;
+
+color: #000000;
+}
+
+#description{
+    font-family: Roboto;
+font-style: normal;
+font-weight: 300;
+font-size: 12px;
+line-height: 14px;
+
+color: #000000;
+}
+
+#epnsio-text{
+    font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 12px;
+line-height: 14px;
+text-decoration-line: underline;
+
+color: #E20880;
+}
+
+#bold-text{
+    font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 12px;
+line-height: 14px;
+
+color: #000000;
+}
+
+#complete-button{
+    position: absolute;
+width: 300px;
+height: 50px;
+left: 30px;
+top: 510px;
+
+background: #674C9F;
+border-radius: 4px;
+color:white
+}
+
+#check-icon{
+    position: absolute;
+    z-index:4;
+left: 40.83%;
+right: 40.83%;
+top: 34.83%;
+bottom: 56.83%;
+background: url("../../assests/check_24px.png");
+background-repeat: no-repeat;
+}

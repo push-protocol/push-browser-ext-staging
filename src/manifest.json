@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "EPNS Staging Protocol (Beta)",
+  "description": "Receive Notificaions from Web3.0.\n\nIntroducing Ethereum Push Notification Service (EPNS) - The Missing Piece of Web3.",
+  "version": "0.2",
+  "background": {
+    "service_worker": "firebase-messaging-sw.js"
+  },
+  "host_permissions": ["<all_urls>"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "get_started48.png"
+  },
+  "icons": {
+    "48": "get_started48.png",
+    "128": "get_started128.png"
+  },
+
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "content.styles.css",
+        "get_started128.png",
+        "get_started48.png"
+      ],
+      "matches": []
+    }
+  ],
+
+  "permissions": ["background", "storage", "notifications"]
+}

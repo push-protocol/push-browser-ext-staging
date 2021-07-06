@@ -1,0 +1,17 @@
+#circle1{
+  position: absolute;
+  width: 363.58px;
+  height: 363.58px;
+
+  left: -186.14px;
+  top: -191.18px;
+
+
+  background: linear-gradient(180deg, #e20880 0%, rgba(226, 8, 128, 0) 100%);
+  /* border: 1px solid #000000; */
+  box-sizing: border-box;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  transform: rotate(-168.15deg);
+  border-radius: 50%;
+  z-index:3;
+}
