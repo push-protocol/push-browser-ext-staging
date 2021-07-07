@@ -29,8 +29,7 @@ export const getToken = () => {
         console.log('try');
         console.log(messaging);
         const currentToken = await messaging.getToken({
-          vapidKey:
-            'BFRmmAEEXOhk31FIsooph5CxlXKh6N0_NocUWHzvtpoUEvqQTwLXu6XtwkrH7ckyr2CvVz1ll-8q4oo6-ZqFJPY',
+          vapidKey: process.env.REACT_VAPID_KEY,
         });
         console.log(currentToken);
 
