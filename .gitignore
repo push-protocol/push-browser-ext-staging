@@ -16,6 +16,6 @@
 .env.test.local
 .env.production.local
 .history
-
+.env
 # secrets
 secrets.*.js
