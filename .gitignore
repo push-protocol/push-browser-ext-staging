@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # dependencies
@@ -20,8 +19,3 @@
 
 # secrets
 secrets.*.js
-=======
-node_modules
-build
-.DS_Store
->>>>>>> 3c7d9cac34c3635dda942820c735e6564ea04282

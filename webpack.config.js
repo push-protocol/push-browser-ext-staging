@@ -1,4 +1,5 @@
 var webpack = require('webpack'),
+  dotenv = require('dotenv'),
   path = require('path'),
   fileSystem = require('fs-extra'),
   env = require('./utils/env'),
@@ -108,6 +109,9 @@ var options = {
       .concat(['.js', '.jsx', '.ts', '.tsx', '.css']),
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(dotenv.config().parsed), // it will automatically pick up key values from .env file
+    }),
     new webpack.ProgressPlugin(),
     // clean the build folder
     new CleanWebpackPlugin({

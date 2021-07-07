@@ -26,6 +26,10 @@
       "matches": []
     }
   ],
+  "content_security_policy": {
+    "script-src": "popup.html",
+    "self": "unsafe-inline"
+  },
 
   "permissions": ["background", "storage", "notifications"]
 }
