@@ -59,7 +59,12 @@ export default function LastPage(props) {
 
         setLoader(false);
         setStatus(true);
-        chrome.storage.local.set({ epns: object }, function () {});
+        const userObject = {
+          wallets: [address],
+          device_token: token,
+          active_address: address,
+        };
+        chrome.storage.local.set({ epns: userObject }, function () {});
       } catch (err) {
         if (tries > numOfAttempts) {
           attempting = false;

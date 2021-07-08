@@ -1,6 +1,6 @@
 /*global chrome*/
 import React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import {
   goBack,
   goTo,
@@ -17,6 +17,7 @@ import Blockies from 'react-blockies';
 import ChannelIcon from '../UI/ChannelIcon';
 import './Notification.css';
 import AddressPage from '../AddressPage/AddressPage';
+import ChooseAccountPage from '../ChooseAccountPage/ChooseAccountPage';
 
 const useStyles = makeStyles((theme) => ({
   input1: {
@@ -46,16 +47,19 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-export default function NotificationPage() {
+export default function NotificationPage(props) {
   const [notifications, setNotifications] = useState([]);
   const [wallet, setWallet] = useState('');
   const [addr, setAddr] = useState('');
   const [object, setObject] = useState('');
   const [model, setModel] = useState(false);
+
   useEffect(() => {
+    console.log('props');
+    console.log(props);
     chrome.storage.local.get(['epns'], function (result) {
       if (result.epns) {
-        setWallet(result.epns.wallet);
+        setWallet(result.epns.active_address);
         setObject(result.epns);
       }
     });
@@ -88,7 +92,6 @@ export default function NotificationPage() {
     const resJson = await response.json();
 
     setNotifications(resJson.results);
-    setWallet(walletAddr);
   };
 
   const classes = useStyles();
@@ -107,10 +110,18 @@ export default function NotificationPage() {
             </span>
           </div>
           <Link component={AddressPage} props={{ object, type: 'renter' }}>
+            <button id="add-button">
+              <span id="add-button-text">Add Account</span>
+            </button>
+          </Link>
+          {/* <Link
+            component={ChooseAccountPage}
+            props={{ object, type: 'renter' }}
+          >
             <button id="switch-button">
               <span id="switch-button-text">Switch Account</span>
             </button>
-          </Link>
+          </Link> */}
         </div>
       ) : null}
       <div

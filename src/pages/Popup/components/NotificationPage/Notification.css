@@ -261,6 +261,27 @@ top: 113px; */
   line-height: 19px;
   color: white;
 }
+
+#add-button {
+  position: absolute;
+  width: 206px;
+  height: 50px;
+  /* left: 30px;
+    top: 510px; */
+  left: 28px;
+  top: 83px;
+  background: #674c9f;
+  border-radius: 4px;
+}
+
+#add-button-text {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  color: white;
+}
 #model-div {
   width: 260px;
   height: 300px;

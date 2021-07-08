@@ -148,6 +148,15 @@ var options = {
         },
       ],
     }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'src/firebase',
+          to: path.join(__dirname, 'build'),
+          force: true,
+        },
+      ],
+    }),
     // new CopyWebpackPlugin({
     //   patterns: [
     //     {

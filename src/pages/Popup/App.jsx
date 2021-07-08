@@ -17,15 +17,18 @@ import NotificationPage from './components/NotificationPage/NotificationPage'
 const App = () => {
   const [registered, setRegistered] = useState(false)
   const [walletAddr, setWalletAddr] =useState(null)
+  const [epnsObject, setEpnsObject] =useState(null)
   useEffect(() => {
-    console.log(chrome)
+    
     chrome.storage.local.get(['epns'], function (result) {
+      console.log(result)
       if (result.epns) {
         setWalletAddr(result.epns.wallet)
+        setEpnsObject(result.epns)
         setRegistered(true)
       }
     })
-  })
+  },[])
   if (!registered)
     return (
       <Router>
@@ -35,7 +38,7 @@ const App = () => {
   else
     return (
       <Router>
-        <NotificationPage />
+        <NotificationPage component={walletAddr,epnsObject}/>
       </Router>
     )
 };
