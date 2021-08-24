@@ -85,7 +85,8 @@ export const NotificationBody = styled.div`
 
 export const FeedItem=styled.div`
 width: 300px;
-height: 190px;
+min-height: 190px;
+max-height: 300px;
 
 background: #FFFFFF;
 box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
@@ -113,16 +114,19 @@ export const ChannelHeader=styled.div`
 `
 
 export const TimeStamp = styled.p`
-    margin-left: 50%;
+  margin-left: 50%;
     margin-top: 7%;
     font-size: 12px;
-    border-color: rgba(0,0,0,0.2);
+    margin-bottom: 0;
+    padding-bottom: 0;
+    margin-right: 0%;
+    border-color: rgba(0, 0, 0, 0.2);
     border-style: solid;
     border-radius: 2px 2px 0px 0px;
     border-width: 2px 2px 0px;
     padding-left: 4px;
     padding-right: 4px;
-    color:rgba(0,0,0,0.5);
+    color: rgba(0, 0, 0, 0.5);
     background-color: whitesmoke;
 `
 
