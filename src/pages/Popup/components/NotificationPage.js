@@ -9,14 +9,15 @@ export const Wallet = styled.div`
  display: flex;
 width: 146px;
 height: 30px;
-left: 80px;
+left: 20px;
+margin-left: -20px;
 top: 20px;
 background: linear-gradient(90deg, #E20880 0%, #674C9F 52.75%, #35C5F3 100%);
 border-radius: 20px;
 justify-content: center;
 align-items: center;
 color: #ffffff;
-font-family: "Times New Roman";
+font-family: "Roboto";
 font-size: 14px;
 `
 
@@ -65,7 +66,8 @@ export const NotificationTitle=styled.div`
     font-weight: normal;
     font-size: 14px;
     line-height: 14px;
-    margin-left: 20px;
+    margin-left: 0px;
+    padding-left: 10px;
     /* identical to box height */
     justify-self: center;
     color: rgba(0, 0, 0, 0.5);;
@@ -78,7 +80,7 @@ export const NotificationBody = styled.div`
     font-weight: normal;
     font-size: 16px;
     color: black;
-    padding: 0px 10px 0px 10px;
+    padding-left: 10px;
     text-align: left;
     
 `

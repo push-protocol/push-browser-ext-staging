@@ -17,7 +17,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Blockies from 'react-blockies';
 import parse from 'html-react-parser';
 import ChannelIcon from '../UI/ChannelIcon';
-// import './Notification.css';
+import './Notification.css';
 import AddressPage from '../AddressPage/AddressPage';
 import { Container } from '../../components/Container';
 import { Header, Wallet, FeedBox, FeedHeader, Bottom, Line, FeedBody, NotificationTitle, NotificationBody, FeedItem, ChannelIconStyle, ChannelHeader, TimeStamp, Profile,Popup, Cross, X, Button } from "../../components/NotificationPage"
@@ -99,7 +99,7 @@ export default function NotificationPage(props) {
 
   const classes = useStyles();
   return (
-    <Container>
+    <Container style={{ marginLeft:" -20px",marginRight: "-20px"}}>
       {model ? (
         <Popup>
           <Cross
@@ -138,7 +138,7 @@ export default function NotificationPage(props) {
             setModel(true);
           }}
         >
-        <Blockies seed={wallet} size={10} scale={3} className="identicon" />
+        <Blockies seed={wallet} size={10} scale={3} className="identicon rounded" />
         </Profile>
         <Header>
           <Wallet>{addr}</Wallet>
