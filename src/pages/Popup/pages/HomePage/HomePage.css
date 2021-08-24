@@ -1,0 +1,10 @@
+
+#epns-logo {
+  position: absolute;
+  width: 104px;
+  height: 47px;
+  left: 23px;
+  top: 47px;
+  z-index: 4;
+  background: url('../../assests/logofull_white\ 1.png');
+}

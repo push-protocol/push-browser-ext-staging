@@ -18,7 +18,9 @@ import Circle2 from '../Circle/Circle2';
 import Circle3 from '../Circle/Circle3';
 import NotificationPage from '../NotificationPage/NotificationPage';
 import './Last.css';
-
+import { Container } from '../../components/Container';
+import { Box, Congrats, Description, Button } from '../../components/LastPage';
+import { Text } from '../../components/Text';
 const useStyles = makeStyles((theme) => ({
   loader: {
     display: 'flex',
@@ -64,7 +66,7 @@ export default function LastPage(props) {
           device_token: token,
           active_address: address,
         };
-        chrome.storage.local.set({ epns: userObject }, function () {});
+        chrome.storage.local.set({ epns: userObject }, function () { });
       } catch (err) {
         if (tries > numOfAttempts) {
           attempting = false;
@@ -72,9 +74,9 @@ export default function LastPage(props) {
         } else {
           console.log(
             'EPNS Backend | Request Failed... Retrying: ' +
-              tries +
-              ' / ' +
-              numOfAttempts
+            tries +
+            ' / ' +
+            numOfAttempts
           );
         }
       }
@@ -85,18 +87,16 @@ export default function LastPage(props) {
   //0x25ccED8002Da0934b2FDfb52c98356EdeBBA00B9
 
   return (
-    <div style={{ height: '600px', width: '360px' }}>
+    <Container>
       {loader ? (
         <div className={classes.loader}>
           <CircularProgress color="secondary" />
         </div>
       ) : status ? (
         <div>
-          <div id="congrats">
-            <p id="congrats-text">
-              <b>Congrats!</b>
-            </p>
-          </div>
+          <Congrats>
+            <b>Congrats!</b>
+          </Congrats>
           <div>
             <Circle1 side="center" />
             <Circle2 side="center" />
@@ -104,23 +104,20 @@ export default function LastPage(props) {
             <div id="check-icon"></div>
           </div>
           <div>
-            <p id="last-epns-text">
-              <spn id="bold-epns">
-                <p></p>EPNS
-              </spn>{' '}
-              is all setup and ready to rock!
-            </p>
+            <Box>
+              <b>EPNS</b> is all setup and ready to rock!
+            </Box>
           </div>
-          <div id="description-text">
-            <p id="decription">
-              Visit <span id="epnsio-text">app.epns.io</span> from a{' '}
-              <span id="bold-text">Web3 Enabled Browser</span> to subscribe to
-              your favorite <span id="bold-text">dApp channels</span> and start
-              receiving <span id="bold-text">messages</span>.
-            </p>
-          </div>
+          <Description>
+
+            Visit <Text pinkSmall>app.epns.io</Text> from a{' '}
+            <b>Web3 Enabled Browser</b> to subscribe to
+            your favorite <b>dApp channels</b> and start
+            receiving <b>messages</b>.
+
+          </Description>
           <Link component={NotificationPage}>
-            <button id="complete-button">Complete Setup!</button>
+            <Button>Complete Setup!</Button>
           </Link>
         </div>
       ) : (
@@ -128,6 +125,6 @@ export default function LastPage(props) {
           <h2>Something Went Wrong</h2>
         </div>
       )}
-    </div>
+    </Container>
   );
 }

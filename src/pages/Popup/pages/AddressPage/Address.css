@@ -1,0 +1,10 @@
+
+#wallet-logo{
+    position: absolute;
+width: 67px;
+height: 50px;
+left: 275px;
+top: 32px;
+z-index: 4;
+background: url("../../assests/wallet\ 1.png");
+}

@@ -12,8 +12,8 @@ import {
   getComponentStack,
 } from 'react-chrome-extension-router'
 
-import Home from './components/HomePage/HomePage'
-import NotificationPage from './components/NotificationPage/NotificationPage'
+import Home from './pages/HomePage/HomePage'
+import NotificationPage from './pages/NotificationPage/NotificationPage'
 const App = () => {
   const [registered, setRegistered] = useState(false)
   const [walletAddr, setWalletAddr] =useState(null)

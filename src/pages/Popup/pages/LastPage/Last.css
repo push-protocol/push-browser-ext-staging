@@ -1,0 +1,11 @@
+
+#check-icon{
+    position: absolute;
+    z-index:4;
+left: 40.83%;
+right: 40.83%;
+top: 34.83%;
+bottom: 56.83%;
+background: url("../../assests/check_24px.png");
+background-repeat: no-repeat;
+}
