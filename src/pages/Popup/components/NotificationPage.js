@@ -116,20 +116,17 @@ export const ChannelHeader=styled.div`
 `
 
 export const TimeStamp = styled.p`
-  margin-left: 50%;
-    margin-top: 7%;
+      margin: 27% 0% 0% 43%;
     font-size: 12px;
-    margin-bottom: 0;
-    padding-bottom: 0;
-    margin-right: 0%;
+    padding-bottom: 0px;
     border-color: rgba(0, 0, 0, 0.2);
     border-style: solid;
     border-radius: 2px 2px 0px 0px;
     border-width: 2px 2px 0px;
     padding-left: 4px;
-    padding-right: 4px;
     color: rgba(0, 0, 0, 0.5);
     background-color: whitesmoke;
+    width: 157px;
 `
 
 export const Profile= styled.div`
