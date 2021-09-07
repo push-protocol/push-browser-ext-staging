@@ -82,6 +82,7 @@ export const NotificationBody = styled.div`
     color: black;
     padding-left: 10px;
     text-align: left;
+    word-wrap: break-word;
     
 `
 
@@ -97,6 +98,7 @@ border-width: 2.5px;
     border-style: solid;
     border-color: rgba(0, 0, 0, 0.2);
 margin: 20px 0px 20px 0px;
+overflow-y: auto;
 `
 export const ChannelIconStyle=styled.div`
 width: 40px;
