@@ -238,7 +238,7 @@ const FormatBody = (props) => {
         }
         if (/\[(i):([^\]]+)\]/i.test(ele1)) {//// italic
           // console.log("b", ele.match(/\[(s):([^\]]+)\]/i))
-          formatedData += `<span style="font-style: 'italic':italic;font-family: Roboto;font-size: 12px;line-height: 14px;">${ele1.match(/\[(i):([^\]]+)\]/i)[2]}</span> `
+          formatedData += `<span style="font-style:italic;font-family: Roboto;font-size: 12px;line-height: 14px;">${ele1.match(/\[(i):([^\]]+)\]/i)[2]}</span> `
         }
         if (/\[(u):([^\]]+)\]/i.test(ele1)) {// url
           formatedData += `<span style=" color:rgba(226.0, 8.0, 128.0, 1.0);font-style:italic;font-weight:bold;font-family: Roboto;font-size: 12px;line-height: 14px;text-decoration: underline;">${ele1.match(/\[(u):([^\]]+)\]/i)[2]}</span> `
@@ -254,6 +254,24 @@ const FormatBody = (props) => {
         }
         if (/\[(e):([^\]]+)\]/i.test(ele1)) {// error
           formatedData += `<span style="color:rgba(237.0, 59.0, 72.0, 1.0);font-weight:bold;font-family: Roboto;font-size: 12px;line-height: 14px;text-decoration: underline;">${ele1.match(/\[(e):([^\]]+)\]/i)[2]}</span> `
+        }
+        if(/\[(bi):([^\]]+)\]/i.test(ele)){//bold italic
+          formatedData += `<span style="font-style:italic;font-weight:bold;font-family: Roboto;font-size: 12px;line-height: 14px;">${ele1.match(/\[(bi):([^\]]+)\]/i)[2]}</span> `
+        }
+        if(/\[(w):([^\]]+)\]/i.test(ele)){//white
+          formatedData += `<span style="color:rgba(255.0, 255.0, 255.0, 1.0);font-family: Roboto;font-size: 12px;line-height: 14px;">${ele1.match(/\[(w):([^\]]+)\]/i)[2]}</span> `
+        }
+        if(/\[(wb):([^\]]+)\]/i.test(ele)){//bold white
+          formatedData += `<span style="color:rgba(255.0, 255.0, 255.0, 1.0);font-weight:bold;font-family: Roboto;font-size: 12px;line-height: 14px;">${ele1.match(/\[(wb):([^\]]+)\]/i)[2]}</span> `
+        }
+        if(/\[(mg):([^\]]+)\]/i.test(ele)){//mid grey
+          formatedData += `<span style="color:rgba(200.0, 200.0, 200.0, 1);font-family: Roboto;font-size: 12px;line-height: 14px;">${ele1.match(/\[(mg):([^\]]+)\]/i)[2]}</span> `
+        }
+        if(/\[(dg):([^\]]+)\]/i.test(ele)){//dark grey
+          formatedData += `<span style="color:rgba(160.0, 160.0, 160.0, 1);font-family: Roboto;font-size: 12px;line-height: 14px;">${ele1.match(/\[(dg):([^\]]+)\]/i)[2]}</span> `
+        }
+        if(/\[(ddg):([^\]]+)\]/i.test(ele)){//darker grey
+          formatedData += `<span style="color:rgba(100.0, 100.0, 100.0, 1);font-family: Roboto;font-size: 12px;line-height: 14px;">${ele1.match(/\[(ddg):([^\]]+)\]/i)[2]}</span> `
         }
         else
           if (!/\[([^:]+):([^\]]+)\]/i.test(ele1))
@@ -279,7 +297,6 @@ const FormatBody = (props) => {
         )
 
       }
-      {/* {props.content} */}
     </div>
   )
 }
