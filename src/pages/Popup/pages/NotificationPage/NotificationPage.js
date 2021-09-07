@@ -159,7 +159,7 @@ export default function NotificationPage(props) {
       </div>
 
       <FeedBox>
-        {notifications ? (
+        {notifications && notifications.length!=0 ? (
           notifications.map((notif) => (
             <FeedItem
               key={notif.payload_id}
@@ -192,7 +192,7 @@ export default function NotificationPage(props) {
 
               <FeedBody>
                 <NotificationTitle>{notif.payload.data.asub}</NotificationTitle>
-                <NotificationBody><FormatBody content={notif.payload.data.amsg} /></NotificationBody>
+                <NotificationBody><FormatBody content={notif.payload.data.amsg} time={notif.payload.data.epoch} /></NotificationBody>
               </FeedBody>
             </FeedItem>
           ))
@@ -209,8 +209,8 @@ export default function NotificationPage(props) {
 const FormatBody = (props) => {
   const data = (props.content.split("\n"))
   let formatedData = "";
-  const timestamp = props.content.match(/\[(timestamp):([^\]]+)\]/i)[2]
-  const time = moment(timestamp * 1000).format("MMMM Do YYYY | h:mm")
+  // const timestamp = props.content.match(/\[(timestamp):([^\]]+)\]/i)[2]
+  const time = moment(props.time * 1000).format("MMMM Do YYYY | h:mm")
   data.forEach(ele => {
 
     const splitData = ele.replace(/\s+(?=[^[\]]*\])/g, "").split(" ")
