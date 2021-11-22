@@ -11,8 +11,7 @@ import {
   getComponentStack,
 } from 'react-chrome-extension-router';
 import moment from "moment";
-import TextField from '@material-ui/core/TextField';
-import Checkbox from '@material-ui/core/Checkbox';
+import { api, utils, NotificationItem } from "@epnsproject/frontend-sdk-staging";
 import { makeStyles } from '@material-ui/core/styles';
 import Blockies from 'react-blockies';
 import parse from 'html-react-parser';
@@ -75,27 +74,11 @@ export default function NotificationPage(props) {
     let final = fh + '......' + sh;
     setAddr(final);
   }, [wallet]);
-
   const callAPI = async () => {
-    const walletAddr = wallet.toLowerCase();
-    const apiURL = 'https://backend-staging.epns.io/apis/feeds/get_feeds';
-    const response = await fetch(apiURL, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        user: walletAddr.toLowerCase(),
-        page: 1,
-        pageSize: 5,
-        op: 'read',
-      }),
-    });
-    const resJson = await response.json();
-    console.log(resJson)
-    setNotifications(resJson.results);
-  };
+    const { count, results } = await api.fetchNotifications(wallet, 5, 1)
+    const parsedResponse = utils.parseApiResponse(results);
+    setNotifications(parsedResponse)
+  }
 
   const classes = useStyles();
   return (
@@ -160,41 +143,20 @@ export default function NotificationPage(props) {
 
       <FeedBox>
         {notifications && notifications.length != 0 ? (
-          notifications.map((notif) => (
-            <FeedItem
-              key={notif.payload_id}
-
-              style={{
-                border:
-                  notif.payload.data.acta == '' ? '' : '0.5px solid #35C5F3',
-                cursor: notif.payload.data.acta == '' ? '' : 'pointer',
-              }}
+          notifications.map((oneNotification) => (
+            <NotificationItem
+              notificationTitle={oneNotification.title}
+              notificationBody={oneNotification.message}
               onClick={() => {
-                if (notif.payload.data.acta) {
-                  window.open(notif.payload.data.acta, '_blank')
+                if (oneNotification.cta) {
+                  window.open(oneNotification.cta, '_blank')
                 }
               }}
-            >
-              <FeedHeader>
-                <ChannelIconStyle>
-                  <ChannelIcon url={notif.payload.data.icon} />
-                </ChannelIconStyle>
-                <ChannelHeader>{notif.payload.data.app}</ChannelHeader>
-                {notif.payload.data.type == 2 || notif.payload.type == -2 ? (
-                  <div id="channelSecret"></div>
-                ) : (
-                  <div></div>
-                )}
-              </FeedHeader>
-              <Bottom>
-                <Line></Line>
-              </Bottom>
-
-              <FeedBody>
-                <NotificationTitle>{notif.payload.data.asub}</NotificationTitle>
-                <NotificationBody><FormatBody content={notif.payload.data.amsg} time={notif.payload.data.epoch} /></NotificationBody>
-              </FeedBody>
-            </FeedItem>
+              app={oneNotification.app}
+              icon={oneNotification.icon}
+              image={oneNotification.image}
+              url={oneNotification.url}
+            />
           ))
         ) : (
           <div></div>
@@ -205,98 +167,3 @@ export default function NotificationPage(props) {
 }
 
 
-//Component to fomrat message
-const FormatBody = (props) => {
-  const data = (props.content.split("\n"))
-  let formatedData = "";
-  let timestamp, time;
-  if ((/\[(timestamp):([^\]]+)\]/i).test(props.content)) {
-    timestamp = props.content.match(/\[(timestamp):([^\]]+)\]/i)[2]
-    time = moment(props.time * 1000).format("MMMM Do YYYY | h:mm")
-  }
-  data.forEach(ele => {
-
-    const splitData = ele.replace(/\s+(?=[^[\]]*\])/g, "").split(" ")
-    splitData.forEach(ele1 => {
-
-      if (/\[([^:]+):([^\]]+)\]/i.test(ele1)) {
-        if (/\[(d):([^\]]+)\]/i.test(ele1)) { //// default or primary gradient color
-          // console.log("d", ele1.match(/\[(s):([^\]]+)\]/i))
-          formatedData += `<span style="color:rgba(27.0, 150.0, 227.0, 1.0);font-weight: bold;font-family: Roboto;font-size: 12px;line-height: 14px;">${ele1.match(/\[(d):([^\]]+)\]/i)[2]}</span> `
-        }
-        if (/\[(t):([^\]]+)\]/i.test(ele1)) { //// third gradient color
-          // console.log("t", ele1.match(/\[(s):([^\]]+)\]/i))
-          formatedData += `<span style="color:rgba(103.0, 76.0, 159.0, 1.0);font-weight: bold;font-family: Roboto;font-size: 12px;line-height: 14px;">${ele1.match(/\[(t):([^\]]+)\]/i)[2]}</span> `
-        }
-        if (/\[(s):([^\]]+)\]/i.test(ele1)) {//// secondary gradient color
-          // console.log("s", ele1.match(/\[(s):([^\]]+)\]/i))
-          formatedData += `<span style="color:rgba(53.0, 197.0, 243.0, 1.0);font-weight: bold;font-family: Roboto;font-size: 12px;line-height: 14px;">${ele1.match(/\[(s):([^\]]+)\]/i)[2]}</span> `
-        }
-        if (/\[(b):([^\]]+)\]/i.test(ele1)) {//// bold
-          // console.log("b", ele.match(/\[(s):([^\]]+)\]/i))
-          formatedData += `<span style="font-weight:bold;font-family: Roboto;font-size: 12px;line-height: 14px;">${ele1.match(/\[(b):([^\]]+)\]/i)[2]}</span> `
-        }
-        if (/\[(i):([^\]]+)\]/i.test(ele1)) {//// italic
-          // console.log("b", ele.match(/\[(s):([^\]]+)\]/i))
-          formatedData += `<span style="font-style:italic;font-family: Roboto;font-size: 12px;line-height: 14px;">${ele1.match(/\[(i):([^\]]+)\]/i)[2]}</span> `
-        }
-        if (/\[(u):([^\]]+)\]/i.test(ele1)) {// url
-          formatedData += `<span style=" color:rgba(226.0, 8.0, 128.0, 1.0);font-style:italic;font-weight:bold;font-family: Roboto;font-size: 12px;line-height: 14px;text-decoration: underline;">${ele1.match(/\[(u):([^\]]+)\]/i)[2]}</span> `
-        }
-        if (/\[(ub):([^\]]+)\]/i.test(ele1)) {// url
-          formatedData += `<span style=" color:rgba(53.0, 197.0, 243.0, 1.0);font-style:italic;font-weight:bold;font-family: Roboto;font-size: 12px;line-height: 14px;text-decoration: underline;">${ele1.match(/\[(ub):([^\]]+)\]/i)[2]}</span> `
-        }
-        if (/\[(ut):([^\]]+)\]/i.test(ele1)) {// url
-          formatedData += `<span style=" color:rgba(103.0, 76.0, 159.0, 1.0);font-style:italic;font-weight:bold;font-family: Roboto;font-size: 12px;line-height: 14px;text-decoration: underline;">${ele1.match(/\[(ut):([^\]]+)\]/i)[2]}</span> `
-        }
-        if (/\[(up):([^\]]+)\]/i.test(ele1)) {// url
-          formatedData += `<span style=" color:rgba(226.0, 8.0, 128.0, 1.0);font-style:italic;font-family: Roboto;font-size: 12px;line-height: 14px;text-decoration: underline;">${ele1.match(/\[(up):([^\]]+)\]/i)[2]}</span> `
-        }
-        if (/\[(e):([^\]]+)\]/i.test(ele1)) {// error
-          formatedData += `<span style="color:rgba(237.0, 59.0, 72.0, 1.0);font-weight:bold;font-family: Roboto;font-size: 12px;line-height: 14px;text-decoration: underline;">${ele1.match(/\[(e):([^\]]+)\]/i)[2]}</span> `
-        }
-        if(/\[(bi):([^\]]+)\]/i.test(ele)){//bold italic
-          formatedData += `<span style="font-style:italic;font-weight:bold;font-family: Roboto;font-size: 12px;line-height: 14px;">${ele1.match(/\[(bi):([^\]]+)\]/i)[2]}</span> `
-        }
-        if(/\[(w):([^\]]+)\]/i.test(ele)){//white
-          formatedData += `<span style="color:rgba(255.0, 255.0, 255.0, 1.0);font-family: Roboto;font-size: 12px;line-height: 14px;">${ele1.match(/\[(w):([^\]]+)\]/i)[2]}</span> `
-        }
-        if(/\[(wb):([^\]]+)\]/i.test(ele)){//bold white
-          formatedData += `<span style="color:rgba(255.0, 255.0, 255.0, 1.0);font-weight:bold;font-family: Roboto;font-size: 12px;line-height: 14px;">${ele1.match(/\[(wb):([^\]]+)\]/i)[2]}</span> `
-        }
-        if(/\[(mg):([^\]]+)\]/i.test(ele)){//mid grey
-          formatedData += `<span style="color:rgba(200.0, 200.0, 200.0, 1);font-family: Roboto;font-size: 12px;line-height: 14px;">${ele1.match(/\[(mg):([^\]]+)\]/i)[2]}</span> `
-        }
-        if(/\[(dg):([^\]]+)\]/i.test(ele)){//dark grey
-          formatedData += `<span style="color:rgba(160.0, 160.0, 160.0, 1);font-family: Roboto;font-size: 12px;line-height: 14px;">${ele1.match(/\[(dg):([^\]]+)\]/i)[2]}</span> `
-        }
-        if(/\[(ddg):([^\]]+)\]/i.test(ele)){//darker grey
-          formatedData += `<span style="color:rgba(100.0, 100.0, 100.0, 1);font-family: Roboto;font-size: 12px;line-height: 14px;">${ele1.match(/\[(ddg):([^\]]+)\]/i)[2]}</span> `
-        }
-        else
-          if (!/\[([^:]+):([^\]]+)\]/i.test(ele1))
-            formatedData += `<span style="font-family: Roboto;font-size: 12px;line-height: 14px;">${ele1}</span> `
-      }
-      else
-        formatedData += `<span style="font-family: Roboto;font-size: 12px;line-height: 14px;">${ele1}</span> `
-
-    })
-
-    formatedData += "<br>"
-  })
-
-  return (
-    <div>
-      <div>{parse(formatedData)}</div>
-
-      {time ? (
-        <TimeStamp>{time}</TimeStamp>
-      ) :
-        (
-          null
-        )
-
-      }
-    </div>
-  )
-}

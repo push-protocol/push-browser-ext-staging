@@ -22,9 +22,8 @@ font-size: 14px;
 `
 
 export const FeedBox=styled.div`
-  display: flex;
-    flex-direction: column;
-    align-items: center;
+  margin-left:7%;
+  margin-right:7%
 `
 
 export const FeedHeader=styled.div`
