@@ -21,6 +21,7 @@ import './Last.css';
 import { Container } from '../../components/Container';
 import { Box, Congrats, Description, Button } from '../../components/LastPage';
 import { Text } from '../../components/Text';
+const numOfAttempts = 3;
 const useStyles = makeStyles((theme) => ({
   loader: {
     display: 'flex',
@@ -32,10 +33,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function LastPage(props) {
   const classes = useStyles();
-  const [status, setStatus] = useState(null);
+  const [status, setStatus] = useState(false);
   const [loader, setLoader] = useState(true);
-
-  useEffect(async () => {
+  const [value,setValue]= useState(true)
+  console.log(0)
+  
+  useEffect(() => {
+    console.log(1)
     const address = props.address;
     // const password=props.password
     const token = props.token;
@@ -45,44 +49,48 @@ export default function LastPage(props) {
       device_token: token,
       platform: 'web',
     };
-
+    
     console.log('Trying to register object %o', object);
-
-    const numOfAttempts = 3;
-    let tries = 1;
-    let attempting = true;
-
-    while (attempting) {
-      try {
-        const response = await axios.post(
-          'https://backend-staging.epns.io/apis/pushtokens/register_no_auth',
-          object
-        );
-
-        setLoader(false);
-        setStatus(true);
-        const userObject = {
-          wallets: [address],
-          device_token: token,
-          active_address: address,
-        };
-        chrome.storage.local.set({ epns: userObject }, function () { });
-      } catch (err) {
-        if (tries > numOfAttempts) {
-          attempting = false;
-          console.error('EPNS Backend | Request retries failed, Error: ', err);
-        } else {
-          console.log(
-            'EPNS Backend | Request Failed... Retrying: ' +
-            tries +
-            ' / ' +
-            numOfAttempts
+    const callAPI = async () => {
+      console.log(value)
+      
+      let tries = 1;
+      let attempting = true;
+      while (attempting) {
+        try {
+          const response = await axios.post(
+            'https://backend-kovan.epns.io/apis/pushtokens/register_no_auth',
+            object
           );
-        }
-      }
 
-      tries = tries + 1;
+          setLoader(false);
+          setStatus(true);
+          const userObject = {
+            wallets: [address],
+            device_token: token,
+            active_address: address,
+          };
+          chrome.storage.local.set({ epns: userObject }, function () { });
+          break;
+        } catch (err) {
+          if (tries > numOfAttempts) {
+            attempting = false;
+            console.error('EPNS Backend | Request retries failed, Error: ', err);
+            break;
+          } else {
+            console.log(
+              'EPNS Backend | Request Failed... Retrying: ' +
+              tries +
+              ' / ' +
+              numOfAttempts
+            );
+          }
+        }
+
+        tries = tries + 1;
+      }
     }
+    callAPI()
   }, []);
   //0x25ccED8002Da0934b2FDfb52c98356EdeBBA00B9
 
