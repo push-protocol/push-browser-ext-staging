@@ -17,6 +17,7 @@ import Blockies from 'react-blockies';
 import parse from 'html-react-parser';
 import ChannelIcon from '../UI/ChannelIcon';
 import './Notification.css';
+import {AiOutlineClose} from 'react-icons/ai'
 import AddressPage from '../AddressPage/AddressPage';
 import { Container } from '../../components/Container';
 import { Header, Wallet, FeedBox, FeedHeader, Bottom, Line, FeedBody, NotificationTitle, NotificationBody, FeedItem, ChannelIconStyle, ChannelHeader, TimeStamp, Profile, Popup, Cross, X, Button } from "../../components/NotificationPage"
@@ -85,21 +86,17 @@ export default function NotificationPage(props) {
     <Container style={{ marginLeft: " -20px", marginRight: "-20px" }}>
       {model ? (
         <Popup>
-          <Cross
-            onClick={() => {
+
+          <AiOutlineClose  size="1.2rem" onClick={() => {
               setModel(false);
-            }}
-          >
-            <X>
-              <b>X</b>
-            </X>
-          </Cross>
+            }}/>
           {/* <Link component={AddressPage} props={{ object, type: 'renter' }}>
             <button id="add-button">
               <span id="add-button-text">Switch Account</span>
             </button>
           </Link> */}
           <Link
+          style={{width:"100%",display:"flex",flex:"2",justifyContent:"center",alignItems:"center"}}
             component={AddressPage} props={{ object, type: 'renter' }}
           >
             <Button>

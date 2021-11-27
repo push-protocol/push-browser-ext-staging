@@ -138,22 +138,26 @@ export const Profile= styled.div`
 `
 
 export const Popup = styled.div`
-width: 260px;
-  height: 300px;
+  width: 260px;
+  height: 200px;
   position: absolute;
-
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 10px;
+  box-sizing:border-box;
   top: 123px;
   left: 50px;
-  background: #ffffff;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
+  background: #f5f5f5;
+  /* border:1px solid gray; */
+  box-shadow: 3px 2px 5px;
+  border-radius: 10px;
   z-index: 1;
-  border-style: solid;
-  border-width: thin;
 `
 
 export const Cross= styled.div`
- cursor: pointer;
+  cursor: pointer;
   margin-left: 230px;
   height: 20px;
   width: 20px;
@@ -171,11 +175,11 @@ export const X= styled.span`
 `
 
 export const Button = styled.button`
- position: absolute;
-  width: 206px;
-  height: 50px;
+
   left: 28px;
+  padding: 1rem;
   top: 83px;
   background: #674c9f;
-  border-radius: 4px;
+  border-radius: 18px;
+  border: none;
 `
