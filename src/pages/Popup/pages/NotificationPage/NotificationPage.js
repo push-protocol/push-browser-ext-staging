@@ -17,6 +17,7 @@ import Blockies from 'react-blockies';
 import parse from 'html-react-parser';
 import ChannelIcon from '../UI/ChannelIcon';
 import './Notification.css';
+import { AiOutlineClose } from 'react-icons/ai'
 import AddressPage from '../AddressPage/AddressPage';
 import { Container } from '../../components/Container';
 import { Header, Wallet, FeedBox, FeedHeader, Bottom, Line, FeedBody, NotificationTitle, NotificationBody, FeedItem, ChannelIconStyle, ChannelHeader, TimeStamp, Profile, Popup, Cross, X, Button } from "../../components/NotificationPage"
@@ -49,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+const NotificationPerPage=100000;
 export default function NotificationPage(props) {
   const [notifications, setNotifications] = useState([]);
   const [wallet, setWallet] = useState('');
@@ -75,7 +77,8 @@ export default function NotificationPage(props) {
     setAddr(final);
   }, [wallet]);
   const callAPI = async () => {
-    const { count, results } = await api.fetchNotifications(wallet, 5, 1)
+    const { count, results } = await api.fetchNotifications(wallet, NotificationPerPage, 1)
+    console.log(count,results,'ans');
     const parsedResponse = utils.parseApiResponse(results);
     setNotifications(parsedResponse)
   }
@@ -85,25 +88,21 @@ export default function NotificationPage(props) {
     <Container style={{ marginLeft: " -20px", marginRight: "-20px" }}>
       {model ? (
         <Popup>
-          <Cross
-            onClick={() => {
-              setModel(false);
-            }}
-          >
-            <X>
-              <b>X</b>
-            </X>
-          </Cross>
+
+          <AiOutlineClose style={{ cursor: "pointer" }} size="1.2rem" onClick={() => {
+            setModel(false);
+          }} />
           {/* <Link component={AddressPage} props={{ object, type: 'renter' }}>
             <button id="add-button">
               <span id="add-button-text">Switch Account</span>
             </button>
           </Link> */}
           <Link
+            style={{ width: "100%", display: "flex", flex: "2", justifyContent: "center", alignItems: "center", textDecoration: "none" }}
             component={AddressPage} props={{ object, type: 'renter' }}
           >
-            <Button>
-              <Text switch>Switch Account</Text>
+            <Button >
+              <Text switch style={{ cursor: "pointer" }}>Switch Account</Text>
             </Button>
           </Link>
         </Popup>
@@ -140,30 +139,39 @@ export default function NotificationPage(props) {
         </div>
         <div></div>
       </div>
+      {notifications && notifications.length != 0 ? (
+        <FeedBox>
+          {notifications && notifications.length != 0 ? (
+            notifications.map((oneNotification) => (
+              <NotificationItem
+                notificationTitle={oneNotification.title}
+                notificationBody={oneNotification.message}
+                onClick={() => {
+                  if (oneNotification.cta) {
+                    window.open(oneNotification.cta, '_blank')
+                  }
+                }}
+                app={oneNotification.app}
+                icon={oneNotification.icon}
+                image={oneNotification.image}
+                url={oneNotification.url}
+              />
+            ))
+          ) : (
+            <div>
 
-      <FeedBox>
-        {notifications && notifications.length != 0 ? (
-          notifications.map((oneNotification) => (
-            <NotificationItem
-              notificationTitle={oneNotification.title}
-              notificationBody={oneNotification.message}
-              onClick={() => {
-                if (oneNotification.cta) {
-                  window.open(oneNotification.cta, '_blank')
-                }
-              }}
-              app={oneNotification.app}
-              icon={oneNotification.icon}
-              image={oneNotification.image}
-              url={oneNotification.url}
-            />
-          ))
-        ) : (
-          <div></div>
-        )}
-      </FeedBox>
+            </div>
+          )}
+        </FeedBox>) :
+        <div style={{ height: "100%", width: "100%", marginLeft: "30%", marginTop: "15%" }}>
+          <div id="feeds-icon">
+
+          </div>
+          <div style={{ color: "rgba(200.0, 200.0, 200.0, 1)", fontFamily: "Roboto", fontSize: "14px", marginLeft: "2%" }}>
+            No Notifications!!
+          </div>
+        </div>
+      }
     </Container>
   );
 }
-
-

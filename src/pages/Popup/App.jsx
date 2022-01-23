@@ -29,6 +29,7 @@ const App = () => {
       }
     })
   },[])
+  const newLocal = (walletAddr, epnsObject)
   if (!registered)
     return (
       <Router>
@@ -38,7 +39,7 @@ const App = () => {
   else
     return (
       <Router>
-        <NotificationPage component={walletAddr,epnsObject}/>
+        <NotificationPage component={newLocal}/>
       </Router>
     )
 };

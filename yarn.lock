@@ -1659,10 +1659,10 @@
   "resolved" "https://registry.npmjs.org/@emotion/unitless/-/unitless-0.7.5.tgz"
   "version" "0.7.5"
 
-"@epnsproject/frontend-sdk-staging@^1.0.1":
-  "integrity" "sha512-W526t/DSz3igzz64r5TGxDm0ncTyAfHfAQNqBB6WKXkxVMz0aK0K0U7SCyVVJ4/+EY4TatbspoP+Mo0WADoQrA=="
-  "resolved" "https://registry.npmjs.org/@epnsproject/frontend-sdk-staging/-/frontend-sdk-staging-1.0.1.tgz"
-  "version" "1.0.1"
+"@epnsproject/frontend-sdk-staging@^1.4.2":
+  "integrity" "sha512-kmc8LCPnoNpiQheJIXN6gNkxXndoO/GRQ+uvV/7aQ3Ig/gBPixf/vlEir1l4NwnHpzd68Eccf17ZY1NZmWbjLg=="
+  "resolved" "https://registry.npmjs.org/@epnsproject/frontend-sdk-staging/-/frontend-sdk-staging-1.4.2.tgz"
+  "version" "1.4.2"
   dependencies:
     "@rollup/plugin-commonjs" "^20.0.0"
     "ansi-regex" "^2.1.1"
@@ -7467,7 +7467,7 @@
   "resolved" "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   "version" "1.0.0"
 
-"fsevents@^1.0.0", "fsevents@^1.2.7":
+"fsevents@^1.0.0", "fsevents@^1.2.7", "fsevents@^2.1.2", "fsevents@~2.3.2":
   "integrity" "sha512-oWb1Z6mkHIskLzEJ/XWX0srkpkTQ7vaopMQkyaEIoq0fmtFVxOthb8cCxeT+p3ynTdkk/RZwbgG4brR5BeWECw=="
   "resolved" "https://registry.npmjs.org/fsevents/-/fsevents-1.2.13.tgz"
   "version" "1.2.13"
@@ -7475,12 +7475,7 @@
     "bindings" "^1.5.0"
     "nan" "^2.12.1"
 
-"fsevents@^2.1.2":
-  "integrity" "sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA=="
-  "resolved" "https://registry.npmjs.org/fsevents/-/fsevents-2.3.2.tgz"
-  "version" "2.3.2"
-
-"fsevents@^2.3.2", "fsevents@~2.3.2":
+"fsevents@^2.3.2":
   "integrity" "sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA=="
   "resolved" "https://registry.npmjs.org/fsevents/-/fsevents-2.3.2.tgz"
   "version" "2.3.2"
@@ -12313,6 +12308,11 @@
     "react-lifecycles-compat" "^3.0.4"
     "shallowequal" "^1.1.0"
     "source-map" "^0.7.3"
+
+"react-icons@^4.3.1":
+  "integrity" "sha512-cB10MXLTs3gVuXimblAdI71jrJx8njrJZmNMEMC+sQu5B/BIOmlsAjskdqpn81y8UBVEGuHODd7/ci5DvoSzTQ=="
+  "resolved" "https://registry.npmjs.org/react-icons/-/react-icons-4.3.1.tgz"
+  "version" "4.3.1"
 
 "react-is@^16.12.0", "react-is@^16.6.0", "react-is@^16.7.0", "react-is@^16.8.0 || ^17.0.0", "react-is@^16.8.1", "react-is@>= 16.8.0":
   "integrity" "sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ=="

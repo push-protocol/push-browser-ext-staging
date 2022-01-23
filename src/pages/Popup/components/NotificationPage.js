@@ -22,8 +22,8 @@ font-size: 14px;
 `
 
 export const FeedBox=styled.div`
-  margin-left:7%;
-  margin-right:7%
+  margin: 10px;
+  padding: 10px;
 `
 
 export const FeedHeader=styled.div`

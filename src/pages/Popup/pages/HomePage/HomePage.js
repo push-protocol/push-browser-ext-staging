@@ -38,10 +38,12 @@ export default function Home() {
   const [token, setToken] = useState('');
   const [seen, setSeen] = useState(false);
   useEffect(() => {
+    let isMounted = true;
     getToken().then((res) => {
       console.log(res);
-      setToken(res);
+      if (isMounted) setToken(res);
     });
+    return () => { isMounted = false };
   }, []);
 
   const toggle = () => {
