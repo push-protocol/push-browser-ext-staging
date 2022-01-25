@@ -11,6 +11,10 @@ import {
   getComponentStack,
 } from 'react-chrome-extension-router';
 import moment from "moment";
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import { api, utils, NotificationItem } from "@epnsproject/frontend-sdk-staging";
 import { makeStyles } from '@material-ui/core/styles';
 import Blockies from 'react-blockies';
@@ -57,7 +61,12 @@ export default function NotificationPage(props) {
   const [addr, setAddr] = useState('');
   const [object, setObject] = useState('');
   const [model, setModel] = useState(false);
+  const [indexVal, setIndexVal] = React.useState(0);
+  const [spamNotifications,setSpamNotifications]=useState([]);
 
+  const handleChange = (event, newValue) => {
+    setIndexVal(newValue);
+  };
   useEffect(() => {
     console.log('props');
     console.log(props);
@@ -67,8 +76,11 @@ export default function NotificationPage(props) {
         setObject(result.epns);
       }
     });
-    if (wallet) callAPI();
-
+    if (wallet) 
+    {
+      callAPI();
+      callSpamAPI();
+    }
     let walletTemp = wallet;
     let fh = walletTemp.slice(0, 6);
     let sh = walletTemp.slice(-6);
@@ -78,11 +90,26 @@ export default function NotificationPage(props) {
   }, [wallet]);
   const callAPI = async () => {
     const { count, results } = await api.fetchNotifications(wallet, NotificationPerPage, 1)
-    console.log(count,results,'ans');
+    console.log(count,results,'feed');
     const parsedResponse = utils.parseApiResponse(results);
-    setNotifications(parsedResponse)
+    setNotifications(parsedResponse);
+  
   }
 
+  const callSpamAPI=async ()=>{
+
+    const { count, results} = await api.fetchSpamNotifications(wallet, NotificationPerPage, 1,"https://backend-kovan.epns.io/apis")
+    console.log(count,results,'spam');
+    const parsedResponseSpam = utils.parseApiResponse(results);
+    setSpamNotifications(parsedResponseSpam);
+
+  }
+  function a11yProps(index) {
+    return {
+      id: `simple-tab-${index}`,
+      'aria-controls': `simple-tabpanel-${index}`,
+    };
+  }
   const classes = useStyles();
   return (
     <Container style={{ marginLeft: " -20px", marginRight: "-20px" }}>
@@ -92,11 +119,6 @@ export default function NotificationPage(props) {
           <AiOutlineClose style={{ cursor: "pointer" }} size="1.2rem" onClick={() => {
             setModel(false);
           }} />
-          {/* <Link component={AddressPage} props={{ object, type: 'renter' }}>
-            <button id="add-button">
-              <span id="add-button-text">Switch Account</span>
-            </button>
-          </Link> */}
           <Link
             style={{ width: "100%", display: "flex", flex: "2", justifyContent: "center", alignItems: "center", textDecoration: "none" }}
             component={AddressPage} props={{ object, type: 'renter' }}
@@ -129,7 +151,7 @@ export default function NotificationPage(props) {
         <div
           style={{
             display: 'flex',
-            flexDirection: 'row',
+            flexDirection: 'column',
             justifyContent: 'space-between',
             alignItems: 'center',
           }}
@@ -137,12 +159,42 @@ export default function NotificationPage(props) {
           {/* <div id="logo"></div>
           <div id="settings"></div> */}
         </div>
-        <div></div>
+        
       </div>
+      
       {notifications && notifications.length != 0 ? (
         <FeedBox>
-          {notifications && notifications.length != 0 ? (
+          <div>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Tabs value={indexVal} onChange={handleChange}  aria-label="basic tabs example">
+          <Tab label="FeedBox" {...a11yProps(0)} />
+          <Tab label="SpamBox"  {...a11yProps(1)}/>
+        </Tabs>
+      </Box>
+          </div>
+          {indexVal==0 && notifications && notifications.length != 0 ? (
             notifications.map((oneNotification) => (
+              <NotificationItem
+                notificationTitle={oneNotification.title}
+                notificationBody={oneNotification.message}
+                onClick={() => {
+                  if (oneNotification.cta) {
+                    window.open(oneNotification.cta, '_blank')
+                  }
+                }}
+                app={oneNotification.app}
+                icon={oneNotification.icon}
+                image={oneNotification.image}
+                url={oneNotification.url}
+              />
+            ))
+          ) : (
+            <div>
+
+            </div>
+          )}
+           {indexVal==1 && spamNotifications && spamNotifications.length != 0 ? (
+            spamNotifications.map((oneNotification) => (
               <NotificationItem
                 notificationTitle={oneNotification.title}
                 notificationBody={oneNotification.message}
