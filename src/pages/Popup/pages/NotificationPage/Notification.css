@@ -1,3 +1,24 @@
 .rounded{
   border-radius: 50%;
 }
+
+.FeedBoxBar{
+  display: flex;
+  flex-direction: row;
+  
+  
+}
+
+.TrashImg{
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: 15px;
+  display: flex;
+  width:20px;
+  height: 25px;
+  border-radius: 50%;
+}
+
+img:hover{
+ cursor: pointer; 
+}

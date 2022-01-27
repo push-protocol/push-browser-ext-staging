@@ -11,6 +11,7 @@ import {
   getComponentStack,
 } from 'react-chrome-extension-router';
 import moment from "moment";
+import TrashImg from "./bin_1.png";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
@@ -24,6 +25,7 @@ import './Notification.css';
 import { AiOutlineClose } from 'react-icons/ai'
 import AddressPage from '../AddressPage/AddressPage';
 import { Container } from '../../components/Container';
+import Avatar from '@mui/material/Avatar';
 import { Header, Wallet, FeedBox, FeedHeader, Bottom, Line, FeedBody, NotificationTitle, NotificationBody, FeedItem, ChannelIconStyle, ChannelHeader, TimeStamp, Profile, Popup, Cross, X, Button } from "../../components/NotificationPage"
 import { Text } from "../../components/Text"
 const useStyles = makeStyles((theme) => ({
@@ -54,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-const NotificationPerPage=100000;
+const NotificationPerPage = 100000;
 export default function NotificationPage(props) {
   const [notifications, setNotifications] = useState([]);
   const [wallet, setWallet] = useState('');
@@ -62,7 +64,7 @@ export default function NotificationPage(props) {
   const [object, setObject] = useState('');
   const [model, setModel] = useState(false);
   const [indexVal, setIndexVal] = React.useState(0);
-  const [spamNotifications,setSpamNotifications]=useState([]);
+  const [spamNotifications, setSpamNotifications] = useState([]);
 
   const handleChange = (event, newValue) => {
     setIndexVal(newValue);
@@ -76,8 +78,7 @@ export default function NotificationPage(props) {
         setObject(result.epns);
       }
     });
-    if (wallet) 
-    {
+    if (wallet) {
       callAPI();
       callSpamAPI();
     }
@@ -90,16 +91,16 @@ export default function NotificationPage(props) {
   }, [wallet]);
   const callAPI = async () => {
     const { count, results } = await api.fetchNotifications(wallet, NotificationPerPage, 1)
-    console.log(count,results,'feed');
+    console.log(count, results, 'feed');
     const parsedResponse = utils.parseApiResponse(results);
     setNotifications(parsedResponse);
-  
+
   }
 
-  const callSpamAPI=async ()=>{
+  const callSpamAPI = async () => {
 
-    const { count, results} = await api.fetchSpamNotifications(wallet, NotificationPerPage, 1,"https://backend-kovan.epns.io/apis")
-    console.log(count,results,'spam');
+    const { count, results } = await api.fetchSpamNotifications(wallet, NotificationPerPage, 1, "https://backend-kovan.epns.io/apis")
+    console.log(count, results, 'spam');
     const parsedResponseSpam = utils.parseApiResponse(results);
     setSpamNotifications(parsedResponseSpam);
 
@@ -159,20 +160,36 @@ export default function NotificationPage(props) {
           {/* <div id="logo"></div>
           <div id="settings"></div> */}
         </div>
-        
+
       </div>
-      
+
       {notifications && notifications.length != 0 ? (
         <FeedBox>
-          <div>
-          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={indexVal} onChange={handleChange}  aria-label="basic tabs example">
-          <Tab label="FeedBox" {...a11yProps(0)} />
-          <Tab label="SpamBox"  {...a11yProps(1)}/>
-        </Tabs>
-      </Box>
+          <div className="FeedBoxBar">
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+              <Tabs value={indexVal} onChange={handleChange} aria-label="basic tabs example">
+                <Tab label="FeedBox" {...a11yProps(0)} />
+              </Tabs>
+              {/* <Tab
+                  // icon={<Avatar src="../../assests/img/bin_1.png" />}
+                  component={() => (
+                    <Button onClick={() => setValue(0)}>
+                      <Avatar src="../../assests/img/bin_1.png" />
+                    </Button>
+                  )}
+                  {...a11yProps(1)}
+                /> */}
+
+            </Box>
+
+            <div className="TrashImg" onClick={() => { setIndexVal(1) }}>
+              <img src={TrashImg} />
+            </div>
+
+
+
           </div>
-          {indexVal==0 && notifications && notifications.length != 0 ? (
+          {indexVal == 0 && notifications && notifications.length != 0 ? (
             notifications.map((oneNotification) => (
               <NotificationItem
                 notificationTitle={oneNotification.title}
@@ -193,7 +210,7 @@ export default function NotificationPage(props) {
 
             </div>
           )}
-           {indexVal==1 && spamNotifications && spamNotifications.length != 0 ? (
+          {indexVal == 1 && spamNotifications && spamNotifications.length != 0 ? (
             spamNotifications.map((oneNotification) => (
               <NotificationItem
                 notificationTitle={oneNotification.title}
@@ -226,4 +243,5 @@ export default function NotificationPage(props) {
       }
     </Container>
   );
+
 }
