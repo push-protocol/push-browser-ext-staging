@@ -194,11 +194,7 @@ export default function NotificationPage(props) {
               <NotificationItem
                 notificationTitle={oneNotification.title}
                 notificationBody={oneNotification.message}
-                onClick={() => {
-                  if (oneNotification.cta) {
-                    window.open(oneNotification.cta, '_blank')
-                  }
-                }}
+                cta={oneNotification.cta}
                 app={oneNotification.app}
                 icon={oneNotification.icon}
                 image={oneNotification.image}
@@ -215,11 +211,7 @@ export default function NotificationPage(props) {
               <NotificationItem
                 notificationTitle={oneNotification.title}
                 notificationBody={oneNotification.message}
-                onClick={() => {
-                  if (oneNotification.cta) {
-                    window.open(oneNotification.cta, '_blank')
-                  }
-                }}
+                cta={oneNotification.cta}
                 app={oneNotification.app}
                 icon={oneNotification.icon}
                 image={oneNotification.image}
