@@ -23,7 +23,9 @@ import { Text } from '../../components/Text'
 import logo from "../../assests/wallet\ 1.png"
 import styled, { css } from 'styled-components'
 // var Web3 = require("web3");
-import Web3 from "web3";
+import Ethers from 'ethers';
+
+// import Web3 from "web3";
 
 const { default: Resolution } = require('@unstoppabledomains/resolution');
 // const resolution = new Resolution();
@@ -118,6 +120,14 @@ export default function AddressPage(props) {
     //   })
     //   .catch(console.error);
     console.log(domain);
+    const CORE_NETWORK = 1;
+    const provider = ethers.getDefaultProvider(CORE_NETWORK, {
+      infura: "4ff53a5254144d988a8318210b56f47a",
+    });
+    const address = await provider.resolveName('mrjaf.eth')
+    console.log('\n\n\n')
+    console.log({ address })
+    console.log('\n\n\n')
     // Web3Helper.resolveBlockchainDomain(domain, "ETH")
     //   .then((address) => {
     //     console.log(`resolved address is ${address}`);
@@ -129,13 +139,13 @@ export default function AddressPage(props) {
     //   })
 
 
-    const provider = new Web3.providers.HttpProvider('https://mainnet.infura.io/v3/4ff53a5254144d988a8318210b56f47a');
-    var web3 = new Web3(provider);
-    var ens = web3.eth.ens;
-    var address = await ens.getAddress("mrjaf.eth");
-    console.log({
-      address,
-    });
+    // const provider = new Web3.providers.HttpProvider('https://mainnet.infura.io/v3/4ff53a5254144d988a8318210b56f47a');
+    // var web3 = new Web3(provider);
+    // var ens = web3.eth.ens;
+    // var address = await ens.getAddress("mrjaf.eth");
+    // console.log({
+    //   address,
+    // });
 
 
 
