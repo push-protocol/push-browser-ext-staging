@@ -23,7 +23,7 @@ import { Text } from '../../components/Text'
 import logo from "../../assests/wallet\ 1.png"
 import styled, { css } from 'styled-components'
 // var Web3 = require("web3");
-import Ethers from 'ethers';
+import { ethers } from 'ethers';
 
 // import Web3 from "web3";
 
@@ -105,48 +105,20 @@ export default function AddressPage(props) {
 
   async function resolve(domain, currency) {
 
-    // // var address = ens.resolver(domain).addr().then(function (addr) { });
-    // await resolution.isSupportedDomain(domain)
-    //   .then((result) => console.log(result))
-    //   .catch((err) => console.err(err));
-    // // setAddress(address);
-    // // console.log(`This domain is supported: ${supported}`);
 
-    // resolution
-    //   .addr(domain, currency)
-    //   .then((address) => {
-    //     console.log(address);
-    //     setAddress(address)
-    //   })
-    //   .catch(console.error);
     console.log(domain);
     const CORE_NETWORK = 1;
     const provider = ethers.getDefaultProvider(CORE_NETWORK, {
       infura: "4ff53a5254144d988a8318210b56f47a",
     });
-    const address = await provider.resolveName('mrjaf.eth')
+    const address = await provider.resolveName(domain);
     console.log('\n\n\n')
-    console.log({ address })
+    console.log(`resolved address is ${address}`)
     console.log('\n\n\n')
-    // Web3Helper.resolveBlockchainDomain(domain, "ETH")
-    //   .then((address) => {
-    //     console.log(`resolved address is ${address}`);
-    //     setAddress(address);
-    //   })
-    //   .catch((err) => {
-    //     setAddress(null);
-    //     console.err(err);
-    //   })
-
-
-    // const provider = new Web3.providers.HttpProvider('https://mainnet.infura.io/v3/4ff53a5254144d988a8318210b56f47a');
-    // var web3 = new Web3(provider);
-    // var ens = web3.eth.ens;
-    // var address = await ens.getAddress("mrjaf.eth");
-    // console.log({
-    //   address,
-    // });
-
+    if (address)
+      setAddress(address);
+    else
+      setAddress(null);
 
 
   }
