@@ -51,13 +51,11 @@ export default function LastPage(props) {
     while (attempting) {
       try {
         const response = await axios.post(
-          "https://backend-staging.epns.io/apis/pushtokens/register_no_auth",
+          "https://backend-kovan.epns.io/apis/pushtokens/register_no_auth",
           object
         );
 
-        // chrome.extension
-        // .getBackgroundPage()
-        // .console.log(response, loader, status);
+        chrome.extension.getBackgroundPage().console.log(response);
 
         setLoader(false);
         setStatus(true);
