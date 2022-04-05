@@ -1,5 +1,6 @@
-import React from 'react'
-import { useEffect, useState } from 'react'
+/*global chrome*/
+import React from "react";
+import { useEffect, useState } from "react";
 import {
   goBack,
   goTo,
@@ -8,56 +9,153 @@ import {
   Router,
   getCurrent,
   getComponentStack,
-} from 'react-chrome-extension-router'
-import TextField from '@material-ui/core/TextField'
-import { makeStyles } from '@material-ui/core/styles'
-import Circle1 from '../Circle/Circle1'
-import Circle2 from '../Circle/Circle2'
-import Circle3 from '../Circle/Circle3'
-import LastPage from '../LastPage/LastPage'
-import './Address.css'
+} from "react-chrome-extension-router";
+import TextField from "@material-ui/core/TextField";
+import { makeStyles } from "@material-ui/core/styles";
+import Circle1 from "../Circle/Circle1";
+import Circle2 from "../Circle/Circle2";
+import Circle3 from "../Circle/Circle3";
+import LastPage from "../LastPage/LastPage";
+import { BsX } from "react-icons/bs";
+import "./Address.css";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Home from "../HomePage/HomePage";
+import Image from "../../assests/epnslogo.svg";
 
-const ADDRESS_REGEX = /^0x[a-fA-F0-9]{40}$/g
+const ADDRESS_REGEX = /^0x[a-fA-F0-9]{40}$/g;
 
 const useStyles = makeStyles((theme) => ({
   input: {
-    '& > *': {
-      width: '300px',
-      height: '100px',
-      left: ' 31px',
-      top: '316px',
+    "& > *": {
+      width: "300px",
+      height: "100px",
+      left: " 31px",
+      top: "316px",
     },
   },
-}))
+  loader: {
+    display: "flex",
+    justifyContent: "center",
+    height: "100%",
+    alignItems: "center",
+    color: "white",
+    // width: "10px",
+    // height: "10px",
+  },
+}));
 export default function AddressPage(props) {
-  const [address, setAddress] = useState(null)
-  const [token, setToken] = useState(null)
-  const classes = useStyles()
+  const [address, setAddress] = useState("");
+  const [token, setToken] = useState(null);
+  const [errorMessage, setErrorMessage] = useState({
+    message: "",
+  });
+  const [disabled, setDisabled] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const classes = useStyles();
 
   useEffect(() => {
     if (props.token) {
-      setToken(props.token)
+      setToken(props.token);
     }
     if (props.object) {
-      setToken(props.object.device_token)
+      setToken(props.object.device_token);
     }
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    if (address === "") {
+      setDisabled(true);
+      setErrorMessage({ message: "" });
+      document.getElementById("input-type").style.borderBottom =
+        "1.5px solid #e5e7eb";
+    }
+  }, [address]);
+
+  // regex for input field
+  const handleValidation = (e) => {
+    setAddress(e);
+    let result = ADDRESS_REGEX.test(e);
+    if (result) {
+      setErrorMessage({ message: "" });
+      setDisabled(false);
+      document.getElementById("input-type").style.borderBottom =
+        "1.5px solid #e5e7eb";
+      return "Facts";
+    } else {
+      setErrorMessage({ message: "Please, input a valid wallet address!" });
+      setDisabled(true);
+      document.getElementById("input-type").style.borderBottom =
+        "1.5px solid red";
+    }
+  };
+
+  // wallet address validator
+  const submitAddress = () => {
+    setLoading(true);
+    var WAValidator = require("wallet-address-validator");
+
+    var valid = WAValidator.validate(address, "ETH");
+    if (valid) {
+      goTo(LastPage, { address, token });
+      setLoading(false);
+    } else {
+      setErrorMessage({ message: "INVALID ADDRESS" });
+      document.getElementById("input-type").style.borderBottom =
+        "1.5px solid red";
+      setLoading(false);
+    }
+  };
 
   return (
-    <div style={{ height: '600px', width: '360px' }}>
-      <div>
-        <Circle1 side="right" />
-        <Circle2 side="right" />
-        <Circle3 side="right" />
+    <div style={{ height: "600px", width: "360px" }}>
+      <div className="top-bar">
+        {/* <p> */}
+        <div className="icon-topbar">
+          <img
+            src={Image}
+            style={{ width: "20px", marginLeft: "20px" }}
+            alt=""
+          />
+        </div>
+        {/* </p> */}
+        <span className="wallet-text regular-font">Enter Wallet Address</span>
+        <BsX
+          size={25}
+          className="icon-hover"
+          onClick={() => {
+            window.close();
+          }}
+        />
+      </div>
+      {/* <div>
+        <Circle1 side="left" />
+        <Circle2 side="left" />
+        <Circle3 side="left" />
         <div id="wallet-logo"></div>
-      </div>
-      <p id="wallet-text"><b>Wallet Address!</b></p>
-      
-      <div id="wallet-decription-text">
+      </div> */}
+
+      <div className="wallet-decription-text regular">
         <b>EPNS</b> requires your wallet address to deliver
-        <span id="notification-text">notifications</span> meant for you!
+        <span className="notification-text"> notifications</span> meant for you!
       </div>
-      <TextField
+
+      <div className="label-field">
+        <label className="bold-font">Wallet Address</label>
+        <input
+          type="text"
+          id="input-type"
+          className="regular"
+          value={address}
+          onChange={(e) => handleValidation(e.target.value)}
+        />
+      </div>
+
+      {errorMessage?.message !== "" && (
+        <span className="error-message regular-font">
+          {errorMessage?.message}
+        </span>
+      )}
+      {/* <TextField
         id="outlined-basic"
         label="Wallet Address"
         variant="outlined"
@@ -65,10 +163,11 @@ export default function AddressPage(props) {
         onChange={(e) => {
           ADDRESS_REGEX.test(e.target.value)
             ? setAddress(e.target.value)
-            : setAddress(null)
+            : setAddress(null);
         }}
-      />
-      {address == null || address == undefined || address == '' ? (
+      /> */}
+
+      {/* {address == null || address == undefined || address == "" ? (
         <div>
           <div>
             <button id="verify-button" disabled>
@@ -76,7 +175,12 @@ export default function AddressPage(props) {
             </button>
           </div>
           <div>
-            <button id="cancel-button" onClick={()=>{window.close()}}>
+            <button
+              id="cancel-button"
+              onClick={() => {
+                window.close();
+              }}
+            >
               Cancel
             </button>
           </div>
@@ -88,11 +192,35 @@ export default function AddressPage(props) {
               <button id="verify-button">Verify</button>
             </div>
             <div>
-              <button id="cancel-button" onClick={()=>{window.close()}}>Cancel</button>
+              <button
+                id="cancel-button"
+                onClick={() => {
+                  window.close();
+                }}
+              >
+                Cancel
+              </button>
             </div>
           </div>
         </Link>
-      )}
+      )} */}
+
+      <button
+        disabled={disabled}
+        className={disabled ? "button-disabled" : "button-verify hover-effect"}
+        onClick={() => submitAddress()}
+        // style={{ backgroundColor: "#e20880" }}
+      >
+        {loading ? (
+          <CircularProgress
+            color="secondary"
+            className={classes.loader}
+            size={23}
+          />
+        ) : (
+          <span className={"button-text bold-font"}>Verify</span>
+        )}
+      </button>
     </div>
-  )
+  );
 }

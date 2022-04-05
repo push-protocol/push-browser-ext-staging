@@ -1,3 +1,4 @@
+/*global chrome*/
 import React from "react";
 import { useEffect, useState } from "react";
 import {
@@ -21,6 +22,8 @@ import Circle2 from "../Circle/Circle2";
 import Circle3 from "../Circle/Circle3";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
+import { BsArrowRight } from "react-icons/bs";
+import Image from "../../assests/epnslogo.svg";
 
 const useStyles = makeStyles((theme) => ({
   loader: {
@@ -29,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "flex-end",
     justifyContent: "center",
     height: "90%",
+    marginTop: "2rem",
   },
 }));
 export default function Home() {
@@ -50,39 +54,55 @@ export default function Home() {
         <Circle1 side="left" />
         <Circle2 side="left" />
         <Circle3 side="left" />
-        <div id="epns-logo"></div>
+        {/* <div id="epns-logo"></div> */}
       </div>
       <div>
-        <div id="welcome">
+        {/* <div id="welcome">
           <b className="bold-font">Welcome!</b>
+        </div> */}
+
+        <div className="icon-page">
+          <img src={Image} style={{ width: "40px" }} alt="" />
         </div>
 
-        <span id="welcome-text" className="regular">
-          Welcome to
-        </span>
-        <span id="description">
-          <span
-            onMouseEnter={() => toggle()}
-            onMouseLeave={() => toggle()}
-            style={{ padding: "4px" }}
-          >
-            <span id="ethereum-text">Ethereum </span>
-            <span id="push-text">Push </span>
-            <span id="notification-text">Notification </span>
-            <span id="service-text">Service </span>
+        <div className="text-corner regular">
+          {/* Welcome to */}
+          <span>
+            <span
+              onMouseEnter={() => toggle()}
+              onMouseLeave={() => toggle()}
+              style={{ padding: "4px" }}
+            >
+              <span className="colored-text" style={{ color: "#e20880" }}>
+                Ethereum{" "}
+              </span>
+              <span className="colored-text" style={{ color: "#674c9f" }}>
+                Push{" "}
+              </span>
+              <br></br>
+              <span className="colored-text" style={{ color: "#674c9f" }}>
+                Notification{" "}
+              </span>
+              <span className="colored-text" style={{ color: "#35c5f3" }}>
+                Service{" "}
+              </span>
+            </span>
           </span>
-        </span>
+        </div>
       </div>
-
-      {seen ? <Info /> : <div></div>}
+      {/* {seen ?  */}
+      <Info />
+      {/* : <div></div>} */}
       {token && (
         <Link component={AddressPage} props={{ token }}>
-          <button id="button">
-            <span id="button-text">Continue</span>
+          <button className="button hover-effect">
+            <span className="button-text bold-font">Get Started</span>
+            <i className="button-icon">
+              <BsArrowRight size={17} />
+            </i>
           </button>
         </Link>
       )}
-
       {!token && (
         <div className={classes.loader}>
           <CircularProgress color="secondary" />

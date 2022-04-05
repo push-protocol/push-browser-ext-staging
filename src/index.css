@@ -21,7 +21,7 @@ code {
 @font-face {
   font-family: "Theinhardtt";
   src: local("Theinhardt"),
-    url("./assests/fonts/Theinhardt\ Pan\ Regular.otf") format("truetype");
+    url("./assests/fonts/Theinhardt\ Pan\ Medium.otf") format("truetype");
 }
 
 .bold-font {
@@ -29,6 +29,15 @@ code {
   font-weight: bold;
 }
 
+.regular-font {
+  font-family: "Lato", sans-serif;
+  font-weight: bold;
+}
+
 .regular {
-  font-family: "Theinhardtt";
+  font-family: "Lato", sans-serif;
+}
+
+.hover-effect:hover {
+  opacity: 0.8;
 }

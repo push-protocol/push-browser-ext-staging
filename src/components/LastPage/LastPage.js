@@ -1,7 +1,7 @@
 /*global chrome*/
-import React from 'react'
-import axios from 'axios'
-import { useEffect, useState } from 'react'
+import React from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import {
   goBack,
   goTo,
@@ -10,71 +10,86 @@ import {
   Router,
   getCurrent,
   getComponentStack,
-} from 'react-chrome-extension-router'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import { makeStyles } from '@material-ui/core/styles'
-import Circle1 from '../Circle/Circle1'
-import Circle2 from '../Circle/Circle2'
-import Circle3 from '../Circle/Circle3'
-import NotificationPage from '../NotificationPage/NotificationPage'
-import './Last.css'
+} from "react-chrome-extension-router";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { makeStyles } from "@material-ui/core/styles";
+import Circle1 from "../Circle/Circle1";
+import Circle2 from "../Circle/Circle2";
+import Circle3 from "../Circle/Circle3";
+import NotificationPage from "../NotificationPage/NotificationPage";
+import "./Last.css";
 
 const useStyles = makeStyles((theme) => ({
   loader: {
-    display: 'flex',
-    justifyContent: 'center',
-    height: '100%',
-    alignItems: 'center',
+    display: "flex",
+    justifyContent: "center",
+    height: "100%",
+    alignItems: "center",
   },
-}))
+}));
 
 export default function LastPage(props) {
-  const classes = useStyles()
-  const [status, setStatus] = useState(null)
-  const [loader, setLoader] = useState(true)
+  const classes = useStyles();
+  const [status, setStatus] = useState(null);
+  const [loader, setLoader] = useState(true);
 
   useEffect(async () => {
-    const address = props.address
+    const address = props.address;
     // const password=props.password
-    const token = props.token
+    const token = props.token;
     const object = {
-      op: 'register',
+      op: "register",
       wallet: address.toLowerCase(),
       device_token: token,
-      platform: 'web',
-    }
+      platform: "web",
+    };
 
-    console.log("Trying to register object %o", object)
-
-    const numOfAttempts = 3
-    let tries = 1
-    let attempting = true
+    const numOfAttempts = 3;
+    let tries = 1;
+    let attempting = true;
 
     while (attempting) {
       try {
-        const response = await axios.post('https://backend-staging.epns.io/apis/pushtokens/register_no_auth', object)
+        const response = await axios.post(
+          "https://backend-staging.epns.io/apis/pushtokens/register_no_auth",
+          object
+        );
 
-        setLoader(false)
-        setStatus(true)
-        chrome.storage.local.set({ epns: object }, function () {})
-      }
-      catch (err) {
+        // chrome.extension
+        // .getBackgroundPage()
+        // .console.log(response, loader, status);
+
+        setLoader(false);
+        setStatus(true);
+        chrome.storage.local.set({ epns: object }, function () {});
+      } catch (err) {
         if (tries > numOfAttempts) {
           attempting = false;
-          console.error('EPNS Backend | Request retries failed, Error: ', err)
-        }
-        else {
-          console.log("EPNS Backend | Request Failed... Retrying: " + tries + " / " + numOfAttempts)
+          chrome.extension
+            .getBackgroundPage()
+            .console.error(
+              "EPNS Backend | Request retries failed, Error: ",
+              err
+            );
+        } else {
+          chrome.extension
+            .getBackgroundPage()
+            .console.log(
+              "EPNS Backend | Request Failed... Retrying: " +
+                tries +
+                " / " +
+                numOfAttempts
+            );
         }
       }
 
-      tries = tries + 1
+      tries = tries + 1;
     }
-  }, [])
+  }, []);
   //0x25ccED8002Da0934b2FDfb52c98356EdeBBA00B9
 
   return (
-    <div style={{ height: '600px', width: '360px' }}>
+    <div style={{ height: "600px", width: "360px" }}>
       {loader ? (
         <div className={classes.loader}>
           <CircularProgress color="secondary" />
@@ -96,13 +111,13 @@ export default function LastPage(props) {
             <p id="last-epns-text">
               <spn id="bold-epns">
                 <p></p>EPNS
-              </spn>{' '}
+              </spn>{" "}
               is all setup and ready to rock!
             </p>
           </div>
           <div id="description-text">
             <p id="decription">
-              Visit <span id="epnsio-text">app.epns.io</span> from a{' '}
+              Visit <span id="epnsio-text">app.epns.io</span> from a{" "}
               <span id="bold-text">Web3 Enabled Browser</span> to subscribe to
               your favorite <span id="bold-text">dApp channels</span> and start
               receiving <span id="bold-text">messages</span>.
@@ -118,5 +133,5 @@ export default function LastPage(props) {
         </div>
       )}
     </div>
-  )
+  );
 }
