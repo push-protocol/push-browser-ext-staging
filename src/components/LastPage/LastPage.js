@@ -55,8 +55,6 @@ export default function LastPage(props) {
           object
         );
 
-        chrome.extension.getBackgroundPage().console.log(response);
-
         setLoader(false);
         setStatus(true);
         chrome.storage.local.set({ epns: object }, function () {});
