@@ -32,8 +32,11 @@
   font-weight: bold;
 }
 
+
 .colored-text {
   font-weight: bolder;
+  display: inline-block;
+  word-spacing: 40px;
 }
 
 #ethereum-text {

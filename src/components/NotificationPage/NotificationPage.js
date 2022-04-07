@@ -74,7 +74,7 @@ export default function NotificationPage() {
   const callAPI = async () => {
    
     const walletAddr = wallet.toLowerCase()
-    const apiURL = 'https://backend-staging.epns.io/apis/feeds/get_feeds'
+    const apiURL = 'https://backend-kovan.epns.io/apis/feeds/get_feeds'
     const response = await fetch(apiURL, {
       method: 'POST',
       headers: {
