@@ -1,0 +1,10 @@
+.welcome-text {
+  position: absolute;
+  width: 360px;
+  height: 50px;
+  /* left: 30px; */
+  text-align: center;
+  top: 440px;
+  color: #674c9f;
+  /* border: none; */
+}

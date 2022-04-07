@@ -50,7 +50,6 @@ export default function AddressPage(props) {
     message: "",
   });
   const [disabled, setDisabled] = useState(true);
-  const [loading, setLoading] = useState(false);
   const classes = useStyles();
 
   useEffect(() => {
@@ -91,33 +90,28 @@ export default function AddressPage(props) {
 
   // wallet address validator
   const submitAddress = () => {
-    setLoading(true);
     var WAValidator = require("wallet-address-validator");
 
     var valid = WAValidator.validate(address, "ETH");
     if (valid) {
       goTo(LastPage, { address, token });
-      setLoading(false);
     } else {
       setErrorMessage({ message: "INVALID ADDRESS" });
       document.getElementById("input-type").style.borderBottom =
         "1.5px solid red";
-      setLoading(false);
     }
   };
 
   return (
     <div style={{ height: "600px", width: "360px" }}>
       <div className="top-bar">
-        {/* <p> */}
         <div className="icon-topbar">
           <img
             src={Image}
-            style={{ width: "20px", marginLeft: "20px" }}
+            style={{ height: "25px", marginLeft: "20px" }}
             alt=""
           />
         </div>
-        {/* </p> */}
         <span className="wallet-text regular-font">Enter Wallet Address</span>
         <BsX
           size={25}
@@ -140,7 +134,7 @@ export default function AddressPage(props) {
       </div>
 
       <div className="label-field">
-        <label className="bold-font">Wallet Address</label>
+        <label className="regular">Wallet Address</label>
         <input
           type="text"
           id="input-type"
@@ -209,17 +203,8 @@ export default function AddressPage(props) {
         disabled={disabled}
         className={disabled ? "button-disabled" : "button-verify hover-effect"}
         onClick={() => submitAddress()}
-        // style={{ backgroundColor: "#e20880" }}
       >
-        {loading ? (
-          <CircularProgress
-            color="secondary"
-            className={classes.loader}
-            size={23}
-          />
-        ) : (
-          <span className={"button-text bold-font"}>Verify</span>
-        )}
+        <span className={"button-text bold-font"}>Verify</span>
       </button>
     </div>
   );
