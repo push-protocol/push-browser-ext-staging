@@ -22,6 +22,10 @@ function App() {
   useEffect(() => {
     const { component, props } = getCurrent();
     const components = getComponentStack();
+<<<<<<< HEAD
+=======
+
+>>>>>>> 01c893892e342ef31d5b7df5a89f3edb3b91b26c
     // chrome.storage.local.get(["epns"], function (result) {
     //   if (result.epns) {
     //     setWalletAddr(result.epns.wallet);
