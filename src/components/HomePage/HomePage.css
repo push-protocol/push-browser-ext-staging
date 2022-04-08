@@ -15,14 +15,14 @@
 }
 .icon-page {
   position: absolute;
-  width: 100%;
+  width: 360px;
   top: 200px;
   display: flex;
   justify-content: center;
 }
 .text-corner {
   position: absolute;
-  width: 100%;
+  width: 360px;
   top: 260px;
   color: #6b7280;
   text-align: center;

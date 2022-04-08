@@ -18,6 +18,8 @@ import Circle2 from "../Circle/Circle2";
 import Circle3 from "../Circle/Circle3";
 import NotificationPage from "../NotificationPage/NotificationPage";
 import "./Last.css";
+import { BsArrowRight } from "react-icons/bs";
+import { FaCheckCircle } from "react-icons/fa";
 
 const useStyles = makeStyles((theme) => ({
   loader: {
@@ -43,18 +45,15 @@ export default function LastPage(props) {
       device_token: token,
       platform: "web",
     };
-
     const numOfAttempts = 3;
     let tries = 1;
     let attempting = true;
-
     while (attempting) {
       try {
         const response = await axios.post(
           "https://backend-kovan.epns.io/apis/pushtokens/register_no_auth",
           object
         );
-
         setLoader(false);
         setStatus(true);
         chrome.storage.local.set({ epns: object }, function () {});
@@ -78,7 +77,6 @@ export default function LastPage(props) {
             );
         }
       }
-
       tries = tries + 1;
     }
   }, []);
@@ -93,34 +91,55 @@ export default function LastPage(props) {
       ) : status ? (
         <div>
           <div id="congrats">
-            <p id="congrats-text">
-              <b>Congrats!</b>
+            <p className="congrats-text bold-font">
+              <b>Congratulations!</b>
             </p>
           </div>
-          <div>
-            <Circle1 side="center" />
-            <Circle2 side="center" />
-            <Circle3 side="center" />
-            <div id="check-icon"></div>
+
+          <div className="check-test">
+            <FaCheckCircle
+              size={180}
+              color="#d1d5db"
+              style={{
+                border: "1px solid #e5e7eb",
+                borderRadius: "100%",
+              }}
+            />
           </div>
+          {/* <div>
+          <Circle1 side="center" />
+          <Circle2 side="center" />
+          <Circle3 side="center" />
+          <div id="check-icon"></div>
+        </div> */}
           <div>
-            <p id="last-epns-text">
-              <spn id="bold-epns">
-                <p></p>EPNS
-              </spn>{" "}
+            <span className="last-epns-text regular">
+              <b>EPNS </b>
               is all setup and ready to rock!
-            </p>
+            </span>
           </div>
-          <div id="description-text">
+          <div className="description-text regular">
             <p id="decription">
-              Visit <span id="epnsio-text">app.epns.io</span> from a{" "}
-              <span id="bold-text">Web3 Enabled Browser</span> to subscribe to
-              your favorite <span id="bold-text">dApp channels</span> and start
-              receiving <span id="bold-text">messages</span>.
+              Visit{" "}
+              <a
+                href="https://app.epns.io/"
+                target="_blank"
+                rel="noreferrer"
+                className="link-home"
+              >
+                app.epns.io
+              </a>{" "}
+              from a <b>Web3 Enabled Browser</b> to subscribe to your favorite{" "}
+              <b>dApp channels</b> and start receiving <b>messages</b>.
             </p>
           </div>
           <Link component={NotificationPage}>
-            <button id="complete-button">Complete Setup!</button>
+            <button className="button hover-effect">
+              <span className="button-text bold-font">Continue</span>
+              <i className="button-icon">
+                <BsArrowRight size={17} />
+              </i>
+            </button>
           </Link>
         </div>
       ) : (
