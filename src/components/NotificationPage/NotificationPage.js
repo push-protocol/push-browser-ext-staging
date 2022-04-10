@@ -17,6 +17,7 @@ import Blockies from 'react-blockies'
 import ChannelIcon from '../UI/ChannelIcon'
 import './Notification.css'
 import  AddressPage from '../AddressPage/AddressPage'
+import Transitions3 from '../Transitions/Transitions3'
 
 const useStyles = makeStyles((theme) => ({
   input1: {
@@ -96,6 +97,8 @@ export default function NotificationPage() {
 
   const classes = useStyles()
   return (
+    <>
+    <Transitions3 />
     <div style={{ height: '600px', width: '360px' }}>
       {model?<div id="model-div">
 				<div onClick={()=>{setModel(false)}} id="cross"><span id="X"><b>X</b></span></div>
@@ -177,5 +180,6 @@ export default function NotificationPage() {
         )}
       </div>
     </div>
+    </>
   )
 }

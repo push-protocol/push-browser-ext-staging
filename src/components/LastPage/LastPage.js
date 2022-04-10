@@ -20,6 +20,8 @@ import NotificationPage from "../NotificationPage/NotificationPage";
 import "./Last.css";
 import { BsArrowRight } from "react-icons/bs";
 import { FaCheckCircle } from "react-icons/fa";
+import Transitions2 from "../Transitions/Transitions2";
+
 
 const useStyles = makeStyles((theme) => ({
   loader: {
@@ -83,6 +85,8 @@ export default function LastPage(props) {
   //0x25ccED8002Da0934b2FDfb52c98356EdeBBA00B9
 
   return (
+    <>
+    {!loader && (<Transitions2 />)}
     <div style={{ height: "600px", width: "360px" }}>
       {loader ? (
         <div className={classes.loader}>
@@ -150,5 +154,6 @@ export default function LastPage(props) {
         </div>
       )}
     </div>
+    </>
   );
 }
