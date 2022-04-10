@@ -3,7 +3,7 @@
   width: 360px;
   height: 28px;
   /* left: 128px; */
-  top: 50px;
+  top: 90px;
   text-align: center;
 }
 .congrats-text {
@@ -18,7 +18,7 @@
   position: absolute;
   width: 360px;
   /* left: 30px; */
-  top: 150px;
+  top: 190px;
   display: flex;
   justify-content: center;
 }

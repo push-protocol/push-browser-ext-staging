@@ -98,11 +98,13 @@ export default function LastPage(props) {
 
           <div className="check-test">
             <FaCheckCircle
-              size={180}
-              color="#d1d5db"
+              size={140}
+              // color="#008000"
+              color="#18A009"
               style={{
-                border: "1px solid #e5e7eb",
+                border: "1px solid #d6d3d1",
                 borderRadius: "100%",
+                padding: "1.5px",
               }}
             />
           </div>
@@ -130,7 +132,7 @@ export default function LastPage(props) {
                 app.epns.io
               </a>{" "}
               from a <b>Web3 Enabled Browser</b> to subscribe to your favorite{" "}
-              <b>dApp channels</b> and start receiving <b>messages</b>.
+              <b>channels</b> and start receiving <b>notifications</b>.
             </p>
           </div>
           <Link component={NotificationPage}>
