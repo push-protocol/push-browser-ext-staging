@@ -21,6 +21,7 @@ import "./Address.css";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Home from "../HomePage/HomePage";
 import Image from "../../assests/epnslogo.svg";
+import Transitions from "../Transitions/Transitions";
 
 const ADDRESS_REGEX = /^0x[a-fA-F0-9]{40}$/g;
 
@@ -107,6 +108,8 @@ export default function AddressPage(props) {
   };
 
   return (
+    <>
+    <Transitions />
     <div style={{ height: "600px", width: "360px" }}>
       <div className="top-bar">
         {/* <p> */}
@@ -222,5 +225,6 @@ export default function AddressPage(props) {
         )}
       </button>
     </div>
+    </>
   );
 }

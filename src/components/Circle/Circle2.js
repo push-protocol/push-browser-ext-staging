@@ -13,7 +13,7 @@ export default function Circle2(props) {
     tl.from(".circle2", 1.7, {
       y: -100,
       ease: "power4.out",
-      delay: 0.9,
+      delay: 0.6,
       skewY: 10,
       opacity: 0,
       stagger: {

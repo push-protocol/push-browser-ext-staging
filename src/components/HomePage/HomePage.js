@@ -96,7 +96,7 @@ export default function Home() {
           <img src={Image} style={{ width: "40px" }} alt="" />
         </div>
 
-        <div className="text-corner regular">
+        <div className="text-corner regular line">
           {/* Welcome to */}
           <span>
             <span

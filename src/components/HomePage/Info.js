@@ -9,7 +9,7 @@ export default function Info() {
     tl.from(".text, .regular", 1.8, {
       x: 100,
       ease: "power4.out",
-      delay: 0.9,
+      delay: 1.5,
       skewY: 5,
       opacity:0,
       stagger: {

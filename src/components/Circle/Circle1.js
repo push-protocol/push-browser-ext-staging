@@ -11,7 +11,7 @@ export default function Circle1(props) {
     tl.from(".circle1", 1.3, {
       y: 100,
       ease: "power4.out",
-      delay: 0.9,
+      delay: 0.5,
       skewY: 10,
       opacity:0,
       stagger: {
