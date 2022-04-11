@@ -22,7 +22,6 @@ import { BsArrowRight } from "react-icons/bs";
 import { FaCheckCircle } from "react-icons/fa";
 import Transitions2 from "../Transitions/Transitions2";
 
-
 const useStyles = makeStyles((theme) => ({
   loader: {
     display: "flex",
@@ -86,74 +85,74 @@ export default function LastPage(props) {
 
   return (
     <>
-    {!loader && (<Transitions2 />)}
-    <div style={{ height: "600px", width: "360px" }}>
-      {loader ? (
-        <div className={classes.loader}>
-          <CircularProgress color="secondary" />
-        </div>
-      ) : status ? (
-        <div>
-          <div id="congrats">
-            <p className="congrats-text bold-font">
-              <b>Congratulations!</b>
-            </p>
+      {!loader && <Transitions2 />}
+      <div style={{ height: "600px", width: "360px" }}>
+        {loader ? (
+          <div className={classes.loader}>
+            <CircularProgress color="secondary" />
           </div>
+        ) : status ? (
+          <div>
+            <div id="congrats">
+              <p className="congrats-text bold-font">
+                <b>Congratulations!</b>
+              </p>
+            </div>
 
-          <div className="check-test">
-            <FaCheckCircle
-              size={140}
-              // color="#008000"
-              color="#18A009"
-              style={{
-                border: "1px solid #d6d3d1",
-                borderRadius: "100%",
-                padding: "1.5px",
-              }}
-            />
-          </div>
-          {/* <div>
+            <div className="check-test">
+              <FaCheckCircle
+                size={140}
+                // color="#008000"
+                color="#18A009"
+                style={{
+                  border: "1px solid #d6d3d1",
+                  borderRadius: "100%",
+                  padding: "1px",
+                }}
+              />
+            </div>
+            {/* <div>
           <Circle1 side="center" />
           <Circle2 side="center" />
           <Circle3 side="center" />
           <div id="check-icon"></div>
         </div> */}
+            <div>
+              <span className="last-epns-text regular">
+                <b>EPNS </b>
+                is all setup and ready to rock!
+              </span>
+            </div>
+            <div className="description-text regular">
+              <p id="decription">
+                Visit{" "}
+                <a
+                  href="https://app.epns.io/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="link-home"
+                >
+                  app.epns.io
+                </a>{" "}
+                from a <b>Web3 Enabled Browser</b> to subscribe to your favorite{" "}
+                <b>channels</b> and start receiving <b>notifications</b>.
+              </p>
+            </div>
+            <Link component={NotificationPage}>
+              <button className="button hover-effect">
+                <span className="button-text bold-font">Continue</span>
+                <i className="button-icon">
+                  <BsArrowRight size={17} />
+                </i>
+              </button>
+            </Link>
+          </div>
+        ) : (
           <div>
-            <span className="last-epns-text regular">
-              <b>EPNS </b>
-              is all setup and ready to rock!
-            </span>
+            <h2>Something Went Wrong</h2>
           </div>
-          <div className="description-text regular">
-            <p id="decription">
-              Visit{" "}
-              <a
-                href="https://app.epns.io/"
-                target="_blank"
-                rel="noreferrer"
-                className="link-home"
-              >
-                app.epns.io
-              </a>{" "}
-              from a <b>Web3 Enabled Browser</b> to subscribe to your favorite{" "}
-              <b>channels</b> and start receiving <b>notifications</b>.
-            </p>
-          </div>
-          <Link component={NotificationPage}>
-            <button className="button hover-effect">
-              <span className="button-text bold-font">Continue</span>
-              <i className="button-icon">
-                <BsArrowRight size={17} />
-              </i>
-            </button>
-          </Link>
-        </div>
-      ) : (
-        <div>
-          <h2>Something Went Wrong</h2>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
     </>
   );
 }
