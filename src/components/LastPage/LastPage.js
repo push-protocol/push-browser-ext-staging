@@ -18,6 +18,10 @@ import Circle2 from "../Circle/Circle2";
 import Circle3 from "../Circle/Circle3";
 import NotificationPage from "../NotificationPage/NotificationPage";
 import "./Last.css";
+import { BsArrowRight } from "react-icons/bs";
+import { FaCheckCircle } from "react-icons/fa";
+import Transitions2 from "../Transitions/Transitions2";
+import gsap from "gsap";
 
 const useStyles = makeStyles((theme) => ({
   loader: {
@@ -43,18 +47,15 @@ export default function LastPage(props) {
       device_token: token,
       platform: "web",
     };
-
     const numOfAttempts = 3;
     let tries = 1;
     let attempting = true;
-
     while (attempting) {
       try {
         const response = await axios.post(
           "https://backend-kovan.epns.io/apis/pushtokens/register_no_auth",
           object
         );
-
         setLoader(false);
         setStatus(true);
         chrome.storage.local.set({ epns: object }, function () {});
@@ -78,56 +79,97 @@ export default function LastPage(props) {
             );
         }
       }
-
       tries = tries + 1;
     }
   }, []);
   //0x25ccED8002Da0934b2FDfb52c98356EdeBBA00B9
 
+  const tl = gsap.timeline();
+
+  useEffect(() => {
+    tl.from(".slide-left", 1.3, {
+      x: 100,
+      ease: "power4.out",
+      delay: 0.5,
+      opacity: 0,
+      stagger: {
+        amount: 0.2,
+      },
+    }).to(".slide-left", 1.3, {
+      opacity: 1,
+    });
+  }, []);
+
   return (
-    <div style={{ height: "600px", width: "360px" }}>
-      {loader ? (
-        <div className={classes.loader}>
-          <CircularProgress color="secondary" />
-        </div>
-      ) : status ? (
-        <div>
-          <div id="congrats">
-            <p id="congrats-text">
-              <b>Congrats!</b>
-            </p>
+    <>
+      {!loader && <Transitions2 />}
+      <div style={{ height: "600px", width: "360px" }}>
+        {loader ? (
+          <div className={classes.loader}>
+            <CircularProgress color="secondary" />
           </div>
+        ) : status ? (
+          <div className="">
+            <div id="congrats">
+              <p className="congrats-text bold-font">
+                <b>Congratulations!</b>
+              </p>
+            </div>
+
+            <div className="check-test">
+              <FaCheckCircle
+                size={140}
+                // color="#008000"
+                color="#18A009"
+                style={{
+                  border: "1px solid #d6d3d1",
+                  borderRadius: "100%",
+                  padding: "1px",
+                }}
+              />
+            </div>
+            {/* <div>
+          <Circle1 side="center" />
+          <Circle2 side="center" />
+          <Circle3 side="center" />
+          <div id="check-icon"></div>
+        </div> */}
+            <div>
+              <span className="slide-left last-epns-text regular">
+                <b>EPNS </b>
+                is all setup and ready to rock!
+              </span>
+            </div>
+            <div className="slide-left description-text regular">
+              <p id="decription">
+                Visit{" "}
+                <a
+                  href="https://app.epns.io/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="link-home"
+                >
+                  app.epns.io
+                </a>{" "}
+                from a <b>Web3 Enabled Browser</b> to subscribe to your favorite{" "}
+                <b>channels</b> and start receiving <b>notifications</b>.
+              </p>
+            </div>
+            <Link component={NotificationPage}>
+              <button className="button hover-effect">
+                <span className="button-text bold-font">Continue</span>
+                <i className="button-icon">
+                  <BsArrowRight size={17} />
+                </i>
+              </button>
+            </Link>
+          </div>
+        ) : (
           <div>
-            <Circle1 side="center" />
-            <Circle2 side="center" />
-            <Circle3 side="center" />
-            <div id="check-icon"></div>
+            <h2>Something Went Wrong</h2>
           </div>
-          <div>
-            <p id="last-epns-text">
-              <spn id="bold-epns">
-                <p></p>EPNS
-              </spn>{" "}
-              is all setup and ready to rock!
-            </p>
-          </div>
-          <div id="description-text">
-            <p id="decription">
-              Visit <span id="epnsio-text">app.epns.io</span> from a{" "}
-              <span id="bold-text">Web3 Enabled Browser</span> to subscribe to
-              your favorite <span id="bold-text">dApp channels</span> and start
-              receiving <span id="bold-text">messages</span>.
-            </p>
-          </div>
-          <Link component={NotificationPage}>
-            <button id="complete-button">Complete Setup!</button>
-          </Link>
-        </div>
-      ) : (
-        <div>
-          <h2>Something Went Wrong</h2>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </>
   );
 }

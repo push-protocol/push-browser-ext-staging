@@ -21,6 +21,8 @@ import "./Address.css";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Home from "../HomePage/HomePage";
 import Image from "../../assests/epnslogo.svg";
+import Transitions from "../Transitions/Transitions";
+import gsap from "gsap";
 
 const ADDRESS_REGEX = /^0x[a-fA-F0-9]{40}$/g;
 
@@ -46,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
 export default function AddressPage(props) {
   const [address, setAddress] = useState("");
   const [token, setToken] = useState(null);
+  const [loading, setLoading] = useState(null);
   const [errorMessage, setErrorMessage] = useState({
     message: "",
   });
@@ -102,6 +105,22 @@ export default function AddressPage(props) {
     }
   };
 
+  const tl = gsap.timeline();
+
+  useEffect(() => {
+    tl.from(".wallet-decription-text, .label-field", 1.3, {
+      y: 100,
+      ease: "power4.easeOut",
+      delay: 0.2,
+      opacity: 0,
+      stagger: {
+        amount: 0.2,
+      },
+    }).to(".wallet-decription-text", 1.3, {
+      opacity: 1,
+    });
+  }, []);
+
   return (
     <div style={{ height: "600px", width: "360px" }}>
       <div className="top-bar">
@@ -128,13 +147,16 @@ export default function AddressPage(props) {
         <div id="wallet-logo"></div>
       </div> */}
 
-      <div className="wallet-decription-text regular">
+      <div
+        className="wallet-decription-text regular"
+        id="wallet-description-text"
+      >
         <b>EPNS</b> requires your wallet address to deliver
         <span className="notification-text"> notifications</span> meant for you!
       </div>
 
       <div className="label-field">
-        <label className="regular">Wallet Address</label>
+        <label className="bold-font">Wallet Address</label>
         <input
           type="text"
           id="input-type"
@@ -203,8 +225,17 @@ export default function AddressPage(props) {
         disabled={disabled}
         className={disabled ? "button-disabled" : "button-verify hover-effect"}
         onClick={() => submitAddress()}
+        // style={{ backgroundColor: "#e20880" }}
       >
-        <span className={"button-text bold-font"}>Verify</span>
+        {loading ? (
+          <CircularProgress
+            color="secondary"
+            className={classes.loader}
+            size={23}
+          />
+        ) : (
+          <span className={"button-text bold-font"}>Verify</span>
+        )}
       </button>
     </div>
   );

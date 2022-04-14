@@ -13,6 +13,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
 import { BsArrowRight } from "react-icons/bs";
 import Image from "../../assests/epnslogo.svg";
+import gsap from "gsap";
 
 const useStyles = makeStyles((theme) => ({
   loader: {
@@ -28,6 +29,34 @@ export default function Home() {
   const classes = useStyles();
   const [token, setToken] = useState("");
   const [seen, setSeen] = useState(false);
+
+  const tl = gsap.timeline();
+
+  useEffect(() => {
+    tl.from("span", 1.8, {
+      y: 100,
+      ease: "power4.out",
+      delay: 0.9,
+      skewY: 10,
+      opacity: 0,
+      stagger: {
+        amount: 0.3,
+      },
+    })
+      .to(".span", 1.8, {
+        opacity: 1,
+      })
+      .from(".btn", 1.8, {
+        y: -50,
+        ease: "power4.out",
+        delay: 0.9,
+        opacity: 0,
+      })
+      .to(".btn", 1.8, {
+        opacity: 1,
+      });
+  }, []);
+
   useEffect(() => {
     getToken().then((res) => {
       setToken(res);
@@ -46,16 +75,11 @@ export default function Home() {
         {/* <div id="epns-logo"></div> */}
       </div>
       <div>
-        {/* <div id="welcome">
-          <b className="bold-font">Welcome!</b>
-        </div> */}
-
         <div className="icon-page">
           <img src={Image} style={{ width: "40px" }} alt="" />
         </div>
 
-        <div className="text-corner regular">
-          {/* Welcome to */}
+        <div className="text-corner regular line">
           <span>
             <span
               onMouseEnter={() => toggle()}
@@ -84,7 +108,7 @@ export default function Home() {
 
       {token && (
         <Link component={AddressPage} props={{ token }}>
-          <button className="button hover-effect">
+          <button className="button hover-effect btn">
             <span className="button-text bold-font">Get Started</span>
             <i className="button-icon">
               <BsArrowRight size={17} />
