@@ -21,6 +21,7 @@ import "./Last.css";
 import { BsArrowRight } from "react-icons/bs";
 import { FaCheckCircle } from "react-icons/fa";
 import Transitions2 from "../Transitions/Transitions2";
+import gsap from "gsap";
 
 const useStyles = makeStyles((theme) => ({
   loader: {
@@ -83,6 +84,22 @@ export default function LastPage(props) {
   }, []);
   //0x25ccED8002Da0934b2FDfb52c98356EdeBBA00B9
 
+  const tl = gsap.timeline();
+
+  useEffect(() => {
+    tl.from(".slide-left", 1.3, {
+      x: 100,
+      ease: "power4.out",
+      delay: 0.5,
+      opacity: 0,
+      stagger: {
+        amount: 0.2,
+      },
+    }).to(".slide-left", 1.3, {
+      opacity: 1,
+    });
+  }, []);
+
   return (
     <>
       {!loader && <Transitions2 />}
@@ -92,7 +109,7 @@ export default function LastPage(props) {
             <CircularProgress color="secondary" />
           </div>
         ) : status ? (
-          <div>
+          <div className="">
             <div id="congrats">
               <p className="congrats-text bold-font">
                 <b>Congratulations!</b>
@@ -118,12 +135,12 @@ export default function LastPage(props) {
           <div id="check-icon"></div>
         </div> */}
             <div>
-              <span className="last-epns-text regular">
+              <span className="slide-left last-epns-text regular">
                 <b>EPNS </b>
                 is all setup and ready to rock!
               </span>
             </div>
-            <div className="description-text regular">
+            <div className="slide-left description-text regular">
               <p id="decription">
                 Visit{" "}
                 <a

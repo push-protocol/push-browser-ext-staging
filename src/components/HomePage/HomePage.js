@@ -57,7 +57,6 @@ export default function Home() {
       .to(".span", 1.8, {
         opacity: 1,
       })
-
       .from(".btn", 1.8, {
         y: -50,
         ease: "power4.out",
@@ -87,16 +86,11 @@ export default function Home() {
         {/* <div id="epns-logo"></div> */}
       </div>
       <div>
-        {/* <div id="welcome">
-          <b className="bold-font">Welcome!</b>
-        </div> */}
-
         <div className="icon-page">
           <img src={Image} style={{ width: "40px" }} alt="" />
         </div>
 
         <div className="text-corner regular line">
-          {/* Welcome to */}
           <span>
             <span
               onMouseEnter={() => toggle()}

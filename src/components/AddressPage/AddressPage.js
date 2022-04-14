@@ -22,6 +22,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Home from "../HomePage/HomePage";
 import Image from "../../assests/epnslogo.svg";
 import Transitions from "../Transitions/Transitions";
+import gsap from "gsap";
 
 const ADDRESS_REGEX = /^0x[a-fA-F0-9]{40}$/g;
 
@@ -107,58 +108,78 @@ export default function AddressPage(props) {
     }
   };
 
+  const tl = gsap.timeline();
+
+  useEffect(() => {
+    tl.from(".wallet-decription-text, .label-field", 1.3, {
+      y: 100,
+      ease: "power4.easeOut",
+      delay: 0.2,
+      opacity: 0,
+      stagger: {
+        amount: 0.2,
+      },
+    }).to(".wallet-decription-text", 1.3, {
+      opacity: 1,
+    });
+  }, []);
+
   return (
     <>
-    <Transitions />
-    <div style={{ height: "600px", width: "360px" }}>
-      <div className="top-bar">
-        {/* <p> */}
-        <div className="icon-topbar">
-          <img
-            src={Image}
-            style={{ width: "20px", marginLeft: "20px" }}
-            alt=""
+      <Transitions />
+      <div style={{ height: "600px", width: "360px" }}>
+        <div className="top-bar">
+          {/* <p> */}
+          <div className="icon-topbar">
+            <img
+              src={Image}
+              style={{ width: "20px", marginLeft: "20px" }}
+              alt=""
+            />
+          </div>
+          {/* </p> */}
+          <span className="wallet-text regular-font">Enter Wallet Address</span>
+          <BsX
+            size={25}
+            className="icon-hover"
+            onClick={() => {
+              window.close();
+            }}
           />
         </div>
-        {/* </p> */}
-        <span className="wallet-text regular-font">Enter Wallet Address</span>
-        <BsX
-          size={25}
-          className="icon-hover"
-          onClick={() => {
-            window.close();
-          }}
-        />
-      </div>
-      {/* <div>
+        {/* <div>
         <Circle1 side="left" />
         <Circle2 side="left" />
         <Circle3 side="left" />
         <div id="wallet-logo"></div>
       </div> */}
 
-      <div className="wallet-decription-text regular">
-        <b>EPNS</b> requires your wallet address to deliver
-        <span className="notification-text"> notifications</span> meant for you!
-      </div>
+        <div
+          className="wallet-decription-text regular"
+          id="wallet-description-text"
+        >
+          <b>EPNS</b> requires your wallet address to deliver
+          <span className="notification-text"> notifications</span> meant for
+          you!
+        </div>
 
-      <div className="label-field">
-        <label className="bold-font">Wallet Address</label>
-        <input
-          type="text"
-          id="input-type"
-          className="regular"
-          value={address}
-          onChange={(e) => handleValidation(e.target.value)}
-        />
-      </div>
+        <div className="label-field">
+          <label className="bold-font">Wallet Address</label>
+          <input
+            type="text"
+            id="input-type"
+            className="regular"
+            value={address}
+            onChange={(e) => handleValidation(e.target.value)}
+          />
+        </div>
 
-      {errorMessage?.message !== "" && (
-        <span className="error-message regular-font">
-          {errorMessage?.message}
-        </span>
-      )}
-      {/* <TextField
+        {errorMessage?.message !== "" && (
+          <span className="error-message regular-font">
+            {errorMessage?.message}
+          </span>
+        )}
+        {/* <TextField
         id="outlined-basic"
         label="Wallet Address"
         variant="outlined"
@@ -170,7 +191,7 @@ export default function AddressPage(props) {
         }}
       /> */}
 
-      {/* {address == null || address == undefined || address == "" ? (
+        {/* {address == null || address == undefined || address == "" ? (
         <div>
           <div>
             <button id="verify-button" disabled>
@@ -208,23 +229,25 @@ export default function AddressPage(props) {
         </Link>
       )} */}
 
-      <button
-        disabled={disabled}
-        className={disabled ? "button-disabled" : "button-verify hover-effect"}
-        onClick={() => submitAddress()}
-        // style={{ backgroundColor: "#e20880" }}
-      >
-        {loading ? (
-          <CircularProgress
-            color="secondary"
-            className={classes.loader}
-            size={23}
-          />
-        ) : (
-          <span className={"button-text bold-font"}>Verify</span>
-        )}
-      </button>
-    </div>
+        <button
+          disabled={disabled}
+          className={
+            disabled ? "button-disabled" : "button-verify hover-effect"
+          }
+          onClick={() => submitAddress()}
+          // style={{ backgroundColor: "#e20880" }}
+        >
+          {loading ? (
+            <CircularProgress
+              color="secondary"
+              className={classes.loader}
+              size={23}
+            />
+          ) : (
+            <span className={"button-text bold-font"}>Verify</span>
+          )}
+        </button>
+      </div>
     </>
   );
 }
