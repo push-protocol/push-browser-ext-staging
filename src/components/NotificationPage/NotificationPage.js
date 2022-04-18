@@ -18,7 +18,8 @@ import ChannelIcon from "../UI/ChannelIcon";
 import "./Notification.css";
 import AddressPage from "../AddressPage/AddressPage";
 import Transitions3 from "../Transitions/Transitions3";
-import Image from "../../assests/epnslogo.svg";
+// import Image from "../../assests/epnslogo.svg";
+import Image from "../../assests/epns2.png";
 import { BsX } from "react-icons/bs";
 
 const useStyles = makeStyles((theme) => ({
