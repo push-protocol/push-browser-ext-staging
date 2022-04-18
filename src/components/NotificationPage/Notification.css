@@ -78,7 +78,6 @@ width: 47px;
 height: 19px;
 left: 157px;
 top: 526px; */
-
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
@@ -89,25 +88,36 @@ top: 526px; */
   color: #ffffff;
 }
 
-#profile-image {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
+.profile-image {
+  border: 2px solid #027DD4;
+  /* padding: 3px; */
+  border-radius: 100%;
   cursor: pointer;
 }
+.blocky{
+  position: relative;
+  width: 32px;
+  height: 32px;
+  border-radius: 100%;
+  overflow: hidden;
+  transform: scale(0.85);
+  outline-color: rgba(225,225,225,0.2);
+}
 
-#wallet-address {
+.check-wallet-address {
   display: flex;
-  width: 146px;
+  position: absolute;
+  width: 130px;
   height: 30px;
-  left: 80px;
-  top: 20px;
-  background: linear-gradient(90deg, #e20880 0%, #674c9f 52.75%, #35c5f3 100%);
-  border-radius: 20px;
+  left: 160px;
+  top: 18px;
+  border: 1px solid #94a3b8;
+  /* background: linear-gradient(90deg, #e20880 0%, #674c9f 52.75%, #35c5f3 100%); */
+  border-radius: 9999px;
   justify-content: center;
   align-items: center;
-  color: #ffffff;
-  font-family: Roboto;
+  /* color: #ffffff; */
+  color: #94a3b8;
   font-size: 14px;
 }
 

@@ -18,14 +18,15 @@
 }
 
 .top-bar {
-  width: 340px;
+  width: 320px;
   /* border-bottom: 1px solid #ccc; */
-  padding: 10px 10px;
+  padding: 15px 20px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: #f3f4f6;
+  /* background-color: #f3f4f6; */
+  background-color: #f2f3f5;
 }
 
 .wallet-decription-text {
@@ -33,7 +34,7 @@
   width: 320px;
   height: 28px;
   left: 30px;
-  top: 70px;
+  top: 75px;
   /* text-align: left; */
   font-size: 13px;
   line-height: 1.3;
