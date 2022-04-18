@@ -1,6 +1,6 @@
 /*global chrome*/
-import React from "react";
-import { useEffect, useState } from "react";
+import React from "react"
+import { useEffect, useState } from "react"
 import {
   goBack,
   goTo,
@@ -9,19 +9,19 @@ import {
   Router,
   getCurrent,
   getComponentStack,
-} from "react-chrome-extension-router";
-import TextField from "@material-ui/core/TextField";
-import Checkbox from "@material-ui/core/Checkbox";
-import { makeStyles } from "@material-ui/core/styles";
-import Blockies from "react-blockies";
-import ChannelIcon from "../UI/ChannelIcon";
-import "./Notification.css";
-import AddressPage from "../AddressPage/AddressPage";
-import Transitions3 from "../Transitions/Transitions3";
-import Image from "../../assests/epnslogo.svg";
-import { BsX } from "react-icons/bs";
+} from "react-chrome-extension-router"
+import TextField from "@material-ui/core/TextField"
+import Checkbox from "@material-ui/core/Checkbox"
+import { makeStyles } from "@material-ui/core/styles"
+import Blockies from "react-blockies"
+import ChannelIcon from "../UI/ChannelIcon"
+import "./Notification.css"
+import AddressPage from "../AddressPage/AddressPage"
+import Transitions3 from "../Transitions/Transitions3"
+import Image from "../../assests/epnslogo.svg"
+import { BsX } from "react-icons/bs"
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   input1: {
     "& > *": {
       position: "absolute",
@@ -48,13 +48,13 @@ const useStyles = makeStyles((theme) => ({
       top: "74.17%",
     },
   },
-}));
+}))
 export default function NotificationPage() {
-  const [notifications, setNotifications] = useState([]);
-  const [wallet, setWallet] = useState("");
-  const [addr, setAddr] = useState("");
-  const [object, setObject] = useState("");
-  const [model, setModel] = useState(false);
+  const [notifications, setNotifications] = useState([])
+  const [wallet, setWallet] = useState("")
+  const [addr, setAddr] = useState("")
+  const [object, setObject] = useState("")
+  const [model, setModel] = useState(false)
   useEffect(() => {
     chrome.storage.local.get(["epns"], function (result) {
       if (result.epns) {
@@ -69,11 +69,11 @@ export default function NotificationPage() {
     let sh = walletTemp.slice(-6);
     let final = fh + "...." + sh;
     setAddr(final);
-  }, [wallet]);
+  }, [wallet])
 
   const callAPI = async () => {
-    const walletAddr = wallet.toLowerCase();
-    const apiURL = "https://backend-kovan.epns.io/apis/feeds/get_feeds";
+    const walletAddr = wallet.toLowerCase()
+    const apiURL = "https://backend-kovan.epns.io/apis/feeds/get_feeds"
     const response = await fetch(apiURL, {
       method: "POST",
       headers: {
@@ -86,13 +86,13 @@ export default function NotificationPage() {
         pageSize: 5,
         op: "read",
       }),
-    });
-    const resJson = await response.json();
-    setNotifications(resJson.results);
-    setWallet(walletAddr);
-  };
+    })
+    const resJson = await response.json()
+    setNotifications(resJson.results)
+    setWallet(walletAddr)
+  }
 
-  const classes = useStyles();
+  const classes = useStyles()
   return (
     <>
       {/* <Transitions3 /> */}
@@ -100,8 +100,14 @@ export default function NotificationPage() {
         {model ? (
           <div id="model-div">
             <div
+              className="overlay"
               onClick={() => {
-                setModel(false);
+                setModel(false)
+              }}
+            ></div>
+            <div
+              onClick={() => {
+                setModel(false)
               }}
               id="cross"
             >
@@ -109,11 +115,13 @@ export default function NotificationPage() {
                 <b>X</b>
               </span>
             </div>
-            <Link component={AddressPage} props={{ object, type: "renter" }}>
-              <button id="switch-button">
-                <span id="switch-button-text">Switch Account</span>
-              </button>
-            </Link>
+            <div className="modal-content">
+              <Link component={AddressPage} props={{ object, type: "renter" }}>
+                <button id="switch-button">
+                  <span id="switch-button-text">Switch Account</span>
+                </button>
+              </Link>
+            </div>
           </div>
         ) : null}
         <div className="top-bar">
@@ -146,7 +154,7 @@ export default function NotificationPage() {
           <div
             className="profile-image"
             onClick={() => {
-              setModel(true);
+              setModel(true)
             }}
           >
             <div className="blocky">
@@ -162,7 +170,7 @@ export default function NotificationPage() {
 
         <div id="feedBox">
           {notifications ? (
-            notifications.map((notif) => (
+            notifications.map(notif => (
               <div
                 key={notif.payload_id}
                 id="feedItem"
@@ -203,5 +211,5 @@ export default function NotificationPage() {
         </div>
       </div>
     </>
-  );
+  )
 }
