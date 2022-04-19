@@ -231,16 +231,15 @@ top: 113px; */
   position: absolute;
     cursor: pointer;
     /* margin-left: 230px; */
-    top: 60px;
+    top: 75px;
     height: 20px;
     width: 20px;
     color: white;
-    background-color: #674c9f;
+    /* background-color: #674c9f; */
     border-radius: 50%;
-    left: 280px;
+    left: 310px;
     display: block;
     z-index: 3;
-    border: 1px solid #fff;
 }
 #X{
     padding-left: 6px;
@@ -255,24 +254,39 @@ top: 113px; */
   width: 10px;
   height: 10px;
 }
+.icon{
+  border: 1px solid #ffffff;
+  border-radius: 100px;
+  margin-right: 5px;
+  background-color: #ffffff;
+}
 #switch-button {
   position: absolute;
-  width: 206px;
-  padding: 10px;  
-  left: 28px;
-  top: 10px;
-  background: #674c9f;
+  width: 140px;
+  padding: 5px;  
+  left: 10px;
+  top: 20px;
+  background: rgba(0, 0, 0, 0.083);
   border-radius: 100px;
-  border: 1px solid #674c9f;
+  border: 1px solid rgb(154, 153, 153);
+  display: flex;
+  align-items: center;
 }
 
 #switch-button-text {
-  font-family: Roboto;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-style: normal;
   font-weight: normal;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 19px;
   color: white;
+}
+
+.line{
+  position: relative;
+  top: 40px;
+  border: 1px solid rgb(154, 153, 153);
+
 }
 #model-div {
   /* width: 260px;
@@ -318,17 +332,17 @@ top: 113px; */
 
 .modal-content {
   position: absolute;
-  top: 70px;
-  left: 45px;
+  top: 50px;
+  left: 20px;
   /* transform: translate(-50%, -50%);
   line-height: 1.4; */
-  background: rgba(48, 2, 77, 0.343);
+  background: rgba(0, 0, 0, 0.4);
   color: white;
   padding: 14px 0px;
-  border-radius: 25px;
+  border-radius: 5px;
   /* border: 1px solid #fff; */
-  width: 260px;
-  height: 300px;
+  width: 320px;
+  height: 450px;
   display: inline-block;
   overflow: scroll;
 

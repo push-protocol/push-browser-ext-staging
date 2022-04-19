@@ -1,5 +1,6 @@
 /*global chrome*/
 import React from "react"
+import { AiOutlineUserSwitch } from "react-icons/ai"
 import { useEffect, useState } from "react"
 import {
   goBack,
@@ -56,19 +57,19 @@ export default function NotificationPage() {
   const [object, setObject] = useState("")
   const [model, setModel] = useState(false)
   useEffect(() => {
-    chrome.storage.local.get(["epns"], function (result) {
-      if (result.epns) {
-        setWallet(result.epns.wallet);
-        setObject(result.epns);
-      }
-    });
-    if (wallet) callAPI();
-    // let walletTemp = "0x383643f5cc30abafbcc3c4664bce454b8c708e6f";
-    let walletTemp = wallet;
-    let fh = walletTemp.slice(0, 6);
-    let sh = walletTemp.slice(-6);
-    let final = fh + "...." + sh;
-    setAddr(final);
+    // chrome.storage.local.get(["epns"], function (result) {
+    //   if (result.epns) {
+    //     setWallet(result.epns.wallet);
+    //     setObject(result.epns);
+    //   }
+    // });
+    // if (wallet) callAPI();
+    // // let walletTemp = "0x383643f5cc30abafbcc3c4664bce454b8c708e6f";
+    // let walletTemp = wallet;
+    // let fh = walletTemp.slice(0, 6);
+    // let sh = walletTemp.slice(-6);
+    // let final = fh + "...." + sh;
+    // setAddr(final);
   }, [wallet])
 
   const callAPI = async () => {
@@ -118,9 +119,11 @@ export default function NotificationPage() {
             <div className="modal-content">
               <Link component={AddressPage} props={{ object, type: "renter" }}>
                 <button id="switch-button">
+                  <AiOutlineUserSwitch fontSize={15} color="#000" className="icon"/>
                   <span id="switch-button-text">Switch Account</span>
                 </button>
               </Link>
+              <hr className="line" />
             </div>
           </div>
         ) : null}
