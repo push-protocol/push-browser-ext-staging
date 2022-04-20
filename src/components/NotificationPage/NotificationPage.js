@@ -18,8 +18,7 @@ import ChannelIcon from "../UI/ChannelIcon";
 import "./Notification.css";
 import AddressPage from "../AddressPage/AddressPage";
 import Transitions3 from "../Transitions/Transitions3";
-// import Image from "../../assests/epnslogo.svg";
-import Image from "../../assests/epns2.png";
+import Image from "../../assests/epnslogo.svg";
 import { BsX } from "react-icons/bs";
 
 const useStyles = makeStyles((theme) => ({
@@ -101,6 +100,12 @@ export default function NotificationPage() {
         {model ? (
           <div id="model-div">
             <div
+              className="overlay"
+              onClick={() => {
+                setModel(false);
+              }}
+            ></div>
+            <div
               onClick={() => {
                 setModel(false);
               }}
@@ -110,11 +115,13 @@ export default function NotificationPage() {
                 <b>X</b>
               </span>
             </div>
-            <Link component={AddressPage} props={{ object, type: "renter" }}>
-              <button id="switch-button">
-                <span id="switch-button-text">Switch Account</span>
-              </button>
-            </Link>
+            <div className="modal-content">
+              <Link component={AddressPage} props={{ object, type: "renter" }}>
+                <button id="switch-button">
+                  <span id="switch-button-text">Switch Account</span>
+                </button>
+              </Link>
+            </div>
           </div>
         ) : null}
         <div className="top-bar">
