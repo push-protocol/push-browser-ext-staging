@@ -1,6 +1,10 @@
 /*global chrome*/
 import React, { useRef } from "react";
-import { AiOutlineUserSwitch } from "react-icons/ai";
+import { AiOutlineUserSwitch, AiFillInfoCircle } from "react-icons/ai";
+import {
+  BsFillExclamationCircleFill,
+  BsFillExclamationOctagonFill,
+} from "react-icons/bs";
 import { useEffect, useState } from "react";
 import {
   goBack,
@@ -21,6 +25,8 @@ import AddressPage from "../AddressPage/AddressPage";
 import Transitions3 from "../Transitions/Transitions3";
 import Image from "../../assests/epnslogo.svg";
 import { BsX } from "react-icons/bs";
+import { CircularProgress } from "@material-ui/core";
+import Spinner from "../../assests/Spinner.svg";
 
 const useStyles = makeStyles((theme) => ({
   input1: {
@@ -31,6 +37,12 @@ const useStyles = makeStyles((theme) => ({
       left: "30px",
       top: "311px",
     },
+  },
+  loader: {
+    // display: "flex",
+    // justifyContent: "center",
+    // height: "100%",
+    // alignItems: "center",
   },
   input2: {
     "& > *": {
@@ -58,15 +70,15 @@ export default function NotificationPage() {
   const [model, setModel] = useState(false);
   const modalRef = useRef();
   useEffect(() => {
-    // chrome.storage.local.get(["epns"], function (result) {
-    //   if (result.epns) {
-    //     setWallet(result.epns.wallet);
-    //     setObject(result.epns);
-    //   }
-    // });
-    // if (wallet) callAPI();
-    let walletTemp = "0x383643f5cc30abafbcc3c4664bce454b8c708e6f";
-    // let walletTemp = wallet;
+    chrome.storage.local.get(["epns"], function (result) {
+      if (result.epns) {
+        setWallet(result.epns.wallet);
+        setObject(result.epns);
+      }
+    });
+    if (wallet) callAPI();
+    // let walletTemp = "0x383643f5cc30abafbcc3c4664bce454b8c708e6f";
+    let walletTemp = wallet;
     let fh = walletTemp.slice(0, 6);
     let sh = walletTemp.slice(-6);
     let final = fh + "...." + sh;
@@ -74,24 +86,24 @@ export default function NotificationPage() {
   }, [wallet]);
 
   const callAPI = async () => {
-    // const walletAddr = wallet.toLowerCase();
-    // const apiURL = "https://backend-kovan.epns.io/apis/feeds/get_feeds";
-    // const response = await fetch(apiURL, {
-    //   method: "POST",
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     user: walletAddr.toLowerCase(),
-    //     page: 1,
-    //     pageSize: 5,
-    //     op: "read",
-    //   }),
-    // });
-    // const resJson = await response.json();
-    // setNotifications(resJson.results);
-    // setWallet(walletAddr);
+    const walletAddr = wallet.toLowerCase();
+    const apiURL = "https://backend-kovan.epns.io/apis/feeds/get_feeds";
+    const response = await fetch(apiURL, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user: walletAddr.toLowerCase(),
+        page: 1,
+        pageSize: 5,
+        op: "read",
+      }),
+    });
+    const resJson = await response.json();
+    setNotifications(resJson.results);
+    setWallet(walletAddr);
   };
 
   useEffect(() => {
@@ -201,45 +213,82 @@ export default function NotificationPage() {
           </div>
         </div>
 
-        <div id="feedBox">
+        <div className="feedBox">
           {notifications ? (
-            notifications.map((notif) => (
-              <div
-                key={notif.payload_id}
-                id="feedItem"
-                style={{
-                  border:
-                    notif.payload.data.acta == "" ? "" : "0.5px solid #35C5F3",
-                  cursor: notif.payload.data.acta == "" ? "" : "pointer",
-                }}
-                onClick={() => {
-                  if (notif.payload.data.acta) {
-                  }
-                }}
-              >
-                <div id="feedHeader">
-                  <div id="channelIcon">
-                    <ChannelIcon url={notif.payload.data.icon} />
+            notifications?.length > 0 ? (
+              notifications.map((notif) => (
+                <div
+                  key={notif.payload_id}
+                  id="feedItem"
+                  style={{
+                    border:
+                      notif.payload.data.acta == ""
+                        ? ""
+                        : "0.5px solid #35C5F3",
+                    cursor: notif.payload.data.acta == "" ? "" : "pointer",
+                  }}
+                  onClick={() => {
+                    if (notif.payload.data.acta) {
+                    }
+                  }}
+                >
+                  <div id="feedHeader">
+                    <div id="channelIcon">
+                      <ChannelIcon url={notif.payload.data.icon} />
+                    </div>
+                    <div id="channelHeader">{notif.payload.data.app}</div>
+                    {notif.payload.data.type == 2 ||
+                    notif.payload.type == -2 ? (
+                      <div id="channelSecret"></div>
+                    ) : (
+                      <div></div>
+                    )}
                   </div>
-                  <div id="channelHeader">{notif.payload.data.app}</div>
-                  {notif.payload.data.type == 2 || notif.payload.type == -2 ? (
-                    <div id="channelSecret"></div>
-                  ) : (
-                    <div></div>
-                  )}
-                </div>
-                <div id="bottom">
-                  <div id="line"></div>
-                </div>
+                  <div id="bottom">
+                    <div id="line"></div>
+                  </div>
 
-                <div id="body">
-                  <div id="title">{notif.payload.data.asub}</div>
-                  <div id="message">{notif.payload.notification.body}</div>
+                  <div id="body">
+                    <div id="title">{notif.payload.data.asub}</div>
+                    <div id="message">{notif.payload.notification.body}</div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="illustration">
+                <BsFillExclamationCircleFill
+                  color="#D1D5DB"
+                  size={140}
+                  className="icon-empty"
+                  style={{
+                    border: "1px solid #d6d3d1",
+                    borderRadius: "100%",
+                    padding: "1px",
+                  }}
+                />
+                <div className="slide-left description-texts regular">
+                  <span className="regular">NO NOTIFICATIONS YET!!</span>
+                  <p id="decription">
+                    Visit{" "}
+                    <a
+                      href="https://app.epns.io/"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="link-home"
+                    >
+                      app.epns.io
+                    </a>{" "}
+                    from a <b>Web3 Enabled Browser</b> to subscribe to your
+                    favorite <b>channels</b> and start receiving{" "}
+                    <b>notifications</b>.
+                  </p>
                 </div>
               </div>
-            ))
+            )
           ) : (
-            <div></div>
+            <div className="loading">
+              <img src={Spinner} alt="" style={{ width: "5rem" }} />
+            </div>
           )}
         </div>
       </div>

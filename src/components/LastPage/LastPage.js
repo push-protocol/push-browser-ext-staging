@@ -22,6 +22,7 @@ import { BsArrowRight } from "react-icons/bs";
 import { FaCheckCircle } from "react-icons/fa";
 import Transitions2 from "../Transitions/Transitions2";
 import gsap from "gsap";
+import Spinner from "../../assests/Spinner.svg";
 
 const useStyles = makeStyles((theme) => ({
   loader: {
@@ -106,7 +107,8 @@ export default function LastPage(props) {
       <div style={{ height: "600px", width: "360px" }}>
         {loader ? (
           <div className={classes.loader}>
-            <CircularProgress color="secondary" />
+            {/* <CircularProgress color="secondary" /> */}
+            <img src={Spinner} alt="" style={{ width: "5rem" }} />
           </div>
         ) : status ? (
           <div className="">
