@@ -131,7 +131,7 @@ export default function AddressPage(props) {
         <div className="top-bar">
           {/* <p> */}
           <div className="icon-topbar">
-            <img src={Image} style={{ with: "25px", height: "30px" }} alt="" />
+            <img src={Image} style={{ height: "30px" }} alt="" />
           </div>
           {/* </p> */}
           <span className="wallet-text regular-font">Enter Wallet Address</span>

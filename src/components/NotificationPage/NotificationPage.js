@@ -23,7 +23,7 @@ import ChannelIcon from "../UI/ChannelIcon";
 import "./Notification.css";
 import AddressPage from "../AddressPage/AddressPage";
 import Transitions3 from "../Transitions/Transitions3";
-import Image from "../../assests/epnslogo.svg";
+import Image from "../../assests/epns2.png";
 import { BsX } from "react-icons/bs";
 import { CircularProgress } from "@material-ui/core";
 import Spinner from "../../assests/Spinner.svg";
@@ -68,6 +68,7 @@ export default function NotificationPage() {
   const [addr, setAddr] = useState("");
   const [object, setObject] = useState("");
   const [model, setModel] = useState(false);
+  const [active, setActive] = useState(false);
   const modalRef = useRef();
   useEffect(() => {
     chrome.storage.local.get(["epns"], function (result) {
@@ -77,7 +78,6 @@ export default function NotificationPage() {
       }
     });
     if (wallet) callAPI();
-    // let walletTemp = "0x383643f5cc30abafbcc3c4664bce454b8c708e6f";
     let walletTemp = wallet;
     let fh = walletTemp.slice(0, 6);
     let sh = walletTemp.slice(-6);
@@ -103,6 +103,7 @@ export default function NotificationPage() {
     });
     const resJson = await response.json();
     setNotifications(resJson.results);
+    chrome.extension.getBackgroundPage().console.log(resJson.results);
     setWallet(walletAddr);
   };
 
@@ -176,7 +177,7 @@ export default function NotificationPage() {
         )}
         <div className="top-bar">
           <div className="icon-topbar">
-            <img src={Image} style={{ with: "25px", height: "30px" }} alt="" />
+            <img src={Image} style={{ height: "35px" }} alt="" />
           </div>
 
           <div className="check-wallet-address regular-font">{addr}</div>
@@ -217,42 +218,59 @@ export default function NotificationPage() {
           {notifications ? (
             notifications?.length > 0 ? (
               notifications.map((notif) => (
-                <div
-                  key={notif.payload_id}
-                  id="feedItem"
-                  style={{
-                    border:
-                      notif.payload.data.acta == ""
-                        ? ""
-                        : "0.5px solid #35C5F3",
-                    cursor: notif.payload.data.acta == "" ? "" : "pointer",
-                  }}
-                  onClick={() => {
-                    if (notif.payload.data.acta) {
-                    }
-                  }}
-                >
-                  <div id="feedHeader">
-                    <div id="channelIcon">
-                      <ChannelIcon url={notif.payload.data.icon} />
+                <>
+                  {/* navigation */}
+                  <div className="twin-button regular">
+                    <button
+                      className={!active ? "regular" : "none"}
+                      onClick={() => setActive(false)}
+                    >
+                      Feed
+                    </button>
+                    <button
+                      className={active ? "regular" : "none"}
+                      onClick={() => setActive(true)}
+                    >
+                      Bin
+                    </button>
+                  </div>
+                  <div
+                    key={notif.payload_id}
+                    id="feedItem"
+                    style={{
+                      border:
+                        notif.payload.data.acta == ""
+                          ? ""
+                          : "0.5px solid #35C5F3",
+                      cursor: notif.payload.data.acta == "" ? "" : "pointer",
+                    }}
+                    onClick={() => {
+                      if (notif.payload.data.acta) {
+                      }
+                    }}
+                  >
+                    <div id="feedHeader">
+                      <div id="channelIcon">
+                        <ChannelIcon url={notif.payload.data.icon} />
+                      </div>
+                      <div id="channelHeader">{notif.payload.data.app}</div>
+                      {notif.payload.data.type == 2 ||
+                      notif.payload.type == -2 ? (
+                        <div id="channelSecret"></div>
+                      ) : (
+                        <div></div>
+                      )}
                     </div>
-                    <div id="channelHeader">{notif.payload.data.app}</div>
-                    {notif.payload.data.type == 2 ||
-                    notif.payload.type == -2 ? (
-                      <div id="channelSecret"></div>
-                    ) : (
-                      <div></div>
-                    )}
-                  </div>
-                  <div id="bottom">
-                    <div id="line"></div>
-                  </div>
+                    <div id="bottom">
+                      <div id="line"></div>
+                    </div>
 
-                  <div id="body">
-                    <div id="title">{notif.payload.data.asub}</div>
-                    <div id="message">{notif.payload.notification.body}</div>
+                    <div id="body">
+                      <div id="title">{notif.payload.data.asub}</div>
+                      <div id="message">{notif.payload.notification.body}</div>
+                    </div>
                   </div>
-                </div>
+                </>
               ))
             ) : (
               <div className="illustration">
