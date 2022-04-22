@@ -1,11 +1,11 @@
 /*global chrome*/
-import React, { useRef } from "react";
-import { AiOutlineUserSwitch, AiFillInfoCircle } from "react-icons/ai";
+import React, { useRef } from "react"
+import { AiOutlineUserSwitch, AiFillInfoCircle } from "react-icons/ai"
 import {
   BsFillExclamationCircleFill,
   BsFillExclamationOctagonFill,
-} from "react-icons/bs";
-import { useEffect, useState } from "react";
+} from "react-icons/bs"
+import { useEffect, useState } from "react"
 import {
   goBack,
   goTo,
@@ -14,21 +14,21 @@ import {
   Router,
   getCurrent,
   getComponentStack,
-} from "react-chrome-extension-router";
-import TextField from "@material-ui/core/TextField";
-import Checkbox from "@material-ui/core/Checkbox";
-import { makeStyles } from "@material-ui/core/styles";
-import Blockies from "react-blockies";
-import ChannelIcon from "../UI/ChannelIcon";
-import "./Notification.css";
-import AddressPage from "../AddressPage/AddressPage";
-import Transitions3 from "../Transitions/Transitions3";
-import Image from "../../assests/epns2.png";
-import { BsX } from "react-icons/bs";
-import { CircularProgress } from "@material-ui/core";
-import Spinner from "../../assests/Spinner.svg";
+} from "react-chrome-extension-router"
+import TextField from "@material-ui/core/TextField"
+import Checkbox from "@material-ui/core/Checkbox"
+import { makeStyles } from "@material-ui/core/styles"
+import Blockies from "react-blockies"
+import ChannelIcon from "../UI/ChannelIcon"
+import "./Notification.css"
+import AddressPage from "../AddressPage/AddressPage"
+import Transitions3 from "../Transitions/Transitions3"
+import Image from "../../assests/epns2.png"
+import { BsX } from "react-icons/bs"
+import { CircularProgress } from "@material-ui/core"
+import Spinner from "../../assests/Spinner.svg"
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   input1: {
     "& > *": {
       position: "absolute",
@@ -61,33 +61,33 @@ const useStyles = makeStyles((theme) => ({
       top: "74.17%",
     },
   },
-}));
+}))
 export default function NotificationPage() {
-  const [notifications, setNotifications] = useState([]);
-  const [wallet, setWallet] = useState("");
-  const [addr, setAddr] = useState("");
-  const [object, setObject] = useState("");
-  const [model, setModel] = useState(false);
-  const [active, setActive] = useState(false);
-  const modalRef = useRef();
+  const [notifications, setNotifications] = useState([])
+  const [wallet, setWallet] = useState("")
+  const [addr, setAddr] = useState("")
+  const [object, setObject] = useState("")
+  const [model, setModel] = useState(false)
+  const [active, setActive] = useState(false)
+  const modalRef = useRef()
   useEffect(() => {
     chrome.storage.local.get(["epns"], function (result) {
       if (result.epns) {
-        setWallet(result.epns.wallet);
-        setObject(result.epns);
+        setWallet(result.epns.wallet)
+        setObject(result.epns)
       }
-    });
-    if (wallet) callAPI();
-    let walletTemp = wallet;
-    let fh = walletTemp.slice(0, 6);
-    let sh = walletTemp.slice(-6);
-    let final = fh + "...." + sh;
-    setAddr(final);
-  }, [wallet]);
+    })
+    if (wallet) callAPI()
+    let walletTemp = wallet
+    let fh = walletTemp.slice(0, 6)
+    let sh = walletTemp.slice(-6)
+    let final = fh + "...." + sh
+    setAddr(final)
+  }, [wallet])
 
   const callAPI = async () => {
-    const walletAddr = wallet.toLowerCase();
-    const apiURL = "https://backend-kovan.epns.io/apis/feeds/get_feeds";
+    const walletAddr = wallet.toLowerCase()
+    const apiURL = "https://backend-kovan.epns.io/apis/feeds/get_feeds"
     const response = await fetch(apiURL, {
       method: "POST",
       headers: {
@@ -100,31 +100,31 @@ export default function NotificationPage() {
         pageSize: 5,
         op: "read",
       }),
-    });
-    const resJson = await response.json();
-    setNotifications(resJson.results);
-    chrome.extension.getBackgroundPage().console.log(resJson.results);
-    setWallet(walletAddr);
-  };
+    })
+    const resJson = await response.json()
+    setNotifications(resJson.results)
+    chrome.extension.getBackgroundPage().console.log(resJson.results)
+    setWallet(walletAddr)
+  }
 
   useEffect(() => {
-    const checkIfClickedOutside = (e) => {
+    const checkIfClickedOutside = e => {
       // If the menu is open and the clicked target is not within the menu,
       // then close the menu
       if (model && modalRef.current && !modalRef.current.contains(e.target)) {
-        setModel(false);
+        setModel(false)
       }
-    };
+    }
 
-    document.addEventListener("click", checkIfClickedOutside);
+    document.addEventListener("click", checkIfClickedOutside)
 
     return () => {
       // Cleanup the event listener
-      document.removeEventListener("click", checkIfClickedOutside);
-    };
-  }, [model]);
+      document.removeEventListener("click", checkIfClickedOutside)
+    }
+  }, [model])
 
-  const classes = useStyles();
+  const classes = useStyles()
   return (
     <>
       {/* <Transitions3 /> */}
@@ -139,7 +139,7 @@ export default function NotificationPage() {
             ></div> */}
             <div
               onClick={() => {
-                setModel(false);
+                setModel(false)
               }}
               id="cross"
             >
@@ -148,7 +148,7 @@ export default function NotificationPage() {
                   size={24}
                   className=""
                   onClick={() => {
-                    setModel(false);
+                    setModel(false)
                   }}
                 />
               </div>
@@ -215,25 +215,26 @@ export default function NotificationPage() {
         </div>
 
         <div className="feedBox">
+          <div className="twin-button regular">
+            <button
+              className={!active ? "regular" : "none"}
+              onClick={() => setActive(false)}
+            >
+              Feed
+            </button>
+            <button
+              className={active ? "regular" : "none"}
+              onClick={() => setActive(true)}
+            >
+              Bin
+            </button>
+          </div>
           {notifications ? (
             notifications?.length > 0 ? (
-              notifications.map((notif) => (
+              notifications.map(notif => (
                 <>
                   {/* navigation */}
-                  <div className="twin-button regular">
-                    <button
-                      className={!active ? "regular" : "none"}
-                      onClick={() => setActive(false)}
-                    >
-                      Feed
-                    </button>
-                    <button
-                      className={active ? "regular" : "none"}
-                      onClick={() => setActive(true)}
-                    >
-                      Bin
-                    </button>
-                  </div>
+
                   <div
                     key={notif.payload_id}
                     id="feedItem"
@@ -311,5 +312,5 @@ export default function NotificationPage() {
         </div>
       </div>
     </>
-  );
+  )
 }
