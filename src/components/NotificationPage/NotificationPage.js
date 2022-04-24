@@ -69,7 +69,10 @@ export default function NotificationPage() {
   const [object, setObject] = useState("")
   const [model, setModel] = useState(false)
   const [active, setActive] = useState(false)
+  const [toggleMsg, setToggleMsg] = useState(false)
+
   const modalRef = useRef()
+
   useEffect(() => {
     chrome.storage.local.get(["epns"], function (result) {
       if (result.epns) {
@@ -262,6 +265,7 @@ export default function NotificationPage() {
                         <div></div>
                       )}
                     </div>
+
                     <div id="bottom">
                       <div id="line"></div>
                     </div>
