@@ -90,7 +90,7 @@ export default function Home() {
           <img src={Image} style={{ width: "40px" }} alt="" />
         </div>
 
-        <div className="text-corner regular line">
+        <div className="text-corner regular">
           <span>
             <span
               onMouseEnter={() => toggle()}
