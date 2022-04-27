@@ -87,13 +87,18 @@ export default function NotificationPage() {
         setObject(result.epns);
       }
     });
-    if (wallet) callAPI();
+    if (wallet) {
+      // callAPI()
+      fetchSpam()
+    };
     let walletTemp = wallet;
     let fh = walletTemp.slice(0, 6);
     let sh = walletTemp.slice(-6);
     let final = fh + "...." + sh;
     setAddr(final);
   }, [wallet]);
+
+
 
   const callAPI = async () => {
     if (loading) return;
@@ -128,6 +133,41 @@ export default function NotificationPage() {
       setLoading(false);
     }
   };
+
+  const fetchSpam = async () => {
+    if (loading) return;
+    setLoading(true);
+    const walletAddr = wallet.toLowerCase();
+
+    try {
+      const { count, results } = await api.fetchSpamNotifications(
+        walletAddr,
+        100000,
+        1,
+        "https://backend-kovan.epns.io/apis"
+      );
+      const parsedResponse = utils.parseApiResponse(results);
+      const map1 = new Map();
+      const map2 = new Map();
+      results.forEach((each) => {
+        map1.set(each.payload.data.sid, each.epoch);
+        map2.set(each.payload.data.sid, each.channel);
+      });
+      parsedResponse.forEach((each) => {
+        each.date = map1.get(each.sid);
+        each.epoch = new Date(each.date).getTime() / 1000;
+        each.channel = map2.get(each.sid);
+      });
+      setWallet(walletAddr);
+      setNotifications(parsedResponse);
+      chrome.extension.getBackgroundPage().console.log(count, parsedResponse);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
 
   useEffect(() => {
     const checkIfClickedOutside = (e) => {

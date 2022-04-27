@@ -61,24 +61,24 @@ export default function LastPage(props) {
         setStatus(true);
         chrome.storage.local.set({ epns: object }, function () {});
       } catch (err) {
-        // if (tries > numOfAttempts) {
-        //   attempting = false;
-        //   chrome.extension
-        //     .getBackgroundPage()
-        //     .console.error(
-        //       "EPNS Backend | Request retries failed, Error: ",
-        //       err
-        //     );
-        // } else {
-        //   chrome.extension
-        //     .getBackgroundPage()
-        //     .console.log(
-        //       "EPNS Backend | Request Failed... Retrying: " +
-        //         tries +
-        //         " / " +
-        //         numOfAttempts
-        //     );
-        // }
+        if (tries > numOfAttempts) {
+          attempting = false;
+          chrome.extension
+            .getBackgroundPage()
+            .console.error(
+              "EPNS Backend | Request retries failed, Error: ",
+              err
+            );
+        } else {
+          chrome.extension
+            .getBackgroundPage()
+            .console.log(
+              "EPNS Backend | Request Failed... Retrying: " +
+                tries +
+                " / " +
+                numOfAttempts
+            );
+        }
       }
       tries = tries + 1;
     }
