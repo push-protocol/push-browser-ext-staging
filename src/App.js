@@ -33,7 +33,6 @@ function App() {
     return (
       <Router>
         <Home />
-        {/* <NotificationPage /> */}
       </Router>
     );
   else
