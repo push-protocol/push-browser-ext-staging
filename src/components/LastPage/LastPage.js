@@ -103,11 +103,10 @@ export default function LastPage(props) {
 
   return (
     <>
-      {/* {!loader && <Transitions2 />} */}
+      {!loader && <Transitions2 />}
       <div style={{ height: "600px", width: "360px" }}>
         {loader ? (
           <div className={classes.loader}>
-            {/* <CircularProgress color="secondary" /> */}
             <img src={Spinner} alt="" style={{ width: "5rem" }} />
           </div>
         ) : status ? (

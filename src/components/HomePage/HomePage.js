@@ -83,7 +83,6 @@ export default function Home() {
         <Circle1 side="left" />
         <Circle2 side="left" />
         <Circle3 side="left" />
-        {/* <div id="epns-logo"></div> */}
       </div>
       <div>
         <div className="icon-page">

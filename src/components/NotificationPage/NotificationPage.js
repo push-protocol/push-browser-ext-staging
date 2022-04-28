@@ -88,17 +88,15 @@ export default function NotificationPage() {
       }
     });
     if (wallet) {
-      // callAPI()
-      fetchSpam()
-    };
+      callAPI();
+      // fetchSpam();
+    }
     let walletTemp = wallet;
     let fh = walletTemp.slice(0, 6);
     let sh = walletTemp.slice(-6);
     let final = fh + "...." + sh;
     setAddr(final);
   }, [wallet]);
-
-
 
   const callAPI = async () => {
     if (loading) return;
@@ -168,6 +166,13 @@ export default function NotificationPage() {
     }
   };
 
+  useEffect(() => {
+    if (active) {
+      if (wallet) fetchSpam();
+    } else {
+      if (wallet) callAPI();
+    }
+  }, [active]);
 
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
@@ -189,16 +194,10 @@ export default function NotificationPage() {
   const classes = useStyles();
   return (
     <>
-      {/* <Transitions3 /> */}
+      <Transitions3 />
       <div style={{ height: "600px", width: "360px" }}>
         {model && (
           <div className="modal-content" ref={modalRef}>
-            {/* <div
-              className="overlay"
-              onClick={() => {
-                setModel(false);
-              }}
-            ></div> */}
             <div
               onClick={() => {
                 setModel(false);
@@ -256,22 +255,26 @@ export default function NotificationPage() {
         </div>
 
         <div className="feedBox">
-          {notifications?.length > 0 && (
-            <div className="twin-button regular">
-              <button
-                className={!active ? "regular" : "none"}
-                onClick={() => setActive(false)}
-              >
-                Inbox
-              </button>
-              <button
-                className={active ? "regular" : "none"}
-                onClick={() => setActive(true)}
-              >
-                Spam
-              </button>
-            </div>
-          )}
+          {/* {notifications?.length > 0 && ( */}
+          <div className="twin-button regular">
+            <button
+              className={!active ? "regular" : "none"}
+              onClick={() => {
+                setActive(false);
+              }}
+            >
+              Inbox
+            </button>
+            <button
+              className={active ? "regular" : "none"}
+              onClick={() => {
+                setActive(true);
+              }}
+            >
+              Spam
+            </button>
+          </div>
+          {/* )} */}
         </div>
 
         {notifications && !loading ? (
@@ -280,7 +283,6 @@ export default function NotificationPage() {
               {notifications.map((oneNotification, index) => {
                 const { cta, title, message, app, icon, image } =
                   oneNotification;
-
                 // render the notification item
                 return (
                   <div key={`${message}+${title}`}>
@@ -296,6 +298,22 @@ export default function NotificationPage() {
                   </div>
                 );
               })}
+            </div>
+          ) : notifications?.length === 0 && active ? (
+            <div className="illustration">
+              <BsFillExclamationCircleFill
+                color="#D1D5DB"
+                size={140}
+                className="icon-empty"
+                style={{
+                  border: "1px solid #d6d3d1",
+                  borderRadius: "100%",
+                  padding: "1px",
+                }}
+              />
+              <div className="slide-left description-texts regular">
+                <span className="regular">NO SPAM NOTIFICATIONS</span>
+              </div>
             </div>
           ) : (
             <div className="illustration">

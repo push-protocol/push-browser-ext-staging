@@ -126,7 +126,7 @@ export default function AddressPage(props) {
 
   return (
     <>
-      {/* <Transitions /> */}
+      <Transitions />
       <div style={{ height: "600px", width: "360px" }}>
         <div className="top-bar">
           {/* <p> */}
@@ -143,12 +143,6 @@ export default function AddressPage(props) {
             }}
           />
         </div>
-        {/* <div>
-        <Circle1 side="left" />
-        <Circle2 side="left" />
-        <Circle3 side="left" />
-        <div id="wallet-logo"></div>
-      </div> */}
 
         <div
           className="wallet-decription-text regular"
