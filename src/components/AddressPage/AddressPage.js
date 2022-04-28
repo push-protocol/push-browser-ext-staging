@@ -48,11 +48,11 @@ const useStyles = makeStyles((theme) => ({
 export default function AddressPage(props) {
   const [address, setAddress] = useState("");
   const [token, setToken] = useState(null);
+  const [loading, setLoading] = useState(null);
   const [errorMessage, setErrorMessage] = useState({
     message: "",
   });
   const [disabled, setDisabled] = useState(true);
-  const [loading, setLoading] = useState(false);
   const classes = useStyles();
 
   useEffect(() => {
@@ -93,18 +93,15 @@ export default function AddressPage(props) {
 
   // wallet address validator
   const submitAddress = () => {
-    setLoading(true);
     var WAValidator = require("wallet-address-validator");
 
     var valid = WAValidator.validate(address, "ETH");
     if (valid) {
       goTo(LastPage, { address, token });
-      setLoading(false);
     } else {
       setErrorMessage({ message: "INVALID ADDRESS" });
       document.getElementById("input-type").style.borderBottom =
         "1.5px solid red";
-      setLoading(false);
     }
   };
 
@@ -126,7 +123,7 @@ export default function AddressPage(props) {
 
   return (
     <>
-      <Transitions />
+      {/* <Transitions /> */}
       <div style={{ height: "600px", width: "360px" }}>
         <div className="top-bar">
           {/* <p> */}

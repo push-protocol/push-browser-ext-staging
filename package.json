@@ -13,6 +13,7 @@
     "firebase": "^8.7.0",
     "gsap": "^3.10.2",
     "moment": "^2.29.3",
+    "gsap": "^3.10.3",
     "react": "^17.0.2",
     "react-blockies": "^1.4.1",
     "react-chrome-extension-router": "^1.2.0",

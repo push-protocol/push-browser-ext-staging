@@ -1,14 +1,8 @@
 .wallet-text {
-  /* position: absolute;
-  width: 169px;
-  height: 28px;
-  left: 90px;
-  top: 180px; */
-  /* font-style: normal; */
-  /* font-weight: 500; */
   font-size: 17px;
-  /* line-height: 28px; */
-  color: #4b5563;
+  color: #6b7280;
+  /* color: #4b5563; */
+  font-weight: bolder;
 }
 
 .icon-hover:hover {
@@ -52,9 +46,10 @@
 }
 
 .label-field label {
-  color: #4b5563;
-  font-size: 12px;
+  color: #9ca3af;
+  font-size: 14px;
   margin-top: 1rem;
+  font-weight: bolder;
 }
 #input-type {
   width: 290px;
@@ -168,7 +163,7 @@ border-radius: 4px; */
   top: 520px;
   border: none;
   /* color: red; */
-  background-color: #ccc;
+  background-color: #e5e7eb;
   border-radius: 9999px;
   display: flex;
   flex-direction: row;
