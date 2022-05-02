@@ -64,14 +64,14 @@ export default function AddressPage(props) {
     }
   }, []);
 
-  useEffect(() => {
-    if (address === "") {
-      setDisabled(true);
-      setErrorMessage({ message: "" });
-      document.getElementById("input-type").style.borderBottom =
-        "1.5px solid #e5e7eb";
-    }
-  }, [address]);
+  // useEffect(() => {
+  //   if (address === "") {
+  //     setDisabled(true);
+  //     setErrorMessage({ message: "" });
+  //     document.getElementById("input-type").style.border =
+  //       "1.5px solid #e5e7eb";
+  //   }
+  // }, [address]);
 
   // regex for input field
   const handleValidation = (e) => {
@@ -80,14 +80,14 @@ export default function AddressPage(props) {
     if (result) {
       setErrorMessage({ message: "" });
       setDisabled(false);
-      document.getElementById("input-type").style.borderBottom =
-        "1.5px solid #e5e7eb";
+      // document.getElementById("input-type").style.borderBottom =
+      //   "1.5px solid #e5e7eb";
       return "Facts";
     } else {
       setErrorMessage({ message: "Please, input a valid wallet address!" });
       setDisabled(true);
-      document.getElementById("input-type").style.borderBottom =
-        "1.5px solid red";
+      // document.getElementById("input-type").style.border =
+      //   "1.5px solid #f87171";
     }
   };
 
@@ -100,8 +100,8 @@ export default function AddressPage(props) {
       goTo(LastPage, { address, token });
     } else {
       setErrorMessage({ message: "INVALID ADDRESS" });
-      document.getElementById("input-type").style.borderBottom =
-        "1.5px solid red";
+      // document.getElementById("input-type").style.border =
+      //   "1.5px solid #f87171";
     }
   };
 
@@ -124,7 +124,7 @@ export default function AddressPage(props) {
   return (
     <>
       {/* <Transitions /> */}
-      <div style={{ height: "600px", width: "360px" }}>
+      <div className="standard-size">
         <div className="top-bar">
           {/* <p> */}
           <div className="icon-topbar">
@@ -152,13 +152,22 @@ export default function AddressPage(props) {
 
         <div className="label-field">
           <label className="bold-font">Wallet Address</label>
-          <input
+          {/* <input
             type="text"
             id="input-type"
             className="regular"
+            spellCheck="false"
             value={address}
             onChange={(e) => handleValidation(e.target.value)}
-          />
+          /> */}
+          <textarea
+            spellCheck="false"
+            value={address}
+            id="input-type"
+            onChange={(e) => handleValidation(e.target.value)}
+            className="regular text-body"
+            draggable={false}
+          ></textarea>
         </div>
 
         {errorMessage?.message !== "" && (
@@ -166,55 +175,6 @@ export default function AddressPage(props) {
             {errorMessage?.message}
           </span>
         )}
-        {/* <TextField
-        id="outlined-basic"
-        label="Wallet Address"
-        variant="outlined"
-        className={classes.input}
-        onChange={(e) => {
-          ADDRESS_REGEX.test(e.target.value)
-            ? setAddress(e.target.value)
-            : setAddress(null);
-        }}
-      /> */}
-
-        {/* {address == null || address == undefined || address == "" ? (
-        <div>
-          <div>
-            <button id="verify-button" disabled>
-              Verify
-            </button>
-          </div>
-          <div>
-            <button
-              id="cancel-button"
-              onClick={() => {
-                window.close();
-              }}
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      ) : (
-        <Link component={LastPage} props={{ address, token }}>
-          <div>
-            <div>
-              <button id="verify-button">Verify</button>
-            </div>
-            <div>
-              <button
-                id="cancel-button"
-                onClick={() => {
-                  window.close();
-                }}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </Link>
-      )} */}
 
         <button
           disabled={disabled}

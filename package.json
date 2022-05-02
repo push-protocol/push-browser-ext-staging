@@ -11,9 +11,8 @@
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "firebase": "^8.7.0",
-    "gsap": "^3.10.2",
-    "moment": "^2.29.3",
     "gsap": "^3.10.3",
+    "moment": "^2.29.3",
     "react": "^17.0.2",
     "react-blockies": "^1.4.1",
     "react-chrome-extension-router": "^1.2.0",
@@ -39,6 +38,10 @@
       "react-app/jest"
     ]
   },
+    "resolutions": {
+      "//": "See https://github.com/facebook/create-react-app/issues/11773",
+      "react-error-overlay": "6.0.9"
+    },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -50,5 +53,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "react-error-overlay": "6.0.9"
   }
 }

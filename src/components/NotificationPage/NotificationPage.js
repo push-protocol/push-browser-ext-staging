@@ -89,7 +89,6 @@ export default function NotificationPage() {
     });
     if (wallet) {
       callAPI();
-      // fetchSpam();
     }
     let walletTemp = wallet;
     let fh = walletTemp.slice(0, 6);
@@ -124,7 +123,6 @@ export default function NotificationPage() {
       });
       setWallet(walletAddr);
       setNotifications(parsedResponse);
-      chrome.extension.getBackgroundPage().console.log(count, parsedResponse);
     } catch (err) {
       console.log(err);
     } finally {
@@ -158,7 +156,6 @@ export default function NotificationPage() {
       });
       setWallet(walletAddr);
       setNotifications(parsedResponse);
-      chrome.extension.getBackgroundPage().console.log(count, parsedResponse);
     } catch (err) {
       console.log(err);
     } finally {
@@ -195,7 +192,7 @@ export default function NotificationPage() {
   return (
     <>
       <Transitions3 />
-      <div style={{ height: "600px", width: "360px" }}>
+      <div className="standard-size">
         {model && (
           <div className="modal-content" ref={modalRef}>
             <div
@@ -255,7 +252,6 @@ export default function NotificationPage() {
         </div>
 
         <div className="feedBox">
-          {/* {notifications?.length > 0 && ( */}
           <div className="twin-button regular">
             <button
               className={!active ? "regular" : "none"}
@@ -274,7 +270,6 @@ export default function NotificationPage() {
               Spam
             </button>
           </div>
-          {/* )} */}
         </div>
 
         {notifications && !loading ? (

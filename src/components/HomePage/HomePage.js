@@ -67,7 +67,7 @@ export default function Home() {
     setSeen(!seen);
   };
   return (
-    <div style={{ height: "600px", width: "360px" }}>
+    <div className="standard-size">
       <div>
         <Circle1 side="left" />
         <Circle2 side="left" />

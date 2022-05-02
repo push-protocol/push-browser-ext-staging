@@ -104,7 +104,7 @@ export default function LastPage(props) {
   return (
     <>
       {!loader && <Transitions2 />}
-      <div style={{ height: "600px", width: "360px" }}>
+      <div className="standard-size">
         {loader ? (
           <div className={classes.loader}>
             <img src={Spinner} alt="" style={{ width: "5rem" }} />
@@ -152,7 +152,7 @@ export default function LastPage(props) {
                 >
                   app.epns.io
                 </a>{" "}
-                from a <b>Web3 Enabled Browser</b> to subscribe to your favorite{" "}
+                from a <b>Web3 Enabled Browser</b> to opt-ins to your favorite{" "}
                 <b>channels</b> and start receiving <b>notifications</b>.
               </p>
             </div>

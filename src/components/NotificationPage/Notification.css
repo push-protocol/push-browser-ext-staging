@@ -281,6 +281,7 @@ color: #9CA3AF;
     font-weight: bolder;
     padding-top: 3px;
     display: block;
+    cursor: pointer;
 }
 
 #channelSecret {
@@ -396,6 +397,7 @@ font-size: 14px;
   margin: 10px auto 0 auto;
   padding: 3px;
   text-align: center;
+  cursor: pointer;
   align-items: center;
 }
 .twin-button .regular {
