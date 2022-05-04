@@ -39,7 +39,6 @@ function App() {
   else
     return (
       <Router>
-        {/* <NotificationPage /> */}
         <WelcomeBackPage />
       </Router>
     );

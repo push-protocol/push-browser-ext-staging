@@ -1,17 +1,29 @@
-#security-text {
+/* #security-text {
   position: absolute;
   width: 94px;
   height: 28px;
   left: 133px;
   top: 200px;
-
   font-family: Roboto;
   font-style: normal;
   font-weight: 500;
   font-size: 24px;
   line-height: 28px;
-
   color: #000000;
+} */
+
+.icon-topbar{
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 15px;
+  left: 30px;
+}
+
+.actual-image{
+  width: 30px;
+  height: 35px;
 }
 
 #create-password-text {
@@ -43,9 +55,7 @@
   height: 14px;
   left: 80px;
   top: 447px;
-
   /* identical to box height */
-
   font-family: Roboto;
   font-style: normal;
   font-weight: 300;
@@ -105,13 +115,11 @@
   height: 30px;
   left: 165px;
   top: 19px;
-  /* border: 1px solid #94a3b8; */
   background: linear-gradient(90deg, #e20880 0%, #674c9f 52.75%, #35c5f3 100%);
   border-radius: 9999px;
   justify-content: center;
   align-items: center;
   color: #ffffff;
-  /* color: #94a3b8; */
   font-size: 14px;
 }
 
@@ -164,7 +172,6 @@
 
 .channelHeader {
   font-size: 13px;
-  /* identical to box height */
   color: #fff;
   width: auto;
   text-transform: uppercase;
@@ -213,7 +220,6 @@
 
 .channelTitle {
   font-size: 14px;
-  /* identical to box height */
   color: #9CA3AF;
 }
 
@@ -224,7 +230,6 @@
   display: flex;
   flex-direction: column;
   padding: 10px;
-  /* identical to box height */
 }
 
 .channelNew {
@@ -351,7 +356,7 @@ color: #9CA3AF;
   width: 320px;
   height: 85px;
   display: inline-block;
-  overflow: scroll;
+  overflow: hidden;
   z-index: 9999;
 
 }
@@ -409,7 +414,7 @@ font-size: 14px;
  color: #6b7280;
  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
  height: 100%;
-
+ cursor: pointer;
 }
 .twin-button .none{
   width: 150px;
@@ -420,4 +425,5 @@ font-size: 14px;
   font-size: 12px;
   height: auto;
   padding: 0.6rem;
+  cursor: pointer;
 }

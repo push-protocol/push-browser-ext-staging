@@ -80,11 +80,7 @@ export default function Home() {
 
         <div className="text-corner regular">
           <span>
-            <span
-              onMouseEnter={() => toggle()}
-              onMouseLeave={() => toggle()}
-              style={{ padding: "4px" }}
-            >
+            <span style={{ padding: "4px" }}>
               <span className="colored-text" style={{ color: "#e20880" }}>
                 Ethereum{" "}
               </span>

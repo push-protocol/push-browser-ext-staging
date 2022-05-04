@@ -23,7 +23,7 @@ import ChannelIcon from "../UI/ChannelIcon";
 import "./Notification.css";
 import AddressPage from "../AddressPage/AddressPage";
 import Transitions3 from "../Transitions/Transitions3";
-import Image from "../../assests/epns2.png";
+import Image from "../../assests/epnslogo.svg";
 import { BsX } from "react-icons/bs";
 import { CircularProgress } from "@material-ui/core";
 import Spinner from "../../assests/Spinner.svg";
@@ -31,11 +31,13 @@ import Moment from "react-moment";
 import { FiClock } from "react-icons/fi";
 import { MdMessage } from "react-icons/md";
 import { FaInfoCircle } from "react-icons/fa";
+import Info from "../HomePage/Info";
 import {
   api,
   utils,
   NotificationItem,
 } from "@epnsproject/frontend-sdk-staging";
+import Tooltip from "./Tooltip";
 
 const useStyles = makeStyles((theme) => ({
   input1: {
@@ -79,6 +81,7 @@ export default function NotificationPage() {
   const [object, setObject] = useState("");
   const [model, setModel] = useState(false);
   const [active, setActive] = useState(false);
+  const [seen, setSeen] = useState(false);
   const modalRef = useRef();
   useEffect(() => {
     chrome.storage.local.get(["epns"], function (result) {
@@ -188,11 +191,15 @@ export default function NotificationPage() {
     };
   }, [model]);
 
+  // const toggle = () => {
+  //   setSeen(!seen);
+  // };
+
   const classes = useStyles();
   return (
     <>
       <Transitions3 />
-      <div className="standard-size">
+      <div className="standard">
         {model && (
           <div className="modal-content" ref={modalRef}>
             <div
@@ -233,10 +240,17 @@ export default function NotificationPage() {
             </div>
           </div>
         )}
+
+        <div
+          className="icon-topbar"
+          onMouseOver={() => setSeen(true)}
+          onMouseLeave={() => setSeen(false)}
+        >
+          <img src={Image} className="actual-image" alt="" />
+        </div>
+
         <div className="top-bar">
-          <div className="icon-topbar">
-            <img src={Image} style={{ height: "35px" }} alt="" />
-          </div>
+          <div></div>
 
           <div className="check-wallet-address regular-font">{addr}</div>
           <div className="profile-image" onClick={() => setModel(true)}>
@@ -250,6 +264,8 @@ export default function NotificationPage() {
             </div>
           </div>
         </div>
+
+        {seen && <Tooltip />}
 
         <div className="feedBox">
           <div className="twin-button regular">

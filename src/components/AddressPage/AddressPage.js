@@ -22,6 +22,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Home from "../HomePage/HomePage";
 import Image from "../../assests/epnslogo.svg";
 import Transitions from "../Transitions/Transitions";
+import Tooltip from "../NotificationPage/Tooltip";
 import gsap from "gsap";
 
 const ADDRESS_REGEX = /^0x[a-fA-F0-9]{40}$/g;
@@ -52,6 +53,7 @@ export default function AddressPage(props) {
   const [errorMessage, setErrorMessage] = useState({
     message: "",
   });
+  const [seen, setSeen] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const classes = useStyles();
 
@@ -123,14 +125,20 @@ export default function AddressPage(props) {
 
   return (
     <>
-      {/* <Transitions /> */}
+      <Transitions />
       <div className="standard-size">
+        <div
+          className="icon-topbar"
+          onMouseOver={() => setSeen(true)}
+          onMouseLeave={() => setSeen(false)}
+        >
+          <img src={Image} className="actual-image" alt="" />
+        </div>
+
+        {seen && <Tooltip />}
+
         <div className="top-bar">
-          {/* <p> */}
-          <div className="icon-topbar">
-            <img src={Image} style={{ height: "30px" }} alt="" />
-          </div>
-          {/* </p> */}
+          <div></div>
           <span className="wallet-text regular-font">Enter Wallet Address</span>
           <BsX
             size={25}

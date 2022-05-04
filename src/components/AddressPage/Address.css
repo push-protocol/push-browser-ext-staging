@@ -3,6 +3,7 @@
   color: #6b7280;
   /* color: #4b5563; */
   font-weight: bolder;
+  margin-left: 20px;
 }
 
 .icon-hover:hover {
@@ -14,13 +15,14 @@
 
 .top-bar {
   width: 320px;
-  /* border-bottom: 1px solid #ccc; */
-  padding: 15px 20px;
+  height: 66px;
+  padding-left: 20px;
+  padding-right: 20px;
+  /* padding: 15px 20px; */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  /* background-color: #f3f4f6; */
   background-color: #f2f3f5;
 }
 
