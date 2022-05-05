@@ -52,6 +52,7 @@ code {
 .standard{
   width: 360px;
   height: 600px;
+  overflow-y: scroll;
 }
 
 /* Change the white to any color */
