@@ -14,7 +14,8 @@
     color: #9ca3af;
     z-index: 99999;
     display: block; */
-    padding: 5px;
+    padding: 7px;
+    text-align: center;
     background: #FFFFFF;
     border: 0.5px solid #35C5F3;
     box-sizing: border-box;

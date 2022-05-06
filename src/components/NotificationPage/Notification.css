@@ -206,7 +206,7 @@
 .loading{
   display: flex;
   flex-direction: row;
-  height: 534px;
+  height: 150px;
   align-items: center;
   justify-content: center;
 }
