@@ -241,16 +241,14 @@ export default function NotificationPage() {
           </div>
         )}
 
-        <div
-          className="icon-topbar"
-          onMouseOver={() => setSeen(true)}
-          onMouseLeave={() => setSeen(false)}
-        >
-          <img src={Image} className="actual-image" alt="" />
-        </div>
-
         <div className="top-bar">
-          <div></div>
+          <div
+            className="icon-topbar"
+            onMouseOver={() => setSeen(true)}
+            onMouseLeave={() => setSeen(false)}
+          >
+            <img src={Image} className="actual-image" alt="" />
+          </div>
 
           <div className="check-wallet-address regular-font">{addr}</div>
           <div className="profile-image" onClick={() => setModel(true)}>

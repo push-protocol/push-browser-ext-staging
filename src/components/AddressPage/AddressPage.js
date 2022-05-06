@@ -127,18 +127,17 @@ export default function AddressPage(props) {
     <>
       <Transitions />
       <div className="standard-size">
-        <div
-          className="icon-topbar"
-          onMouseOver={() => setSeen(true)}
-          onMouseLeave={() => setSeen(false)}
-        >
-          <img src={Image} className="actual-image" alt="" />
-        </div>
-
         {seen && <Tooltip />}
 
         <div className="top-bar">
-          <div></div>
+          <div
+            className="icon-topbar"
+            onMouseOver={() => setSeen(true)}
+            onMouseLeave={() => setSeen(false)}
+          >
+            <img src={Image} className="actual-image" alt="" />
+          </div>
+
           <span className="wallet-text regular-font">Enter Wallet Address</span>
           <BsX
             size={25}

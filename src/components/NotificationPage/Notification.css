@@ -12,18 +12,28 @@
   color: #000000;
 } */
 
-.icon-topbar{
+/* icon-topbar{
   cursor: pointer;
   width: 30px;
   height: 30px;
   position: absolute;
-  top: 15px;
+  top: 22px;
   left: 30px;
+} */
+
+.icon-topbar{
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  position: relative;
+  top: 2px;
+  left: 10px;
 }
 
 .actual-image{
-  width: 30px;
-  height: 35px;
+  cursor: pointer;
+  width: 22px;
+  height: 27px;
 }
 
 #create-password-text {
@@ -110,11 +120,11 @@
 
 .check-wallet-address {
   display: flex;
-  position: absolute;
+  position: relative;
   width: 130px;
   height: 30px;
-  left: 165px;
-  top: 19px;
+  left: 55px;
+  /* top: 19px; */
   background: linear-gradient(90deg, #e20880 0%, #674c9f 52.75%, #35c5f3 100%);
   border-radius: 9999px;
   justify-content: center;
