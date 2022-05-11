@@ -1,22 +1,9 @@
 /*global chrome*/
 import React, { useRef } from "react";
-import { AiOutlineUserSwitch, AiFillInfoCircle } from "react-icons/ai";
-import {
-  BsFillExclamationCircleFill,
-  BsFillExclamationOctagonFill,
-} from "react-icons/bs";
+import { AiOutlineUserSwitch } from "react-icons/ai";
+import { BsFillExclamationCircleFill } from "react-icons/bs";
 import { useEffect, useState } from "react";
-import {
-  goBack,
-  goTo,
-  popToTop,
-  Link,
-  Router,
-  getCurrent,
-  getComponentStack,
-} from "react-chrome-extension-router";
-import TextField from "@material-ui/core/TextField";
-import Checkbox from "@material-ui/core/Checkbox";
+import { Link } from "react-chrome-extension-router";
 import { makeStyles } from "@material-ui/core/styles";
 import Blockies from "react-blockies";
 import ChannelIcon from "../UI/ChannelIcon";
@@ -27,11 +14,6 @@ import Image from "../../assests/epnslogo.svg";
 import { BsX } from "react-icons/bs";
 import { CircularProgress } from "@material-ui/core";
 import Spinner from "../../assests/Spinner.svg";
-import Moment from "react-moment";
-import { FiClock } from "react-icons/fi";
-import { MdMessage } from "react-icons/md";
-import { FaInfoCircle } from "react-icons/fa";
-import Info from "../HomePage/Info";
 import {
   api,
   utils,
@@ -48,12 +30,6 @@ const useStyles = makeStyles((theme) => ({
       left: "30px",
       top: "311px",
     },
-  },
-  loader: {
-    // display: "flex",
-    // justifyContent: "center",
-    // height: "100%",
-    // alignItems: "center",
   },
   input2: {
     "& > *": {
@@ -73,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+
 export default function NotificationPage() {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(false);

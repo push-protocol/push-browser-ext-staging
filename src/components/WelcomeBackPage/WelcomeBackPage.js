@@ -12,18 +12,18 @@ import { BsArrowRight } from "react-icons/bs";
 import Image from "../../assests/epnslogo.svg";
 import NotificationPage from "../NotificationPage/NotificationPage";
 
-const WelcomeBackPage = () => {
-  const useStyles = makeStyles((theme) => ({
-    loader: {
-      display: "flex",
-      flex: 1,
-      alignItems: "flex-end",
-      justifyContent: "center",
-      height: "90%",
-      marginTop: "2rem",
-    },
-  }));
+const useStyles = makeStyles((theme) => ({
+  loader: {
+    display: "flex",
+    flex: 1,
+    alignItems: "flex-end",
+    justifyContent: "center",
+    height: "90%",
+    marginTop: "2rem",
+  },
+}));
 
+const WelcomeBackPage = () => {
   const classes = useStyles();
   const [token, setToken] = useState("");
   useEffect(() => {

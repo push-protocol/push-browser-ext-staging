@@ -15,3 +15,31 @@
   border-radius: 50%;
   z-index:3;
 }
+
+#circle1-right{
+  position: absolute;
+  width: 363.58px;
+  height: 363.58px;
+  left: 222.35px;
+  top: -203.5px;
+  
+  background: linear-gradient(180deg, #E20880 0%, rgba(226, 8, 128, 0) 100%);
+  transform: matrix(0.98, -0.21, -0.21, -0.98, 0, 0);
+  border-radius: 50%;
+  z-index:3;
+  }
+  
+
+  #circle1-center{
+    position: absolute;
+width: 220px;
+height: 220px;
+left: 52.96px;
+top: 127.31px;
+
+background: linear-gradient(180deg, #E20880 0%, rgba(226, 8, 128, 0) 100%);
+transform: matrix(0.98, -0.21, -0.21, -0.98, 0, 0);
+    border-radius: 50%;
+    z-index:3;
+    }
+

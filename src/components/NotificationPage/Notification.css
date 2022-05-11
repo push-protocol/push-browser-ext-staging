@@ -1,26 +1,3 @@
-/* #security-text {
-  position: absolute;
-  width: 94px;
-  height: 28px;
-  left: 133px;
-  top: 200px;
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 28px;
-  color: #000000;
-} */
-
-/* icon-topbar{
-  cursor: pointer;
-  width: 30px;
-  height: 30px;
-  position: absolute;
-  top: 22px;
-  left: 30px;
-} */
-
 .icon-topbar{
   cursor: pointer;
   width: 30px;

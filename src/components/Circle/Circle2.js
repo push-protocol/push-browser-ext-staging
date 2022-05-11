@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
 import "./Circle2.css";
-import "./Circle2Right.css";
-import "./Circle2Center.css";
 import gsap from "gsap";
 
 export default function Circle2(props) {
@@ -21,8 +19,7 @@ export default function Circle2(props) {
       opacity: 1,
     });
   }, []);
-  if (props.side === "left")
-    return <div id="circle2" className="circle2"></div>;
-  else if (props.side === "right") return <div id="circle2-right"></div>;
-  else return <div id="circle2-center"></div>;
+  if (props.side === "left") return <div id="circle2" className="circle2" />;
+  else if (props.side === "right") return <div id="circle2-right" />;
+  else return <div id="circle2-center" />;
 }

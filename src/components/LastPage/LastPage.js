@@ -2,20 +2,8 @@
 import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import {
-  goBack,
-  goTo,
-  popToTop,
-  Link,
-  Router,
-  getCurrent,
-  getComponentStack,
-} from "react-chrome-extension-router";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import { Link } from "react-chrome-extension-router";
 import { makeStyles } from "@material-ui/core/styles";
-import Circle1 from "../Circle/Circle1";
-import Circle2 from "../Circle/Circle2";
-import Circle3 from "../Circle/Circle3";
 import NotificationPage from "../NotificationPage/NotificationPage";
 import "./Last.css";
 import { BsArrowRight } from "react-icons/bs";
@@ -38,7 +26,7 @@ export default function LastPage(props) {
   const [status, setStatus] = useState(null);
   const [loader, setLoader] = useState(true);
 
-  useEffect(async () => {
+  useEffect(() => {
     const address = props.address;
     // const password=props.password
     const token = props.token;
@@ -51,16 +39,22 @@ export default function LastPage(props) {
     const numOfAttempts = 3;
     let tries = 1;
     let attempting = true;
-    while (attempting) {
+
+    const registerNoAuth = async (object) => {
+      const response = await axios.post(
+        "https://backend-kovan.epns.io/apis/pushtokens/register_no_auth",
+        object
+      );
+      setLoader(false);
+      setStatus(true);
+      chrome.storage.local.set({ epns: object }, function () {});
+    };
+
+    if (attempting) {
       try {
-        const response = await axios.post(
-          "https://backend-kovan.epns.io/apis/pushtokens/register_no_auth",
-          object
-        );
-        setLoader(false);
-        setStatus(true);
-        chrome.storage.local.set({ epns: object }, function () {});
+        registerNoAuth(object);
       } catch (err) {
+        console.log(err);
         if (tries > numOfAttempts) {
           attempting = false;
           chrome.extension
@@ -80,10 +74,9 @@ export default function LastPage(props) {
             );
         }
       }
-      tries = tries + 1;
+      tries += 1;
     }
   }, []);
-  //0x25ccED8002Da0934b2FDfb52c98356EdeBBA00B9
 
   const tl = gsap.timeline();
 
@@ -129,12 +122,6 @@ export default function LastPage(props) {
                 }}
               />
             </div>
-            {/* <div>
-          <Circle1 side="center" />
-          <Circle2 side="center" />
-          <Circle3 side="center" />
-          <div id="check-icon"></div>
-        </div> */}
             <div>
               <span className="slide-left last-epns-text regular">
                 <b>EPNS </b>

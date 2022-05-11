@@ -13,11 +13,7 @@ const Transitions2 = () => {
     });
   }, []);
 
-  return (
-    <div>
-      <div className="transition2-effect"></div>
-    </div>
-  );
+  return <div className="transition2-effect"></div>;
 };
 
 export default Transitions2;

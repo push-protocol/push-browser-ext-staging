@@ -1,31 +1,16 @@
 /*global chrome*/
 import React from "react";
 import { useEffect, useState } from "react";
-import {
-  goBack,
-  goTo,
-  popToTop,
-  Link,
-  Router,
-  getCurrent,
-  getComponentStack,
-} from "react-chrome-extension-router";
-import TextField from "@material-ui/core/TextField";
+import { goTo } from "react-chrome-extension-router";
 import { makeStyles } from "@material-ui/core/styles";
-import Circle1 from "../Circle/Circle1";
-import Circle2 from "../Circle/Circle2";
-import Circle3 from "../Circle/Circle3";
 import LastPage from "../LastPage/LastPage";
 import { BsX } from "react-icons/bs";
 import "./Address.css";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import Home from "../HomePage/HomePage";
 import Image from "../../assests/epnslogo.svg";
 import Transitions from "../Transitions/Transitions";
 import Tooltip from "../NotificationPage/Tooltip";
 import gsap from "gsap";
-
-const ADDRESS_REGEX = /^0x[a-fA-F0-9]{40}$/g;
 
 const useStyles = makeStyles((theme) => ({
   input: {
@@ -42,14 +27,14 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     alignItems: "center",
     color: "white",
-    // width: "10px",
-    // height: "10px",
   },
 }));
+
+const ADDRESS_REGEX = /^0x[a-fA-F0-9]{40}$/g;
+
 export default function AddressPage(props) {
   const [address, setAddress] = useState("");
   const [token, setToken] = useState(null);
-  const [loading, setLoading] = useState(null);
   const [errorMessage, setErrorMessage] = useState({
     message: "",
   });
@@ -66,44 +51,29 @@ export default function AddressPage(props) {
     }
   }, []);
 
-  // useEffect(() => {
-  //   if (address === "") {
-  //     setDisabled(true);
-  //     setErrorMessage({ message: "" });
-  //     document.getElementById("input-type").style.border =
-  //       "1.5px solid #e5e7eb";
-  //   }
-  // }, [address]);
-
   // regex for input field
   const handleValidation = (e) => {
-    setAddress(e);
-    let result = ADDRESS_REGEX.test(e);
+    let textValue = e.target.value;
+    setAddress(textValue);
+    let result = ADDRESS_REGEX.test(textValue);
     if (result) {
       setErrorMessage({ message: "" });
       setDisabled(false);
-      // document.getElementById("input-type").style.borderBottom =
-      //   "1.5px solid #e5e7eb";
-      return "Facts";
     } else {
       setErrorMessage({ message: "Please, input a valid wallet address!" });
       setDisabled(true);
-      // document.getElementById("input-type").style.border =
-      //   "1.5px solid #f87171";
     }
   };
 
   // wallet address validator
   const submitAddress = () => {
-    var WAValidator = require("wallet-address-validator");
+    let WAValidator = require("wallet-address-validator");
 
-    var valid = WAValidator.validate(address, "ETH");
+    let valid = WAValidator.validate(address, "ETH");
     if (valid) {
       goTo(LastPage, { address, token });
     } else {
       setErrorMessage({ message: "INVALID ADDRESS" });
-      // document.getElementById("input-type").style.border =
-      //   "1.5px solid #f87171";
     }
   };
 
@@ -159,19 +129,11 @@ export default function AddressPage(props) {
 
         <div className="label-field">
           <label className="bold-font">Wallet Address</label>
-          {/* <input
-            type="text"
-            id="input-type"
-            className="regular"
-            spellCheck="false"
-            value={address}
-            onChange={(e) => handleValidation(e.target.value)}
-          /> */}
           <textarea
             spellCheck="false"
             value={address}
             id="input-type"
-            onChange={(e) => handleValidation(e.target.value)}
+            onChange={handleValidation}
             className="regular text-body"
             draggable={false}
           ></textarea>
@@ -188,18 +150,9 @@ export default function AddressPage(props) {
           className={
             disabled ? "button-disabled" : "button-verify hover-effect"
           }
-          onClick={() => submitAddress()}
-          // style={{ backgroundColor: "#e20880" }}
+          onClick={submitAddress}
         >
-          {loading ? (
-            <CircularProgress
-              color="secondary"
-              className={classes.loader}
-              size={23}
-            />
-          ) : (
-            <span className={"button-text bold-font"}>Verify</span>
-          )}
+          <span className={"button-text bold-font"}>Verify</span>
         </button>
       </div>
     </>
