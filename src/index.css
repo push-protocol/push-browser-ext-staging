@@ -1,13 +1,90 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+@font-face {
+  font-family: "Theinhardt";
+  src: local("Theinhardt"),
+    url("./assests/fonts/Theinhardt\ Pan\ Bold.otf") format("truetype");
+}
+
+@font-face {
+  font-family: "Theinhardtt";
+  src: local("Theinhardt"),
+    url("./assests/fonts/Theinhardt\ Pan\ Medium.otf") format("truetype");
+}
+
+.bold-font {
+  font-family: "Theinhardt";
+  font-weight: bold;
+}
+
+.regular-font {
+  font-family: "Lato", sans-serif;
+  font-weight: bold;
+}
+
+.regular {
+  font-family: "Lato", sans-serif;
+}
+
+.hover-effect:hover {
+  opacity: 0.8;
+}
+
+.standard-size{
+  width: 360px;
+  height: 600px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.standard{
+  width: 360px;
+  height: 600px;
+  overflow-y:unset;
+  overflow-x: hidden;
+}
+
+/* Change the white to any color */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+
+/*
+ *  SCROLL STYLES - https://codepen.io/GhostRider/pen/GHaFw
+ */
+/* Secondary */
+::-webkit-scrollbar-track {
+	background-color: #EEE;
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar {
+	width: 6px;
+	background-color: #EEE;
+}
+
+::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background-image: -webkit-gradient(linear,
+									   left top,
+									   left bottom,
+									   color-stop(0.44, #35c5f3),
+									   color-stop(0.72, #35b0f3),
+									   color-stop(0.86, #35a1f3));
 }

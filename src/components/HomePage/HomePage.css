@@ -1,106 +1,110 @@
 #welcome {
-    position: absolute;
-    width: 107px;
-    height: 28px;
-    left: 124px;
-    top: 282px;
-  
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 28px;
-  
-    color: #000000;
-  }
-  #welcome-text {
-    position: absolute;
-    width: 74px;
-    height: 16px;
-    left: 30px;
-    top: 322px;
-  
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 16px;
-  
-    color: #000000;
-  }
-  #description {
-    position: absolute;
-    width: 232px;
-    height: 16px;
-    left: 104px;
-    top: 322px;
-  }
-  #ethereum-text {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 16px;
-  
-    color: #e20880;
-  }
-  
-  #push-text {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 16px;
-  
-    color: #674c9f;
-  }
-  
-  #notification-text {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 16px;
-  
-    color: #674c9f;
-  }
-  
-  #service-text {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 16px;
-  
-    color: #35c5f3;
-  }
-  
-  #button {
-    position: absolute;
-    width: 300px;
-    height: 50px;
-    left: 30px;
-    top: 510px;
-  
-    background: #674c9f;
-    border-radius: 4px;
-  }
-  
-  #button-text {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 19px;
-    color:white;
-  }
-  #epns-logo{
-    position: absolute;
+  position: absolute;
+  width: 107px;
+  height: 28px;
+  left: 124px;
+  top: 200px;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 28px;
+
+  color: #000000;
+}
+.icon-page {
+  position: absolute;
+  width: 360px;
+  top: 200px;
+  display: flex;
+  justify-content: center;
+}
+.text-corner {
+  position: absolute;
+  width: 360px;
+  top: 260px;
+  color: #6b7280;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: larger;
+  line-height: 1.4;
+  font-weight: bold;
+}
+
+
+
+#ethereum-text {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  color: #e20880;
+}
+
+#push-text {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  color: #674c9f;
+}
+
+#notification-text {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  color: #674c9f;
+}
+
+#service-text {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  color: #35c5f3;
+}
+
+.button {
+  position: absolute;
+  width: 300px;
+  height: 50px;
+  left: 30px;
+  top: 520px;
+  border: none;
+  color: red;
+  background: #674c9f;
+  border-radius: 9999px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+}
+
+.button-text {
+  font-size: 16px;
+  color: white;
+}
+
+.button-icon {
+  color: white;
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+#epns-logo {
+  position: absolute;
   width: 104px;
   height: 47px;
   left: 23px;
-    top: 47px;
-  z-index:4;
+  top: 47px;
+  z-index: 4;
   background: url("../../assests/logofull_white\ 1.png");
-  }
-  
+}

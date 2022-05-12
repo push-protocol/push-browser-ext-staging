@@ -13,3 +13,32 @@
   border-radius: 50%;
   z-index:2;
 }
+
+#circle2-center {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  left: 62px;
+  top: 116.05px;
+  
+  
+background: linear-gradient(180deg, #35C5F3 0%, rgba(53, 197, 243, 0) 100%);
+transform: matrix(0.42, 0.91, 0.91, -0.42, 0, 0);
+  border-radius: 50%;
+  z-index:2;
+}
+
+#circle2-right {
+  position: absolute;
+  width: 413.87px;
+  height: 413.87px;
+  left: 191.04px;
+  top: -215.82px;
+  
+  background: linear-gradient(180deg, #35C5F3 0%, rgba(53, 197, 243, 0) 100%);
+  transform: matrix(0.89, -0.46, -0.46, -0.89, 0, 0);
+  border-radius: 50%;
+  z-index:2;
+}
+
+

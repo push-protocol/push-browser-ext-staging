@@ -1,0 +1,50 @@
+.new-one {
+    position: absolute;
+    width: 300px;
+    /* height: 84px; */
+    height: auto;
+    left: 30px;
+    top: 60px;
+    /* background: #ffffff;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.3;
+    color: #9ca3af;
+    z-index: 99999;
+    display: block; */
+    padding: 7px;
+    text-align: center;
+    background: #FFFFFF;
+    border: 0.5px solid #35C5F3;
+    box-sizing: border-box;
+    box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.4);
+    border-radius: 4px;
+    line-height: 1.2rem;
+    z-index: 99999;
+    font-size: small;
+    /* color: rgba(0, 0, 0, 0.5); */
+    color: #6B7280;
+  }
+  
+  /* .link-page {
+    position: absolute;
+    width: 300px;
+    height: 84px;
+    left: 30px;
+    top: 485px;
+    color: #9ca3af;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+  .link-home {
+    color: #e20880;
+    text-decoration: none;
+  }
+  .link-home:hover {
+    text-decoration: underline;
+  } */
+  
