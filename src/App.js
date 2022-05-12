@@ -17,12 +17,12 @@ function App() {
   useEffect(() => {
     const { component, props } = getCurrent();
     const components = getComponentStack();
-    // chrome.storage.local.get(["epns"], function (result) {
-    //   if (result.epns) {
-    //     setWalletAddr(result.epns.wallet);
-    //     setRegistered(true);
-    //   }
-    // });
+    chrome.storage.local.get(["epns"], function (result) {
+      if (result.epns) {
+        setWalletAddr(result.epns.wallet);
+        setRegistered(true);
+      }
+    });
   });
   if (!registered)
     return (

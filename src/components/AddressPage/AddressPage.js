@@ -11,6 +11,7 @@ import Image from "../../assests/epnslogo.svg";
 import Transitions from "../Transitions/Transitions";
 import Tooltip from "../NotificationPage/Tooltip";
 import gsap from "gsap";
+import WAValidator from "wallet-address-validator";
 
 const useStyles = makeStyles((theme) => ({
   input: {
@@ -67,8 +68,6 @@ export default function AddressPage(props) {
 
   // wallet address validator
   const submitAddress = () => {
-    let WAValidator = require("wallet-address-validator");
-
     let valid = WAValidator.validate(address, "ETH");
     if (valid) {
       goTo(LastPage, { address, token });

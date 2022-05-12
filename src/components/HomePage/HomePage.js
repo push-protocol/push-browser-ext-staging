@@ -28,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
 export default function Home() {
   const classes = useStyles();
   const [token, setToken] = useState("");
-  const [seen, setSeen] = useState(false);
 
   const tl = gsap.timeline();
 
@@ -63,9 +62,6 @@ export default function Home() {
     });
   }, []);
 
-  const toggle = () => {
-    setSeen(!seen);
-  };
   return (
     <div className="standard-size">
       <div>
