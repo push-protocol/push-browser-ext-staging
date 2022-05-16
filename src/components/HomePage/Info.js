@@ -23,9 +23,10 @@ export default function Info() {
   return (
     <Fragment>
       <div className="box regular text">
-        EPNS is an innovative way to receive notification from different{" "}
-        <b>dApps</b> and <b>Smart Contracts</b>. Think notification but coming
-        from blockchain ecosystem.
+        EPNS is a decentralized communication protocol for Web3! that allows any
+        <b> dApps</b>, <b>Smart Contracts</b>, backends or protocols to send
+        communication directly to user wallet addresses in an open, gasless and
+        platform agnostic fashion.
       </div>
       <p className="link-page regular">
         Visit{" "}
