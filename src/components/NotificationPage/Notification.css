@@ -198,6 +198,15 @@
   justify-content: center;
 }
 
+.loadinging {
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  position: relative;
+  /* align-items: center; */
+  justify-content: center;
+}
+
 .channelBody {
   width: 300px;
  display: flex;

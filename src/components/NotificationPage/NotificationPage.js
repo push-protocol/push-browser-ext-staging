@@ -1,5 +1,5 @@
 /*global chrome*/
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
 import { AiOutlineUserSwitch } from "react-icons/ai";
 import { BsFillExclamationCircleFill } from "react-icons/bs";
 import { useEffect, useState } from "react";
@@ -12,8 +12,9 @@ import AddressPage from "../AddressPage/AddressPage";
 import Transitions3 from "../Transitions/Transitions3";
 import Image from "../../assests/epnslogo.svg";
 import { BsX } from "react-icons/bs";
-import { CircularProgress } from "@material-ui/core";
 import Spinner from "../../assests/Spinner.svg";
+import { Waypoint } from "react-waypoint";
+import NotifsContext from "../../context/useNotifs";
 import {
   api,
   utils,
@@ -21,44 +22,30 @@ import {
 } from "@epnsproject/frontend-sdk-staging";
 import Tooltip from "./Tooltip";
 
-const useStyles = makeStyles((theme) => ({
-  input1: {
-    "& > *": {
-      position: "absolute",
-      width: "300px",
-      height: "40px",
-      left: "30px",
-      top: "311px",
-    },
-  },
-  input2: {
-    "& > *": {
-      position: "absolute",
-      width: "300px",
-      height: "40px",
-      left: "30px",
-      top: "381px",
-    },
-  },
-  checkbox: {
-    "& > *": {
-      position: "absolute",
-      left: "10.33%",
-      right: "86.67%",
-      top: "74.17%",
-    },
-  },
-}));
+const Loader = (props) => {
+  const { load } = props;
+  return (
+    <div className={props.load === "top" ? "loading" : "loadinging"}>
+      <img src={Spinner} alt="" style={{ width: "5rem" }} />
+    </div>
+  );
+};
+
+const NOTIFICATIONS_PER_PAGE = 10;
 
 export default function NotificationPage() {
-  const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(false);
   const [wallet, setWallet] = useState("");
   const [addr, setAddr] = useState("");
   const [object, setObject] = useState("");
   const [model, setModel] = useState(false);
   const [active, setActive] = useState(false);
+  const [bgUpdateLoading, setBgUpdateLoading] = useState(false);
   const [seen, setSeen] = useState(false);
+  const [page, setPage] = useState(1);
+  const [pageSpam, setPageSpam] = useState(1);
+  // eslint-disable-next-line
+  const [notifs, setNotifs] = useContext(NotifsContext);
   const modalRef = useRef();
   useEffect(() => {
     chrome.storage.local.get(["epns"], function (result) {
@@ -68,7 +55,7 @@ export default function NotificationPage() {
       }
     });
     if (wallet) {
-      callAPI();
+      callLatestNotifs();
     }
     let walletTemp = wallet;
     let fh = walletTemp.slice(0, 6);
@@ -77,18 +64,43 @@ export default function NotificationPage() {
     setAddr(final);
   }, [wallet]);
 
-  const callAPI = async () => {
-    if (loading) return;
+  const callNotifs = async () => {
+    setBgUpdateLoading(true);
+    const walletAddr = wallet.toLowerCase();
+
+    try {
+      const { count, results } = await api.fetchNotifications(
+        walletAddr,
+        NOTIFICATIONS_PER_PAGE,
+        page,
+        "https://backend-kovan.epns.io/apis"
+      );
+
+      const parsedResponse = utils.parseApiResponse(results);
+      setNotifs((x) => [...x, ...parsedResponse]);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setBgUpdateLoading(false);
+      setLoading(false);
+    }
+  };
+
+  const callLatestNotifs = async () => {
     setLoading(true);
     const walletAddr = wallet.toLowerCase();
 
     try {
       const { count, results } = await api.fetchNotifications(
         walletAddr,
-        100000,
+        NOTIFICATIONS_PER_PAGE,
         1,
         "https://backend-kovan.epns.io/apis"
       );
+
+      if (!notifs.length) {
+        setPage(page + 1);
+      }
       const parsedResponse = utils.parseApiResponse(results);
       const map1 = new Map();
       const map2 = new Map();
@@ -102,7 +114,7 @@ export default function NotificationPage() {
         each.channel = map2.get(each.sid);
       });
       setWallet(walletAddr);
-      setNotifications(parsedResponse);
+      setNotifs([...parsedResponse]);
     } catch (err) {
       console.log(err);
     } finally {
@@ -111,17 +123,43 @@ export default function NotificationPage() {
   };
 
   const fetchSpam = async () => {
-    if (loading) return;
+    setBgUpdateLoading(true);
+    const walletAddr = wallet.toLowerCase();
+
+    try {
+      const { count, results } = await api.fetchSpamNotifications(
+        walletAddr,
+        NOTIFICATIONS_PER_PAGE,
+        pageSpam,
+        "https://backend-kovan.epns.io/apis"
+      );
+      const parsedResponse = utils.parseApiResponse(results);
+
+      setNotifs((x) => [...x, ...parsedResponse]);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setBgUpdateLoading(false);
+      setLoading(false);
+    }
+  };
+
+  const fetchLatestSpam = async () => {
     setLoading(true);
     const walletAddr = wallet.toLowerCase();
 
     try {
       const { count, results } = await api.fetchSpamNotifications(
         walletAddr,
-        100000,
+        NOTIFICATIONS_PER_PAGE,
         1,
         "https://backend-kovan.epns.io/apis"
       );
+
+      if (!notifs.length) {
+        setPageSpam(pageSpam + 1);
+      }
+
       const parsedResponse = utils.parseApiResponse(results);
       const map1 = new Map();
       const map2 = new Map();
@@ -135,7 +173,7 @@ export default function NotificationPage() {
         each.channel = map2.get(each.sid);
       });
       setWallet(walletAddr);
-      setNotifications(parsedResponse);
+      setNotifs([...parsedResponse]);
     } catch (err) {
       console.log(err);
     } finally {
@@ -145,9 +183,9 @@ export default function NotificationPage() {
 
   useEffect(() => {
     if (active) {
-      if (wallet) fetchSpam();
+      if (wallet) fetchLatestSpam();
     } else {
-      if (wallet) callAPI();
+      if (wallet) callLatestNotifs();
     }
   }, [active]);
 
@@ -168,11 +206,21 @@ export default function NotificationPage() {
     };
   }, [model]);
 
-  // const toggle = () => {
-  //   setSeen(!seen);
-  // };
+  //function to query more notifications
+  const handlePagination = async () => {
+    if (active) {
+      fetchSpam();
+      setPageSpam(pageSpam + 1);
+    } else {
+      callNotifs();
+      setPage(page + 1);
+    }
+  };
 
-  const classes = useStyles();
+  const showWayPoint = (index) => {
+    return Number(index) === notifs.length - 1 && !loading;
+  };
+
   return (
     <>
       <Transitions3 />
@@ -248,6 +296,7 @@ export default function NotificationPage() {
               className={!active ? "regular" : "none"}
               onClick={() => {
                 setActive(false);
+                setNotifs([]);
               }}
             >
               Inbox
@@ -256,6 +305,7 @@ export default function NotificationPage() {
               className={active ? "regular" : "none"}
               onClick={() => {
                 setActive(true);
+                setNotifs([]);
               }}
             >
               Spam
@@ -263,78 +313,134 @@ export default function NotificationPage() {
           </div>
         </div>
 
-        {notifications && !loading ? (
-          notifications?.length > 0 ? (
-            <div className="new-space" style={{ padding: "5px 30px" }}>
-              {notifications.map((oneNotification, index) => {
-                const { cta, title, message, app, icon, image } =
-                  oneNotification;
-                // render the notification item
-                return (
-                  <div key={`${message}+${title}`}>
-                    <NotificationItem
-                      notificationTitle={title}
-                      notificationBody={message}
-                      cta={cta}
-                      app={app}
-                      icon={icon}
-                      image={image}
-                      // theme={themes.scheme}
-                    />
+        {active ? (
+          <>
+            {notifs && !loading ? (
+              notifs?.length > 0 ? (
+                <div className="new-space" style={{ padding: "5px 30px" }}>
+                  {notifs.map((oneNotification, index) => {
+                    const {
+                      cta,
+                      title,
+                      message,
+                      app,
+                      icon,
+                      image,
+                      blockchain,
+                    } = oneNotification;
+                    // render the notification item
+                    return (
+                      <div key={index}>
+                        {showWayPoint(index) && (
+                          <Waypoint onEnter={handlePagination} />
+                        )}
+                        <NotificationItem
+                          notificationTitle={title}
+                          notificationBody={message}
+                          cta={cta}
+                          app={app}
+                          icon={icon}
+                          image={image}
+                          chainName={blockchain}
+                        />
+                      </div>
+                    );
+                  })}
+
+                  <Loader load={"bottom"} />
+                </div>
+              ) : (
+                <div className="illustration">
+                  <BsFillExclamationCircleFill
+                    color="#D1D5DB"
+                    size={140}
+                    className="icon-empty"
+                    style={{
+                      border: "1px solid #d6d3d1",
+                      borderRadius: "100%",
+                      padding: "1px",
+                    }}
+                  />
+                  <div className="slide-left description-texts regular">
+                    <span className="regular">NO SPAM NOTIFICATIONS</span>
                   </div>
-                );
-              })}
-            </div>
-          ) : notifications?.length === 0 && active ? (
-            <div className="illustration">
-              <BsFillExclamationCircleFill
-                color="#D1D5DB"
-                size={140}
-                className="icon-empty"
-                style={{
-                  border: "1px solid #d6d3d1",
-                  borderRadius: "100%",
-                  padding: "1px",
-                }}
-              />
-              <div className="slide-left description-texts regular">
-                <span className="regular">NO SPAM NOTIFICATIONS</span>
-              </div>
-            </div>
-          ) : (
-            <div className="illustration">
-              <BsFillExclamationCircleFill
-                color="#D1D5DB"
-                size={140}
-                className="icon-empty"
-                style={{
-                  border: "1px solid #d6d3d1",
-                  borderRadius: "100%",
-                  padding: "1px",
-                }}
-              />
-              <div className="slide-left description-texts regular">
-                <span className="regular">NO NOTIFICATIONS YET!!</span>
-                <p id="decription">
-                  Visit{" "}
-                  <a
-                    href="https://app.epns.io/"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="link-home"
-                  >
-                    app.epns.io
-                  </a>{" "}
-                  from a <b>Web3 Enabled Browser</b> to opt-in to your favorite{" "}
-                  <b>channels</b> and start receiving <b>notifications</b>.
-                </p>
-              </div>
-            </div>
-          )
+                </div>
+              )
+            ) : (
+              <Loader load={"top"} />
+            )}
+          </>
         ) : (
-          <div className="loading">
-            <img src={Spinner} alt="" style={{ width: "5rem" }} />
-          </div>
+          <>
+            {notifs && !loading ? (
+              notifs?.length > 0 ? (
+                <div className="new-space" style={{ padding: "5px 30px" }}>
+                  {notifs.map((oneNotification, index) => {
+                    const {
+                      cta,
+                      title,
+                      message,
+                      app,
+                      icon,
+                      image,
+                      blockchain,
+                    } = oneNotification;
+                    // render the notification item
+                    return (
+                      <div key={index}>
+                        {showWayPoint(index) && (
+                          <Waypoint onEnter={handlePagination} />
+                        )}
+                        <NotificationItem
+                          notificationTitle={title}
+                          notificationBody={message}
+                          cta={cta}
+                          app={app}
+                          icon={icon}
+                          image={image}
+                          chainName={blockchain}
+                        />
+                      </div>
+                    );
+                  })}
+
+                  <Loader load={"bottom"} />
+                </div>
+              ) : (
+                <div className="illustration">
+                  <BsFillExclamationCircleFill
+                    color="#D1D5DB"
+                    size={140}
+                    className="icon-empty"
+                    style={{
+                      border: "1px solid #d6d3d1",
+                      borderRadius: "100%",
+                      padding: "1px",
+                    }}
+                  />
+                  <div className="slide-left description-texts regular">
+                    <span className="regular">NO NOTIFICATIONS YET!!</span>
+                    <p id="decription">
+                      Visit{" "}
+                      <a
+                        href="https://app.epns.io/"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="link-home"
+                      >
+                        app.epns.io
+                      </a>{" "}
+                      from a <b>Web3 Enabled Browser</b> to opt-in to your
+                      favorite <b>channels</b> and start receiving{" "}
+                      <b>notifications</b>.
+                    </p>
+                  </div>
+                </div>
+              )
+            ) : (
+              <Loader load={"top"} />
+            )}
+          </>
         )}
       </div>
     </>
