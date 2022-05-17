@@ -22,34 +22,14 @@ import {
 } from "@epnsproject/frontend-sdk-staging";
 import Tooltip from "./Tooltip";
 
-const useStyles = makeStyles((theme) => ({
-  input1: {
-    "& > *": {
-      position: "absolute",
-      width: "300px",
-      height: "40px",
-      left: "30px",
-      top: "311px",
-    },
-  },
-  input2: {
-    "& > *": {
-      position: "absolute",
-      width: "300px",
-      height: "40px",
-      left: "30px",
-      top: "381px",
-    },
-  },
-  checkbox: {
-    "& > *": {
-      position: "absolute",
-      left: "10.33%",
-      right: "86.67%",
-      top: "74.17%",
-    },
-  },
-}));
+const Loader = (props) => {
+  const { load } = props;
+  return (
+    <div className={props.load === "top" ? "loading" : "loadinging"}>
+      <img src={Spinner} alt="" style={{ width: "5rem" }} />
+    </div>
+  );
+};
 
 const NOTIFICATIONS_PER_PAGE = 10;
 
@@ -241,26 +221,6 @@ export default function NotificationPage() {
     return Number(index) === notifs.length - 1 && !loading;
   };
 
-  const TopLoader = () => {
-    return (
-      <div className="loading">
-        <img src={Spinner} alt="" style={{ width: "5rem" }} />
-      </div>
-    );
-  };
-
-  const InfiniteLoader = () => {
-    return (
-      <>
-        {bgUpdateLoading && (
-          <div className="loadinging">
-            <img src={Spinner} alt="" style={{ width: "5rem" }} />
-          </div>
-        )}
-      </>
-    );
-  };
-
   return (
     <>
       <Transitions3 />
@@ -387,7 +347,7 @@ export default function NotificationPage() {
                     );
                   })}
 
-                  <InfiniteLoader />
+                  <Loader load={"bottom"} />
                 </div>
               ) : (
                 <div className="illustration">
@@ -407,7 +367,7 @@ export default function NotificationPage() {
                 </div>
               )
             ) : (
-              <TopLoader />
+              <Loader load={"top"} />
             )}
           </>
         ) : (
@@ -444,7 +404,7 @@ export default function NotificationPage() {
                     );
                   })}
 
-                  <InfiniteLoader />
+                  <Loader load={"bottom"} />
                 </div>
               ) : (
                 <div className="illustration">
@@ -478,7 +438,7 @@ export default function NotificationPage() {
                 </div>
               )
             ) : (
-              <TopLoader />
+              <Loader load={"top"} />
             )}
           </>
         )}
