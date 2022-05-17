@@ -6,9 +6,10 @@ export default function Tooltip() {
   return (
     <Fragment>
       <div className="new-one regular">
-        <b>EPNS</b> is an innovative way to receive notification from different{" "}
-        <b>dApps</b> and <b>Smart Contracts</b>. Think notification but coming
-        from blockchain ecosystem.
+        EPNS is a decentralized communication protocol for Web3! that allows any
+        <b> dApps</b>, <b>Smart Contracts</b>, backends or protocols to send
+        communication directly to user wallet addresses in an open, gasless and
+        platform agnostic fashion.
       </div>
     </Fragment>
   );
