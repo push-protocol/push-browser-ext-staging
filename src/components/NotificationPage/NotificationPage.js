@@ -32,7 +32,8 @@ const Loader = (props) => {
 };
 
 const NotifItem = (props) => {
-  const { notifs, load, showWayPoint, handlePagination } = props;
+  const { notifs, load, showWayPoint, handlePagination, bgUpdateLoading } =
+    props;
   return (
     <div className="new-space" style={{ padding: "5px 30px" }}>
       {notifs.map((oneNotification, index) => {
@@ -55,7 +56,7 @@ const NotifItem = (props) => {
         );
       })}
 
-      <Loader load={load} />
+      {bgUpdateLoading && <Loader load={load} />}
     </div>
   );
 };
@@ -393,6 +394,7 @@ export default function NotificationPage() {
                   load="bottom"
                   showWayPoint={showWayPoint}
                   handlePagination={handlePagination}
+                  bgUpdateLoading={bgUpdateLoading}
                 />
               ) : (
                 <Illustration text="NO SPAM NOTIFICATIONS!" body={false} />
@@ -410,6 +412,7 @@ export default function NotificationPage() {
                   load="bottom"
                   showWayPoint={showWayPoint}
                   handlePagination={handlePagination}
+                  bgUpdateLoading={bgUpdateLoading}
                 />
               ) : (
                 <Illustration text="NO NOTIFICATIONS YET!" body={true} />
