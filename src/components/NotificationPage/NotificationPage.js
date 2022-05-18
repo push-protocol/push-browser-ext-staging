@@ -25,9 +25,83 @@ import Tooltip from "./Tooltip";
 const Loader = (props) => {
   const { load } = props;
   return (
-    <div className={props.load === "top" ? "loading" : "loadinging"}>
+    <div className={load === "top" ? "loading" : "loadinging"}>
       <img src={Spinner} alt="" style={{ width: "5rem" }} />
     </div>
+  );
+};
+
+const NotifItem = (props) => {
+  const { notifs, load, showWayPoint, handlePagination } = props;
+  return (
+    <div className="new-space" style={{ padding: "5px 30px" }}>
+      {notifs.map((oneNotification, index) => {
+        const { cta, title, message, app, icon, image, blockchain } =
+          oneNotification;
+        // render the notification item
+        return (
+          <div key={index}>
+            <NotificationItem
+              notificationTitle={title}
+              notificationBody={message}
+              cta={cta}
+              app={app}
+              icon={icon}
+              image={image}
+              chainName={blockchain}
+            />
+            {showWayPoint(index) && <Waypoint onEnter={handlePagination} />}
+          </div>
+        );
+      })}
+
+      <Loader load={load} />
+    </div>
+  );
+};
+
+const Illustration = (props) => {
+  const { text, body } = props;
+  return (
+    <div className="illustration">
+      <BsFillExclamationCircleFill
+        color="#D1D5DB"
+        size={140}
+        className="icon-empty"
+        style={{
+          border: "1px solid #d6d3d1",
+          borderRadius: "100%",
+          padding: "1px",
+        }}
+      />
+      <div className="slide-left description-texts regular">
+        <span className="regular">{text}</span>
+        {body && (
+          <p id="decription">
+            Visit{" "}
+            <a
+              href="https://app.epns.io/"
+              target="_blank"
+              rel="noreferrer"
+              className="link-home"
+            >
+              app.epns.io
+            </a>{" "}
+            from a <b>Web3 Enabled Browser</b> to opt-in to your favorite{" "}
+            <b>channels</b> and start receiving <b>notifications</b>.
+          </p>
+        )}
+      </div>
+    </div>
+  );
+};
+
+const NavButton = (props) => {
+  const { text, onClick, className } = props;
+  return (
+    <button className={className} onClick={onClick}>
+      {text}
+    </button>
   );
 };
 
@@ -221,6 +295,11 @@ export default function NotificationPage() {
     return Number(index) === notifs.length - 1 && !loading;
   };
 
+  const makeActive = (status) => {
+    setActive(status);
+    setNotifs([]);
+  };
+
   return (
     <>
       <Transitions3 />
@@ -292,24 +371,16 @@ export default function NotificationPage() {
 
         <div className="feedBox">
           <div className="twin-button regular">
-            <button
+            <NavButton
+              text="Inbox"
               className={!active ? "regular" : "none"}
-              onClick={() => {
-                setActive(false);
-                setNotifs([]);
-              }}
-            >
-              Inbox
-            </button>
-            <button
+              onClick={() => makeActive(false)}
+            />
+            <NavButton
+              text="Spam"
               className={active ? "regular" : "none"}
-              onClick={() => {
-                setActive(true);
-                setNotifs([]);
-              }}
-            >
-              Spam
-            </button>
+              onClick={() => makeActive(true)}
+            />
           </div>
         </div>
 
@@ -317,128 +388,34 @@ export default function NotificationPage() {
           <>
             {notifs && !loading ? (
               notifs?.length > 0 ? (
-                <div className="new-space" style={{ padding: "5px 30px" }}>
-                  {notifs.map((oneNotification, index) => {
-                    const {
-                      cta,
-                      title,
-                      message,
-                      app,
-                      icon,
-                      image,
-                      blockchain,
-                    } = oneNotification;
-                    // render the notification item
-                    return (
-                      <div key={index}>
-                        {showWayPoint(index) && (
-                          <Waypoint onEnter={handlePagination} />
-                        )}
-                        <NotificationItem
-                          notificationTitle={title}
-                          notificationBody={message}
-                          cta={cta}
-                          app={app}
-                          icon={icon}
-                          image={image}
-                          chainName={blockchain}
-                        />
-                      </div>
-                    );
-                  })}
-
-                  <Loader load={"bottom"} />
-                </div>
+                <NotifItem
+                  notifs={notifs}
+                  load="bottom"
+                  showWayPoint={showWayPoint}
+                  handlePagination={handlePagination}
+                />
               ) : (
-                <div className="illustration">
-                  <BsFillExclamationCircleFill
-                    color="#D1D5DB"
-                    size={140}
-                    className="icon-empty"
-                    style={{
-                      border: "1px solid #d6d3d1",
-                      borderRadius: "100%",
-                      padding: "1px",
-                    }}
-                  />
-                  <div className="slide-left description-texts regular">
-                    <span className="regular">NO SPAM NOTIFICATIONS</span>
-                  </div>
-                </div>
+                <Illustration text="NO SPAM NOTIFICATIONS!" body={false} />
               )
             ) : (
-              <Loader load={"top"} />
+              <Loader load="top" />
             )}
           </>
         ) : (
           <>
             {notifs && !loading ? (
               notifs?.length > 0 ? (
-                <div className="new-space" style={{ padding: "5px 30px" }}>
-                  {notifs.map((oneNotification, index) => {
-                    const {
-                      cta,
-                      title,
-                      message,
-                      app,
-                      icon,
-                      image,
-                      blockchain,
-                    } = oneNotification;
-                    // render the notification item
-                    return (
-                      <div key={index}>
-                        {showWayPoint(index) && (
-                          <Waypoint onEnter={handlePagination} />
-                        )}
-                        <NotificationItem
-                          notificationTitle={title}
-                          notificationBody={message}
-                          cta={cta}
-                          app={app}
-                          icon={icon}
-                          image={image}
-                          chainName={blockchain}
-                        />
-                      </div>
-                    );
-                  })}
-
-                  <Loader load={"bottom"} />
-                </div>
+                <NotifItem
+                  notifs={notifs}
+                  load="bottom"
+                  showWayPoint={showWayPoint}
+                  handlePagination={handlePagination}
+                />
               ) : (
-                <div className="illustration">
-                  <BsFillExclamationCircleFill
-                    color="#D1D5DB"
-                    size={140}
-                    className="icon-empty"
-                    style={{
-                      border: "1px solid #d6d3d1",
-                      borderRadius: "100%",
-                      padding: "1px",
-                    }}
-                  />
-                  <div className="slide-left description-texts regular">
-                    <span className="regular">NO NOTIFICATIONS YET!!</span>
-                    <p id="decription">
-                      Visit{" "}
-                      <a
-                        href="https://app.epns.io/"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="link-home"
-                      >
-                        app.epns.io
-                      </a>{" "}
-                      from a <b>Web3 Enabled Browser</b> to opt-in to your
-                      favorite <b>channels</b> and start receiving{" "}
-                      <b>notifications</b>.
-                    </p>
-                  </div>
-                </div>
+                <Illustration text="NO NOTIFICATIONS YET!" body={true} />
               )
             ) : (
-              <Loader load={"top"} />
+              <Loader load="top" />
             )}
           </>
         )}
