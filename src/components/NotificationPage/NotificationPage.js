@@ -97,15 +97,9 @@ const Illustration = (props) => {
 };
 
 const NavButton = (props) => {
-  const { status, text, setActive, setNotifs, className } = props;
+  const { text, onClick, className } = props;
   return (
-    <button
-      className={className}
-      onClick={() => {
-        setActive(status);
-        setNotifs([]);
-      }}
-    >
+    <button className={className} onClick={onClick}>
       {text}
     </button>
   );
@@ -298,10 +292,12 @@ export default function NotificationPage() {
   };
 
   const showWayPoint = (index) => {
-    chrome.extension
-      .getBackgroundPage()
-      .console.log(Number(index), notifs.length - 1);
     return Number(index) === notifs.length - 1 && !loading;
+  };
+
+  const makeActive = (status) => {
+    setActive(status);
+    setNotifs([]);
   };
 
   return (
@@ -377,17 +373,13 @@ export default function NotificationPage() {
           <div className="twin-button regular">
             <NavButton
               text="Inbox"
-              status={false}
               className={!active ? "regular" : "none"}
-              setActive={setActive}
-              setNotifs={setNotifs}
+              onClick={() => makeActive(false)}
             />
             <NavButton
               text="Spam"
-              status={true}
-              setActive={setActive}
               className={active ? "regular" : "none"}
-              setNotifs={setNotifs}
+              onClick={() => makeActive(true)}
             />
           </div>
         </div>
