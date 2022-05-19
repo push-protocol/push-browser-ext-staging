@@ -8,8 +8,8 @@ import {
   getComponentStack,
 } from "react-chrome-extension-router";
 import Home from "./components/HomePage/HomePage";
-import WelcomeBackPage from "./components/WelcomeBackPage/WelcomeBackPage";
 import NotifsContext from "./context/useNotifs";
+import NotificationPage from "./components/NotificationPage/NotificationPage";
 
 console.log = function () {};
 function App() {
@@ -38,7 +38,7 @@ function App() {
     return (
       <NotifsContext.Provider value={[notifs, setNotifs]}>
         <Router>
-          <WelcomeBackPage />
+          <NotificationPage />
         </Router>
       </NotifsContext.Provider>
     );
