@@ -21,6 +21,7 @@ import {
   NotificationItem,
 } from "@epnsproject/frontend-sdk-staging";
 import Tooltip from "./Tooltip";
+import Config from "../../config";
 
 const Loader = (props) => {
   const { load } = props;
@@ -148,7 +149,7 @@ export default function NotificationPage() {
         walletAddr,
         NOTIFICATIONS_PER_PAGE,
         page,
-        "https://backend-kovan.epns.io/apis"
+        Config.baseUrl
       );
 
       const parsedResponse = utils.parseApiResponse(results);
@@ -170,7 +171,7 @@ export default function NotificationPage() {
         walletAddr,
         NOTIFICATIONS_PER_PAGE,
         1,
-        "https://backend-kovan.epns.io/apis"
+        Config.baseUrl
       );
 
       if (!notifs.length) {
@@ -206,7 +207,7 @@ export default function NotificationPage() {
         walletAddr,
         NOTIFICATIONS_PER_PAGE,
         pageSpam,
-        "https://backend-kovan.epns.io/apis"
+        Config.baseUrl
       );
       const parsedResponse = utils.parseApiResponse(results);
 
@@ -228,7 +229,7 @@ export default function NotificationPage() {
         walletAddr,
         NOTIFICATIONS_PER_PAGE,
         1,
-        "https://backend-kovan.epns.io/apis"
+        Config.baseUrl
       );
 
       if (!notifs.length) {
