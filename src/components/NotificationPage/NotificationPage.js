@@ -131,14 +131,18 @@ export default function NotificationPage() {
       }
     });
     if (wallet) {
+      updateWallet(wallet);
       callLatestNotifs();
     }
+  }, [wallet]);
+
+  const updateWallet = (wallet) => {
     let walletTemp = wallet;
     let fh = walletTemp.slice(0, 6);
     let sh = walletTemp.slice(-6);
     let final = fh + "...." + sh;
     setAddr(final);
-  }, [wallet]);
+  };
 
   const callNotifs = async () => {
     setBgUpdateLoading(true);
@@ -149,7 +153,7 @@ export default function NotificationPage() {
         walletAddr,
         NOTIFICATIONS_PER_PAGE,
         page,
-        Config.baseUrl
+        Config.baseURL
       );
 
       const parsedResponse = utils.parseApiResponse(results);
@@ -171,7 +175,7 @@ export default function NotificationPage() {
         walletAddr,
         NOTIFICATIONS_PER_PAGE,
         1,
-        Config.baseUrl
+        Config.baseURL
       );
 
       if (!notifs.length) {
@@ -207,7 +211,7 @@ export default function NotificationPage() {
         walletAddr,
         NOTIFICATIONS_PER_PAGE,
         pageSpam,
-        Config.baseUrl
+        Config.baseURL
       );
       const parsedResponse = utils.parseApiResponse(results);
 
@@ -229,7 +233,7 @@ export default function NotificationPage() {
         walletAddr,
         NOTIFICATIONS_PER_PAGE,
         1,
-        Config.baseUrl
+        Config.baseURL
       );
 
       if (!notifs.length) {
