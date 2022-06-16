@@ -20,6 +20,7 @@ import {
   utils,
   NotificationItem,
 } from "@epnsproject/frontend-sdk-staging";
+import * as EPNSAPI from "@epnsproject/sdk-restapi";
 import Tooltip from "./Tooltip";
 import Config from "../../config";
 
@@ -149,13 +150,12 @@ export default function NotificationPage() {
     const walletAddr = wallet.toLowerCase();
 
     try {
-      const { count, results } = await api.fetchNotifications(
-        walletAddr,
-        NOTIFICATIONS_PER_PAGE,
+      const { count, results } = await EPNSAPI.fetchNotifications({
+        user: walletAddr,
+        pageSize: NOTIFICATIONS_PER_PAGE,
         page,
-        Config.baseURL
-      );
-
+        chainId: 42,
+      });
       const parsedResponse = utils.parseApiResponse(results);
       setNotifs((x) => [...x, ...parsedResponse]);
     } catch (err) {
@@ -171,13 +171,12 @@ export default function NotificationPage() {
     const walletAddr = wallet.toLowerCase();
 
     try {
-      const { count, results } = await api.fetchNotifications(
-        walletAddr,
-        NOTIFICATIONS_PER_PAGE,
-        1,
-        Config.baseURL
-      );
-
+      const { count, results } = await EPNSAPI.fetchNotifications({
+        user: walletAddr,
+        pageSize: NOTIFICATIONS_PER_PAGE,
+        page,
+        chainId: 42
+      });
       if (!notifs.length) {
         setPage(page + 1);
       }
@@ -207,12 +206,12 @@ export default function NotificationPage() {
     const walletAddr = wallet.toLowerCase();
 
     try {
-      const { count, results } = await api.fetchSpamNotifications(
-        walletAddr,
-        NOTIFICATIONS_PER_PAGE,
-        pageSpam,
-        Config.baseURL
-      );
+      const { count, results } = await EPNSAPI.fetchSpamNotifications({
+        user: walletAddr,
+        pageSize: NOTIFICATIONS_PER_PAGE,
+        page,
+        chainId: 42,
+      });
       const parsedResponse = utils.parseApiResponse(results);
 
       setNotifs((x) => [...x, ...parsedResponse]);
@@ -229,13 +228,12 @@ export default function NotificationPage() {
     const walletAddr = wallet.toLowerCase();
 
     try {
-      const { count, results } = await api.fetchSpamNotifications(
-        walletAddr,
-        NOTIFICATIONS_PER_PAGE,
-        1,
-        Config.baseURL
-      );
-
+      const { count, results } = await EPNSAPI.fetchSpamNotifications({
+        user: walletAddr,
+        pageSize: NOTIFICATIONS_PER_PAGE,
+        page,
+        chainId: 42,
+      });
       if (!notifs.length) {
         setPageSpam(pageSpam + 1);
       }
