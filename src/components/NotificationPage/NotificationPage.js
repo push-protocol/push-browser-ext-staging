@@ -174,7 +174,7 @@ export default function NotificationPage() {
       const { count, results } = await EPNSAPI.fetchNotifications({
         user: walletAddr,
         pageSize: NOTIFICATIONS_PER_PAGE,
-        page,
+        page: 1,
         chainId: 42
       });
       if (!notifs.length) {
@@ -209,7 +209,7 @@ export default function NotificationPage() {
       const { count, results } = await EPNSAPI.fetchSpamNotifications({
         user: walletAddr,
         pageSize: NOTIFICATIONS_PER_PAGE,
-        page,
+        page: pageSpam,
         chainId: 42,
       });
       const parsedResponse = utils.parseApiResponse(results);
@@ -231,7 +231,7 @@ export default function NotificationPage() {
       const { count, results } = await EPNSAPI.fetchSpamNotifications({
         user: walletAddr,
         pageSize: NOTIFICATIONS_PER_PAGE,
-        page,
+        page: 1,
         chainId: 42,
       });
       if (!notifs.length) {
