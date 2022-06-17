@@ -20,7 +20,7 @@ import {
   utils,
   NotificationItem,
 } from "@epnsproject/frontend-sdk-staging";
-import * as EPNSAPI from "@epnsproject/sdk-restapi";
+import * as EpnsAPI from "@epnsproject/sdk-restapi";
 import Tooltip from "./Tooltip";
 import Config from "../../config";
 
@@ -150,7 +150,7 @@ export default function NotificationPage() {
     const walletAddr = wallet.toLowerCase();
 
     try {
-      const { count, results } = await EPNSAPI.fetchNotifications({
+      const { count, results } = await EpnsAPI.fetchNotifications({
         user: walletAddr,
         pageSize: NOTIFICATIONS_PER_PAGE,
         page,
@@ -171,7 +171,7 @@ export default function NotificationPage() {
     const walletAddr = wallet.toLowerCase();
 
     try {
-      const { count, results } = await EPNSAPI.fetchNotifications({
+      const { count, results } = await EpnsAPI.fetchNotifications({
         user: walletAddr,
         pageSize: NOTIFICATIONS_PER_PAGE,
         page: 1,
@@ -206,7 +206,7 @@ export default function NotificationPage() {
     const walletAddr = wallet.toLowerCase();
 
     try {
-      const { count, results } = await EPNSAPI.fetchSpamNotifications({
+      const { count, results } = await EpnsAPI.fetchSpamNotifications({
         user: walletAddr,
         pageSize: NOTIFICATIONS_PER_PAGE,
         page: pageSpam,
@@ -228,7 +228,7 @@ export default function NotificationPage() {
     const walletAddr = wallet.toLowerCase();
 
     try {
-      const { count, results } = await EPNSAPI.fetchSpamNotifications({
+      const { count, results } = await EpnsAPI.fetchSpamNotifications({
         user: walletAddr,
         pageSize: NOTIFICATIONS_PER_PAGE,
         page: 1,
