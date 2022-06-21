@@ -1,7 +1,7 @@
 {
   "name": "EPNS Staging Protocol (Alpha)",
   "description": "Receive Notifications from Web3.0.\n\nIntroducing Ethereum Push Notification Service (EPNS) - The Missing Piece of Web3.",
-  "version": "0.2.9",
+  "version": "0.3.0",
   "manifest_version": 2,
   "browser_action": {
     "default_popup": "index.html",
@@ -20,7 +20,9 @@
     "128": "/images/get_started128.png"
   },
   "background": {
-    "scripts": ["background.js"],
+    "scripts": [
+      "background.js"
+    ],
     "persistent": true
   },
   "content_security_policy": "script-src 'self' 'sha256-O+gY2ATd2FyIkUm5vHrGKxIirZoCPnZsEx0P40/KSY8=' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com; object-src 'self'",
