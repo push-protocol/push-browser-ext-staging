@@ -42,7 +42,6 @@ const NotifItem = (props) => {
       {notifs.map((oneNotification, index) => {
         const { cta, title, message, app, icon, image, blockchain, url } =
           oneNotification;
-          chrome.extension.getBackgroundPage().console.log(oneNotification);
         // render the notification item
         return (
           <div key={index}>
