@@ -18,8 +18,9 @@ import NotifsContext from "../../context/useNotifs";
 import {
   api,
   utils,
-  NotificationItem,
+  // NotificationItem,
 } from "@epnsproject/frontend-sdk-staging";
+import { NotificationItem } from "@epnsproject/sdk-uiweb";
 import * as EpnsAPI from "@epnsproject/sdk-restapi";
 import Tooltip from "./Tooltip";
 import Config from "../../config";
@@ -39,8 +40,9 @@ const NotifItem = (props) => {
   return (
     <div className="new-space" style={{ padding: "5px 30px" }}>
       {notifs.map((oneNotification, index) => {
-        const { cta, title, message, app, icon, image, blockchain } =
+        const { cta, title, message, app, icon, image, blockchain, url } =
           oneNotification;
+          chrome.extension.getBackgroundPage().console.log(oneNotification);
         // render the notification item
         return (
           <div key={index}>
@@ -52,6 +54,7 @@ const NotifItem = (props) => {
               icon={icon}
               image={image}
               chainName={blockchain}
+              url={url}
             />
             {showWayPoint(index) && <Waypoint onEnter={handlePagination} />}
           </div>
@@ -156,7 +159,7 @@ export default function NotificationPage() {
         page,
         chainId: 42,
       });
-      const parsedResponse = utils.parseApiResponse(results);
+      const parsedResponse = EpnsAPI.parseApiResponse(results);
       setNotifs((x) => [...x, ...parsedResponse]);
     } catch (err) {
       console.log(err);
@@ -180,7 +183,7 @@ export default function NotificationPage() {
       if (!notifs.length) {
         setPage(page + 1);
       }
-      const parsedResponse = utils.parseApiResponse(results);
+      const parsedResponse = EpnsAPI.parseApiResponse(results);
       const map1 = new Map();
       const map2 = new Map();
       results.forEach((each) => {
@@ -212,7 +215,7 @@ export default function NotificationPage() {
         page: pageSpam,
         chainId: 42,
       });
-      const parsedResponse = utils.parseApiResponse(results);
+      const parsedResponse = EpnsAPI.parseApiResponse(results);
 
       setNotifs((x) => [...x, ...parsedResponse]);
     } catch (err) {
@@ -238,7 +241,7 @@ export default function NotificationPage() {
         setPageSpam(pageSpam + 1);
       }
 
-      const parsedResponse = utils.parseApiResponse(results);
+      const parsedResponse = EpnsAPI.parseApiResponse(results);
       const map1 = new Map();
       const map2 = new Map();
       results.forEach((each) => {
