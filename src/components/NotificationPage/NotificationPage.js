@@ -15,11 +15,6 @@ import { BsX } from "react-icons/bs";
 import Spinner from "../../assests/Spinner.svg";
 import { Waypoint } from "react-waypoint";
 import NotifsContext from "../../context/useNotifs";
-import {
-  api,
-  utils,
-  // NotificationItem,
-} from "@epnsproject/frontend-sdk-staging";
 import { NotificationItem } from "@epnsproject/sdk-uiweb";
 import * as EpnsAPI from "@epnsproject/sdk-restapi";
 import Tooltip from "./Tooltip";
