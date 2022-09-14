@@ -18,7 +18,7 @@ import NotifsContext from "../../context/useNotifs";
 import { NotificationItem } from "@epnsproject/sdk-uiweb";
 import * as EpnsAPI from "@epnsproject/sdk-restapi";
 import Tooltip from "./Tooltip";
-import Config from "../../config";
+import { convertAddressToAddrCaip } from "../../utils/utils";
 
 const Loader = (props) => {
   const { load } = props;
@@ -145,15 +145,18 @@ export default function NotificationPage() {
   const callNotifs = async () => {
     setBgUpdateLoading(true);
     const walletAddr = wallet.toLowerCase();
+    let user = convertAddressToAddrCaip(walletAddr, 42);
 
     try {
-      const { count, results } = await EpnsAPI.fetchNotifications({
-        user: walletAddr,
-        pageSize: NOTIFICATIONS_PER_PAGE,
-        page,
-        chainId: 42,
+      const results = await EpnsAPI.user.getFeeds({
+        user: user, // user address in CAIP
+        raw: true,
+        env: "staging",
+        page: page,
+        limit: NOTIFICATIONS_PER_PAGE,
       });
-      const parsedResponse = EpnsAPI.parseApiResponse(results);
+      chrome.extension.getBackgroundPage().console.log(results, "lll");
+      const parsedResponse = EpnsAPI.utils.parseApiResponse(results);
       setNotifs((x) => [...x, ...parsedResponse]);
     } catch (err) {
       console.log(err);
@@ -166,18 +169,21 @@ export default function NotificationPage() {
   const callLatestNotifs = async () => {
     setLoading(true);
     const walletAddr = wallet.toLowerCase();
+    let user = convertAddressToAddrCaip(walletAddr, 42);
 
     try {
-      const { count, results } = await EpnsAPI.fetchNotifications({
-        user: walletAddr,
-        pageSize: NOTIFICATIONS_PER_PAGE,
-        page: 1,
-        chainId: 42
+      const results = await EpnsAPI.user.getFeeds({
+        user: user, // user address in CAIP
+        raw: true,
+        env: "staging",
+        page: page,
+        limit: NOTIFICATIONS_PER_PAGE,
       });
+      chrome.extension.getBackgroundPage().console.log(results, "llll");
       if (!notifs.length) {
         setPage(page + 1);
       }
-      const parsedResponse = EpnsAPI.parseApiResponse(results);
+      const parsedResponse = EpnsAPI.utils.parseApiResponse(results);
       const map1 = new Map();
       const map2 = new Map();
       results.forEach((each) => {
