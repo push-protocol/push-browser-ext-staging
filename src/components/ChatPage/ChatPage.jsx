@@ -1,6 +1,8 @@
 import React,{useState} from 'react'
 import Topbar from '../Topbar';
 import styled from 'styled-components';
+import Chats from '../Chats';
+import Requests from '../Requests';
 
 
 const ChatPage = () => {
@@ -16,7 +18,6 @@ const ChatPage = () => {
     <div className='standard'>
       <Topbar />
 
-      <div>
       <NavBoxHolder>
         <NavHolder>
           <NavTitleButton isActive={showChat} onClick={handleToggle}>
@@ -27,7 +28,8 @@ const ChatPage = () => {
           </NavTitleButton>
         </NavHolder>
       </NavBoxHolder>
-      </div>
+
+      {showChat ? <Chats /> : <Requests />}
     </div>
   )
 }
@@ -63,7 +65,7 @@ const NavTitleButton = styled.div`
   width: 180px;
   height: 25px;
   font-style: normal;
-  font-weight: 500;
+  font-weight: ${(props) => (props.isActive ? '600' : '500')};
   font-size: 18px;
   line-height: 25.4px;
   text-align: center;
