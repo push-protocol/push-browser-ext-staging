@@ -25,27 +25,34 @@ const SearchBox = styled.div`
   align-items:center;
   background-color: #F4F5FA;
   width: 300px;
-  height:48px;
+  height:45px;
   border-radius:99px;
   padding: 0px 10px;
   margin-top: 20px;
+  &:focus-within {
+    outline: none;
+    background-image: linear-gradient(#f4f5fa, #f4f5fa), linear-gradient(to right, #cf1c84, #8ed6ff);
+    background-origin: border;
+    border: 1px solid transparent !important;
+    background-clip: padding-box, border-box;
+  }
 `;
 
 const SearchIcon = styled.div`
-display:flex;
+  display:flex;
 `
 
 const Inputbar = styled.input`
-flex:1;
-border:none;
-height:48px;
-background-color:transparent;
-font-family: strawford;
-outline:none;
-&::placeholder {
-    letter-spacing: -0.019em;
+    flex:1;
+    border:none;
+    height:45px;
+    background-color:transparent;
     font-family: strawford;
-  }
+    outline:none;
+    &::placeholder {
+        letter-spacing: -0.019em;
+        font-family: strawford;
+    }
 `
 
 
