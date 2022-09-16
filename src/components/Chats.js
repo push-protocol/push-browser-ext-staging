@@ -2,6 +2,8 @@ import React from "react";
 import { Item, Section } from "../utils/SharedStyling";
 import { FiSearch } from "react-icons/fi";
 import styled from "styled-components";
+import { goTo } from "react-chrome-extension-router";
+import ChatBox from "./ChatBox";
 
 const Chats = () => {
   return (
@@ -14,7 +16,7 @@ const Chats = () => {
           </SearchIcon>
         </SearchBox>
 
-        <ChatContainer>
+        <ChatContainer onClick={() => goTo(ChatBox)}>
           <Blocky></Blocky>
           <Details>
             <b>Adam.eth</b>

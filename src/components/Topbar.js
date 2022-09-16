@@ -10,6 +10,7 @@ import Tooltip from "../pages/NotificationPage/Tooltip";
 import NotificationPage from "../pages/NotificationPage/NotificationPage";
 import { BsChatLeft, BsBell } from "react-icons/bs";
 import ChatPage from "../pages/ChatPage/ChatPage";
+import styled from "styled-components";
 
 const Topbar = () => {
   const [seen, setSeen] = useState(false);
@@ -20,12 +21,12 @@ const Topbar = () => {
   const [addr, setAddr] = useState("");
 
   useEffect(() => {
-    // chrome.storage.local.get(["epns"], function (result) {
-    //   if (result.epns) {
-    //     setWallet(result.epns.wallet);
-    //     setObject(result.epns);
-    //   }
-    // });
+    chrome.storage.local.get(["epns"], function (result) {
+      if (result.epns) {
+        setWallet(result.epns.wallet);
+        setObject(result.epns);
+      }
+    });
     if (wallet) {
       updateWallet(wallet);
     }
@@ -57,9 +58,9 @@ const Topbar = () => {
   }, [model]);
 
   return (
-    <div>
+    <>
       {model && (
-        <div className="modal-content" ref={modalRef}>
+        <ModalContent className="modal-content" ref={modalRef}>
           <div
             onClick={() => {
               setModel(false);
@@ -126,10 +127,10 @@ const Topbar = () => {
               </button>
             </Link>
           </div>
-        </div>
+        </ModalContent>
       )}
 
-      <div className="top-bar">
+      <TopBar className="top-bar">
         <div
           className="icon-topbar"
           onMouseOver={() => setSeen(true)}
@@ -144,11 +145,37 @@ const Topbar = () => {
             <Blockies seed={wallet} size={7} scale={5} className="identicon" />
           </div>
         </div>
-      </div>
+      </TopBar>
 
       {seen && <Tooltip />}
-    </div>
+    </>
   );
 };
+
+const ModalContent = styled.div`
+  position: fixed;
+  top: 55px;
+  left: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  border-radius: 5px;
+  width: 320px;
+  display: inline-block;
+  overflow: hidden;
+  z-index: 9999;
+`;
+
+const TopBar = styled.div`
+  width: 320px;
+  height: 66px;
+  padding-left: 20px;
+  padding-right: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  border-bottom: 1.5px solid #f5f5f5;
+`;
 
 export default Topbar;

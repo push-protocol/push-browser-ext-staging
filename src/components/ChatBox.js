@@ -4,6 +4,8 @@ import { Item } from "../utils/SharedStyling";
 import Topbar from "./Topbar";
 import { BsArrowLeft } from "react-icons/bs";
 import { AiOutlineEllipsis } from "react-icons/ai";
+import { goTo } from "react-chrome-extension-router";
+import ChatPage from "../pages/ChatPage/ChatPage";
 
 const ChatBox = () => {
   return (
@@ -12,7 +14,11 @@ const ChatBox = () => {
 
       <Chatbox>
         <TopSpace>
-          <BsArrowLeft size={22} color={"#657795"} />
+          <BsArrowLeft
+            size={22}
+            color={"#657795"}
+            onClick={() => goTo(ChatPage)}
+          />
 
           <TopNav>
             <ImageBottom>
