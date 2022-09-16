@@ -43,7 +43,7 @@ const NavBoxHolder = styled.div`
 
   :after {
     position: absolute;
-    height: 1px;
+    height: 1.5px;
     left: 0;
     bottom: 0;
     width: 100%;
@@ -65,7 +65,7 @@ const NavTitleButton = styled.div`
   font-style: normal;
   font-weight: 500;
   font-size: 18px;
-  line-height: 141%;
+  line-height: 25.4px;
   text-align: center;
   position: relative;
   color: ${(props) => (props.isActive ? '#CF1C84' : '#000000')};

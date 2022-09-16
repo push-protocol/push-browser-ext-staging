@@ -1,16 +1,14 @@
 .icon-topbar{
   cursor: pointer;
-  width: 30px;
-  height: 30px;
   position: relative;
-  top: 2px;
+  top: 4px;
   left: 10px;
 }
 
 .actual-image{
   cursor: pointer;
-  width: 22px;
-  height: 27px;
+  width: 37px;
+  margin: auto;
 }
 
 #create-password-text {
