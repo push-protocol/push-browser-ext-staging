@@ -20,16 +20,15 @@ const Topbar = () => {
   const [addr, setAddr] = useState("");
 
   useEffect(() => {
-    chrome.storage.local.get(["epns"], function (result) {
-      if (result.epns) {
-        setWallet(result.epns.wallet);
-        setObject(result.epns);
-      }
-    });
+    // chrome.storage.local.get(["epns"], function (result) {
+    //   if (result.epns) {
+    //     setWallet(result.epns.wallet);
+    //     setObject(result.epns);
+    //   }
+    // });
     if (wallet) {
       updateWallet(wallet);
     }
-    chrome.extension.getBackgroundPage().console.log(object);
   }, [wallet]);
 
   const updateWallet = (wallet) => {

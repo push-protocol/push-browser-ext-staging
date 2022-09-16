@@ -10,6 +10,7 @@ import {
 import Home from "./components/HomePage/HomePage";
 import NotifsContext from "./context/useNotifs";
 import NotificationPage from "./components/NotificationPage/NotificationPage";
+import ChatPage from "./components/ChatPage/ChatPage";
 
 console.log = function () {};
 function App() {
@@ -19,18 +20,19 @@ function App() {
   useEffect(() => {
     const { component, props } = getCurrent();
     const components = getComponentStack();
-    chrome.storage.local.get(["epns"], function (result) {
-      if (result.epns) {
-        setWalletAddr(result.epns.wallet);
-        setRegistered(true);
-      }
-    });
+    // chrome.storage.local.get(["epns"], function (result) {
+    //   if (result.epns) {
+    //     setWalletAddr(result.epns.wallet);
+    //     setRegistered(true);
+    //   }
+    // });
   });
   if (!registered)
     return (
       <NotifsContext.Provider value={[notifs, setNotifs]}>
         <Router>
-          <Home />
+          {/* <Home /> */}
+          <ChatPage />
         </Router>
       </NotifsContext.Provider>
     );

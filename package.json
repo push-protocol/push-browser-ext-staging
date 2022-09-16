@@ -9,6 +9,7 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "antd": "^4.23.1",
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "ethers": "^5.7.1",
@@ -44,7 +45,8 @@
   },
   "resolutions": {
     "//": "See https://github.com/facebook/create-react-app/issues/11773",
-    "react-error-overlay": "6.0.9"
+    "react-error-overlay": "6.0.9",
+    "styled-components": "^5"
   },
   "browserslist": {
     "production": [
@@ -59,6 +61,7 @@
     ]
   },
   "devDependencies": {
+    "@types/styled-components": "^5.1.26",
     "react-error-overlay": "6.0.9"
   }
 }
