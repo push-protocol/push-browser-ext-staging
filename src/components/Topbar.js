@@ -9,6 +9,7 @@ import Blockies from "react-blockies";
 import Image from "../assests/epnslogo.svg";
 import Tooltip from "./NotificationPage/Tooltip";
 import NotificationPage from "./NotificationPage/NotificationPage";
+import { BsChatLeft, BsBell } from "react-icons/bs";
 
 const Topbar = () => {
   const [seen, setSeen] = useState(false);
@@ -106,11 +107,7 @@ const Topbar = () => {
               props={{ object, type: "renter" }}
             >
               <button className="switch-button">
-                <AiOutlineUserSwitch
-                  fontSize={22}
-                  color="#ffff"
-                  className="icon"
-                />
+                <BsBell fontSize={22} color="#ffff" className="icon" />
                 <p className="switch-button-text regular-font">Inbox</p>
               </button>
             </Link>
@@ -125,11 +122,7 @@ const Topbar = () => {
               props={{ object, type: "renter" }}
             >
               <button className="switch-button">
-                <AiOutlineUserSwitch
-                  fontSize={22}
-                  color="#ffff"
-                  className="icon"
-                />
+                <BsChatLeft fontSize={20} color="#ffff" className="icon" />
                 <p className="switch-button-text regular-font">Chat</p>
               </button>
             </Link>
