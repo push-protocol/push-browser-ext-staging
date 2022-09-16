@@ -25,7 +25,7 @@ const Chats = () => {
 
             <Time>
                 <span>9:30</span>
-                {/* <span>Time</span> */}
+                <span></span>
             </Time>
         </ChatContainer>
 
@@ -39,7 +39,7 @@ const Chats = () => {
 
             <Time>
                 <span>9:30</span>
-                {/* <span>Time</span> */}
+                <div>1</div>
             </Time>
         </ChatContainer>
 
@@ -91,7 +91,11 @@ const ChatContainer = styled.div`
   flex-direction: row;
   align-items:center;
   height:50px;
-  margin: 10px 0;
+  padding: 10px 5px;
+  border-radius:10px;
+  &:hover {
+    background:#F4F5FA;
+  }
 `
 
 const Blocky = styled.div`
@@ -125,7 +129,7 @@ const Time = styled.div`
     display: flex;
     flex-direction: column;
     margin-left:auto;
-    align-self:flex-start;
+    justify-content:space-between;
     span {
         font-family: 'Strawford';
         font-style: normal;
@@ -133,13 +137,20 @@ const Time = styled.div`
         font-size: 15px;
         line-height: 150%;
         color: #657795;
+        align-self:flex-start;
     }
-    span {
+    div {
         font-style: normal;
         font-weight: 400;
         font-size: 14px;
         line-height: 130%;
-        color: #657795;
+        color: #fff;
+        background: #CF1C84;
+        border-radius: 8px;
+        display:flex;
+        justify-content:center;
+        width:20px;
+        align-self:flex-end;
     }
 `
 
