@@ -7,12 +7,14 @@ import styled from 'styled-components';
 const Chats = () => {
   return (
     <Section>
+        <Item minWidth='300px' margin='0px auto'>
         <SearchBox>
             <Inputbar placeholder='Search name.eth or 0x123..' />
             <SearchIcon>
                  <FiSearch size={18} style={{ color: '#657795' }} />
             </SearchIcon>
         </SearchBox>
+        </Item>
     </Section>
   )
 }
@@ -22,11 +24,10 @@ const SearchBox = styled.div`
   flex-direction: row;
   align-items:center;
   background-color: #F4F5FA;
-  width: 85%;
+  width: 300px;
   height:48px;
   border-radius:99px;
-  margin: 0 auto;
-  padding: 0px 15px;
+  padding: 0px 10px;
   margin-top: 20px;
 `;
 
@@ -36,7 +37,6 @@ display:flex;
 
 const Inputbar = styled.input`
 flex:1;
-width: 100%;
 border:none;
 height:48px;
 background-color:transparent;
