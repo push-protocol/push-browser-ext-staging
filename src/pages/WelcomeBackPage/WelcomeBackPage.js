@@ -1,11 +1,11 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { Link } from "react-chrome-extension-router";
-import { getToken } from "../firebase";
+import { getToken } from "../../components/firebase";
 import "./WelcomeBackPage.css";
-import Circle1 from "../Circle/Circle1";
-import Circle2 from "../Circle/Circle2";
-import Circle3 from "../Circle/Circle3";
+import Circle1 from "../../components/Circle/Circle1";
+import Circle2 from "../../components/Circle/Circle2";
+import Circle3 from "../../components/Circle/Circle3";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
 import { BsArrowRight } from "react-icons/bs";

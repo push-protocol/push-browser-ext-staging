@@ -4,14 +4,14 @@ import { BsFillExclamationCircleFill } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import "./Notification.css";
-import Transitions3 from "../Transitions/Transitions3";
+import Transitions3 from "../../components/Transitions/Transitions3";
 import Spinner from "../../assests/Spinner.svg";
 import { Waypoint } from "react-waypoint";
 import NotifsContext from "../../context/useNotifs";
 import { NotificationItem } from "@epnsproject/sdk-uiweb";
 import * as EpnsAPI from "@epnsproject/sdk-restapi";
 import { convertAddressToAddrCaip } from "../../utils/utils";
-import Topbar from "../Topbar";
+import Topbar from "../../components/Topbar";
 
 const Loader = (props) => {
   const { load } = props;

@@ -2,14 +2,14 @@
 import React, { useState, useRef, useEffect } from "react";
 import { BsX } from "react-icons/bs";
 import { Link } from "react-chrome-extension-router";
-import AddressPage from "./AddressPage/AddressPage";
-import ChatPage from "./ChatPage/ChatPage";
+import AddressPage from "../pages/AddressPage/AddressPage";
 import { AiOutlineUserSwitch } from "react-icons/ai";
 import Blockies from "react-blockies";
 import Image from "../assests/epnslogo.svg";
-import Tooltip from "./NotificationPage/Tooltip";
-import NotificationPage from "./NotificationPage/NotificationPage";
+import Tooltip from "../pages/NotificationPage/Tooltip";
+import NotificationPage from "../pages/NotificationPage/NotificationPage";
 import { BsChatLeft, BsBell } from "react-icons/bs";
+import ChatPage from "../pages/ChatPage/ChatPage";
 
 const Topbar = () => {
   const [seen, setSeen] = useState(false);

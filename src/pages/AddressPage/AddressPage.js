@@ -1,14 +1,14 @@
 /*global chrome*/
 import React from "react";
-import { useEffect, useState,useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { goTo } from "react-chrome-extension-router";
 import { makeStyles } from "@material-ui/core/styles";
-import LastPage from "../LastPage/LastPage";
+import LastPage from "./LastPage/LastPage";
 import { BsX } from "react-icons/bs";
 import "./Address.css";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Image from "../../assests/epnslogo.svg";
-import Transitions from "../Transitions/Transitions";
+import Transitions from "../../components/Transitions/Transitions";
 import Tooltip from "../NotificationPage/Tooltip";
 import gsap from "gsap";
 import WAValidator from "wallet-address-validator";
@@ -34,20 +34,16 @@ const useStyles = makeStyles((theme) => ({
 const ADDRESS_REGEX = /^0x[a-fA-F0-9]{40}$/g;
 
 const Message = (props) => {
-  const {error} = props
-  return(
-  error !== "" && (
-    <span className="error-message regular-font">
-      {error}
-    </span>
-  )
-  )
-}
+  const { error } = props;
+  return (
+    error !== "" && <span className="error-message regular-font">{error}</span>
+  );
+};
 
 export default function AddressPage(props) {
   const [address, setAddress] = useState("");
   const [token, setToken] = useState(null);
-  const [error, setError] = useState('')
+  const [error, setError] = useState("");
   const [seen, setSeen] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const classes = useStyles();
@@ -66,7 +62,7 @@ export default function AddressPage(props) {
     (e) => {
       let textValue = e;
       setAddress(textValue);
-      if(address.length > 0){
+      if (address.length > 0) {
         let result = ADDRESS_REGEX.test(address);
         if (result) {
           setError("");
@@ -75,17 +71,17 @@ export default function AddressPage(props) {
           setError("Please, input a valid wallet address!");
           setDisabled(true);
         }
-      }
-      else{
+      } else {
         setError("");
         setDisabled(true);
       }
     },
-    [address])
+    [address]
+  );
 
-    useEffect(()=>{
-        handleValidation(address)
-    },[address])
+  useEffect(() => {
+    handleValidation(address);
+  }, [address]);
 
   // wallet address validator
   const submitAddress = () => {
@@ -112,8 +108,6 @@ export default function AddressPage(props) {
       opacity: 1,
     });
   }, []);
-
-
 
   return (
     <>
@@ -155,7 +149,7 @@ export default function AddressPage(props) {
             spellCheck="false"
             value={address}
             id="input-type"
-            onChange={(e)=>handleValidation(e.target.value)}
+            onChange={(e) => handleValidation(e.target.value)}
             className="regular text-body"
             draggable={false}
           ></textarea>

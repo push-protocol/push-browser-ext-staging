@@ -4,13 +4,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-chrome-extension-router";
 import { makeStyles } from "@material-ui/core/styles";
-import NotificationPage from "../NotificationPage/NotificationPage";
+import NotificationPage from "../../NotificationPage/NotificationPage";
 import "./Last.css";
 import { BsArrowRight } from "react-icons/bs";
 import { FaCheckCircle } from "react-icons/fa";
-import Transitions2 from "../Transitions/Transitions2";
+import Transitions2 from "../../../components/Transitions/Transitions2";
 import gsap from "gsap";
-import Spinner from "../../assests/Spinner.svg";
+import Spinner from "../../../assests/Spinner.svg";
 
 const useStyles = makeStyles((theme) => ({
   loader: {

@@ -1,9 +1,9 @@
 /*global chrome*/
 import React,{useState,useEffect} from 'react'
-import Topbar from '../Topbar';
+import Topbar from '../../components/Topbar';
 import styled from 'styled-components';
-import Chats from '../Chats';
-import Requests from '../Requests';
+import Chats from '../../components/Chats';
+import Requests from '../../components/Requests';
 import {AiOutlineEllipsis} from 'react-icons/ai'
 import Blockies from "react-blockies";
 
