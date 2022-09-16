@@ -179,7 +179,6 @@ export default function NotificationPage() {
         limit: NOTIFICATIONS_PER_PAGE,
         spam: true,
       });
-      chrome.extension.getBackgroundPage().console.log(results, "1");
       const parsedResponse = EpnsAPI.utils.parseApiResponse(results);
 
       setNotifs((x) => [...x, ...parsedResponse]);
@@ -247,7 +246,6 @@ export default function NotificationPage() {
         setPageSpam(pageSpam + 1);
       }
 
-      chrome.extension.getBackgroundPage().console.log(results, "2");
       const parsedResponse = EpnsAPI.utils.parseApiResponse(results);
       const map1 = new Map();
       const map2 = new Map();
