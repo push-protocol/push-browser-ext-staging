@@ -12,6 +12,7 @@ import { NotificationItem } from "@epnsproject/sdk-uiweb";
 import * as EpnsAPI from "@epnsproject/sdk-restapi";
 import { convertAddressToAddrCaip } from "../../utils/utils";
 import Topbar from "../../components/Topbar";
+import styled from "styled-components";
 
 const Loader = (props) => {
   const { load } = props;
@@ -285,13 +286,19 @@ export default function NotificationPage() {
     setNotifs([]);
   };
 
+  const toggleSetActive = () => setActive((prev) => !prev);
+
+  const handleToggle = () => {
+    toggleSetActive();
+  };
+
   return (
     <>
       <Transitions3 />
       <div className="standard">
         <Topbar />
 
-        <div className="feedBox">
+        {/* <div className="feedBox">
           <div className="twin-button regular">
             <NavButton
               text="Inbox"
@@ -304,7 +311,18 @@ export default function NotificationPage() {
               onClick={() => makeActive(true)}
             />
           </div>
-        </div>
+        </div> */}
+
+        <NavBoxHolder>
+          <NavHolder>
+            <NavTitleButton isActive={!active} onClick={handleToggle}>
+              Inbox
+            </NavTitleButton>
+            <NavTitleButton isActive={active} onClick={handleToggle}>
+              Spam
+            </NavTitleButton>
+          </NavHolder>
+        </NavBoxHolder>
 
         {active ? (
           <>
@@ -347,3 +365,55 @@ export default function NotificationPage() {
     </>
   );
 }
+
+const NavBoxHolder = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  :after {
+    position: absolute;
+    height: 1.5px;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    content: "";
+    background-color: #e4e8ef;
+  }
+`;
+
+const NavHolder = styled.div`
+  display: flex;
+  align-self: flex-end;
+  padding-bottom: 15px;
+  padding-top: 15px;
+`;
+
+const NavTitleButton = styled.div`
+  width: 180px;
+  height: 25px;
+  font-style: normal;
+  font-weight: ${(props) => (props.isActive ? "600" : "500")};
+  font-size: 18px;
+  line-height: 25.4px;
+  text-align: center;
+  position: relative;
+  color: ${(props) => (props.isActive ? "#CF1C84" : "#000000")};
+  cursor: pointer;
+
+  ${(props) =>
+    props.isActive &&
+    `&:after{
+        position: absolute;
+        height: 1.5px;
+        left: 0;
+        bottom: -15px;
+        width: 100%;
+        content: '';
+        background-color: #CF1C84;
+        z-index: 1;
+        
+    }`}
+`;
