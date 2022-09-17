@@ -10,8 +10,6 @@ import {
 import NotifsContext from "./context/useNotifs";
 import NotificationPage from "./pages/NotificationPage/NotificationPage";
 import Home from "./pages/HomePage/HomePage";
-import ChatPage from "./pages/ChatPage/ChatPage";
-import ChatBox from "./components/ChatBox";
 
 console.log = function () {};
 function App() {
@@ -33,7 +31,6 @@ function App() {
       <NotifsContext.Provider value={[notifs, setNotifs]}>
         <Router>
           <Home />
-          {/* <ChatPage /> */}
         </Router>
       </NotifsContext.Provider>
     );

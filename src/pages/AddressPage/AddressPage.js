@@ -12,6 +12,7 @@ import Transitions from "../../components/Transitions/Transitions";
 import Tooltip from "../NotificationPage/Tooltip";
 import gsap from "gsap";
 import WAValidator from "wallet-address-validator";
+import styled from "styled-components";
 
 const useStyles = makeStyles((theme) => ({
   input: {
@@ -115,7 +116,7 @@ export default function AddressPage(props) {
       <div className="standard-size">
         {seen && <Tooltip />}
 
-        <div className="top-bar">
+        <TopBar>
           <div
             className="icon-topbar"
             onMouseOver={() => setSeen(true)}
@@ -131,8 +132,9 @@ export default function AddressPage(props) {
             onClick={() => {
               window.close();
             }}
+            color={"#657795"}
           />
-        </div>
+        </TopBar>
 
         <div
           className="wallet-decription-text regular"
@@ -170,3 +172,16 @@ export default function AddressPage(props) {
     </>
   );
 }
+
+const TopBar = styled.div`
+  width: 320px;
+  height: 66px;
+  padding-left: 20px;
+  padding-right: 20px;
+  display: flex;
+  flex-direction: row;
+  // justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  border-bottom: 1.5px solid #f5f5f5;
+`;
