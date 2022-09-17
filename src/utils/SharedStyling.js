@@ -15,6 +15,29 @@ export const Section = styled.section`
   position: relative;
 `;
 
+export const StandardSize = styled.div`
+  width: 360px;
+  height: 600px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+`;
+
+export const Standard = styled.div`
+  width: 360px;
+  height: 600px;
+  overflow-y: unset;
+  overflow-x: hidden;
+`;
+
+export const StandardPage = styled.div`
+  width: 360px;
+  height: 600px;
+  overflow-y: unset;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+`;
+
 export const Item = styled.div`
   display: flex;
   flex-direction: column;

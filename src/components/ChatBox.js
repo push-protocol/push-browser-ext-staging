@@ -6,6 +6,8 @@ import { BsArrowLeft } from "react-icons/bs";
 import { AiOutlineEllipsis } from "react-icons/ai";
 import { goTo } from "react-chrome-extension-router";
 import ChatPage from "../pages/ChatPage/ChatPage";
+import { BsEmojiSmile, BsPaperclip } from "react-icons/bs";
+import Send from "../assests/sendNotifOnIcon.svg";
 
 const ChatBox = () => {
   return (
@@ -47,6 +49,15 @@ const ChatBox = () => {
             <TimeStamp>2:30</TimeStamp>
           </SenderMessage>
         </MessageWrapper>
+
+        <TextBox>
+          <BsEmojiSmile size={24} color="#494D5F" />
+          <InputBox placeholder="Type your message..." />
+          <Rotate>
+            <BsPaperclip size={24} color="" />
+          </Rotate>
+          <Image src={Send} alt="" />
+        </TextBox>
       </Chatbox>
     </div>
   );
@@ -56,6 +67,39 @@ const Chatbox = styled.div`
   flex: 1;
   background: linear-gradient(179.97deg, #eef5ff 0.02%, #ece9fa 123.25%);
   flex-grow: 1;
+`;
+
+const Rotate = styled.div`
+  transform: rotate(45deg);
+  margin-right: 10px;
+  margin-top: 4px;
+`;
+
+const TextBox = styled.div`
+  position: absolute;
+  top: 530px;
+  left: 15px;
+  background: #fff;
+  height: 55px;
+  width: 310px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 10px;
+`;
+
+const InputBox = styled.input`
+  flex: 1;
+  height: 54px;
+  background: transparent;
+  border: none;
+  margin-left: 10px;
+  outline: none;
+`;
+
+const Image = styled.img`
+  width: 24px;
 `;
 
 const TopSpace = styled.div`
