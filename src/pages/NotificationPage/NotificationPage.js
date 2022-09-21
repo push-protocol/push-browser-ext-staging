@@ -1,24 +1,18 @@
 /*global chrome*/
 import React, { useContext, useRef } from "react";
-import { AiOutlineUserSwitch } from "react-icons/ai";
 import { BsFillExclamationCircleFill } from "react-icons/bs";
 import { useEffect, useState } from "react";
-import { Link } from "react-chrome-extension-router";
 import { makeStyles } from "@material-ui/core/styles";
-import Blockies from "react-blockies";
-import ChannelIcon from "../UI/ChannelIcon";
 import "./Notification.css";
-import AddressPage from "../AddressPage/AddressPage";
-import Transitions3 from "../Transitions/Transitions3";
-import Image from "../../assests/epnslogo.svg";
-import { BsX } from "react-icons/bs";
+import Transitions3 from "../../components/Transitions/Transitions3";
 import Spinner from "../../assests/Spinner.svg";
 import { Waypoint } from "react-waypoint";
 import NotifsContext from "../../context/useNotifs";
 import { NotificationItem } from "@epnsproject/sdk-uiweb";
 import * as EpnsAPI from "@epnsproject/sdk-restapi";
-import Tooltip from "./Tooltip";
 import { convertAddressToAddrCaip } from "../../utils/utils";
+import Topbar from "../../components/Topbar";
+import styled from "styled-components";
 
 const Loader = (props) => {
   const { load } = props;
@@ -111,16 +105,13 @@ export default function NotificationPage() {
   const [loading, setLoading] = useState(false);
   const [wallet, setWallet] = useState("");
   const [addr, setAddr] = useState("");
-  const [object, setObject] = useState("");
-  const [model, setModel] = useState(false);
   const [active, setActive] = useState(false);
+  const [object, setObject] = useState("");
   const [bgUpdateLoading, setBgUpdateLoading] = useState(false);
-  const [seen, setSeen] = useState(false);
   const [page, setPage] = useState(1);
   const [pageSpam, setPageSpam] = useState(1);
   // eslint-disable-next-line
   const [notifs, setNotifs] = useContext(NotifsContext);
-  const modalRef = useRef();
   useEffect(() => {
     chrome.storage.local.get(["epns"], function (result) {
       if (result.epns) {
@@ -275,23 +266,6 @@ export default function NotificationPage() {
     }
   }, [active]);
 
-  useEffect(() => {
-    const checkIfClickedOutside = (e) => {
-      // If the menu is open and the clicked target is not within the menu,
-      // then close the menu
-      if (model && modalRef.current && !modalRef.current.contains(e.target)) {
-        setModel(false);
-      }
-    };
-
-    document.addEventListener("click", checkIfClickedOutside);
-
-    return () => {
-      // Cleanup the event listener
-      document.removeEventListener("click", checkIfClickedOutside);
-    };
-  }, [model]);
-
   //function to query more notifications
   const handlePagination = async () => {
     if (active) {
@@ -312,76 +286,19 @@ export default function NotificationPage() {
     setNotifs([]);
   };
 
+  const toggleSetActive = () => setActive((prev) => !prev);
+
+  const handleToggle = () => {
+    toggleSetActive();
+  };
+
   return (
     <>
       <Transitions3 />
       <div className="standard">
-        {model && (
-          <div className="modal-content" ref={modalRef}>
-            <div
-              onClick={() => {
-                setModel(false);
-              }}
-              id="cross"
-            >
-              <div id="X">
-                <BsX
-                  size={24}
-                  className=""
-                  onClick={() => {
-                    setModel(false);
-                  }}
-                />
-              </div>
-            </div>
-            <div className="">
-              <Link
-                style={{
-                  textDecoration: "none",
-                }}
-                component={AddressPage}
-                props={{ object, type: "renter" }}
-              >
-                <button className="switch-button">
-                  <AiOutlineUserSwitch
-                    fontSize={22}
-                    color="#ffff"
-                    className="icon"
-                  />
-                  <p className="switch-button-text regular-font">
-                    Switch Account
-                  </p>
-                </button>
-              </Link>
-            </div>
-          </div>
-        )}
+        <Topbar />
 
-        <div className="top-bar">
-          <div
-            className="icon-topbar"
-            onMouseOver={() => setSeen(true)}
-            onMouseLeave={() => setSeen(false)}
-          >
-            <img src={Image} className="actual-image" alt="" />
-          </div>
-
-          <div className="check-wallet-address regular-font">{addr}</div>
-          <div className="profile-image" onClick={() => setModel(true)}>
-            <div className="blocky">
-              <Blockies
-                seed={wallet}
-                size={7}
-                scale={5}
-                className="identicon"
-              />
-            </div>
-          </div>
-        </div>
-
-        {seen && <Tooltip />}
-
-        <div className="feedBox">
+        {/* <div className="feedBox">
           <div className="twin-button regular">
             <NavButton
               text="Inbox"
@@ -394,7 +311,18 @@ export default function NotificationPage() {
               onClick={() => makeActive(true)}
             />
           </div>
-        </div>
+        </div> */}
+
+        <NavBoxHolder>
+          <NavHolder>
+            <NavTitleButton isActive={!active} onClick={handleToggle}>
+              Inbox
+            </NavTitleButton>
+            <NavTitleButton isActive={active} onClick={handleToggle}>
+              Spam
+            </NavTitleButton>
+          </NavHolder>
+        </NavBoxHolder>
 
         {active ? (
           <>
@@ -437,3 +365,55 @@ export default function NotificationPage() {
     </>
   );
 }
+
+const NavBoxHolder = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  :after {
+    position: absolute;
+    height: 1.5px;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    content: "";
+    background-color: #e4e8ef;
+  }
+`;
+
+const NavHolder = styled.div`
+  display: flex;
+  align-self: flex-end;
+  padding-bottom: 15px;
+  padding-top: 15px;
+`;
+
+const NavTitleButton = styled.div`
+  width: 180px;
+  height: 25px;
+  font-style: normal;
+  font-weight: ${(props) => (props.isActive ? "600" : "500")};
+  font-size: 18px;
+  line-height: 25.4px;
+  text-align: center;
+  position: relative;
+  color: ${(props) => (props.isActive ? "#CF1C84" : "#000000")};
+  cursor: pointer;
+
+  ${(props) =>
+    props.isActive &&
+    `&:after{
+        position: absolute;
+        height: 1.5px;
+        left: 0;
+        bottom: -15px;
+        width: 100%;
+        content: '';
+        background-color: #CF1C84;
+        z-index: 1;
+        
+    }`}
+`;

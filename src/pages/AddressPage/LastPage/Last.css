@@ -11,7 +11,7 @@
   /* font-weight: 500; */
   font-size: 24px;
   /* line-height: 28px; */
-  color: #374151;
+  color: #657795;
 }
 
 
@@ -33,7 +33,7 @@
   font-size: 12px;
   line-height: 16px;
   text-align: center;
-  color: #6b7280;
+  color: #657795;
   /* identical to box height */
 }
 
@@ -53,12 +53,12 @@
   font-weight: 300;
   font-size: 12px;
   line-height: 16px;
-  color: #6b7280;
+  color: #657795;
   text-align: center;
 }
 
 #description {
-  font-family: "Strawford";
+  font-family: 'Strawford' !important;;
   font-style: normal;
   font-weight: 300;
   font-size: 12px;
@@ -68,7 +68,7 @@
 }
 
 #epnsio-text {
-  font-family: "Strawford";
+  font-family: 'Strawford' !important;;
   font-style: normal;
   font-weight: normal;
   font-size: 12px;
@@ -79,7 +79,7 @@
 }
 
 #bold-text {
-  font-family: "Strawford";
+  font-family: 'Strawford' !important;;
   font-style: normal;
   font-weight: normal;
   font-size: 12px;
@@ -107,6 +107,6 @@
   right: 40.83%;
   top: 34.83%;
   bottom: 56.83%;
-  background: url("../../assests/check_24px.png");
+  background: url("../../../assests/check_24px.png");
   background-repeat: no-repeat;
 }

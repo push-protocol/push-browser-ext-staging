@@ -3,17 +3,19 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { Link } from "react-chrome-extension-router";
 import AddressPage from "../AddressPage/AddressPage";
-import { getToken } from "../firebase";
 import "./HomePage.css";
 import Info from "./Info";
-import Circle1 from "../Circle/Circle1";
-import Circle2 from "../Circle/Circle2";
-import Circle3 from "../Circle/Circle3";
+import Circle1 from "../../components/Circle/Circle1";
+import Circle2 from "../../components/Circle/Circle2";
+import Circle3 from "../../components/Circle/Circle3";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
 import { BsArrowRight } from "react-icons/bs";
 import Image from "../../assests/epnslogo.svg";
 import gsap from "gsap";
+import { getToken } from "../../components/firebase";
+import styled from "styled-components";
+import { StandardSize } from "../../utils/SharedStyling";
 
 const useStyles = makeStyles((theme) => ({
   loader: {
@@ -63,16 +65,16 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="standard-size">
+    <StandardSize>
       <div>
         <Circle1 side="left" />
         <Circle2 side="left" />
         <Circle3 side="left" />
       </div>
       <div>
-        <div className="icon-page">
+        <IconPage>
           <img src={Image} style={{ width: "40px" }} alt="" />
-        </div>
+        </IconPage>
 
         <div className="text-corner regular">
           <span>
@@ -112,6 +114,14 @@ export default function Home() {
           <CircularProgress color="secondary" />
         </div>
       )}
-    </div>
+    </StandardSize>
   );
 }
+
+const IconPage = styled.div`
+  position: absolute;
+  width: 360px;
+  top: 200px;
+  display: flex;
+  justify-content: center;
+`;

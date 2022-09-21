@@ -47,6 +47,14 @@ body {
   overflow-x: hidden;
 }
 
+.standard-page{
+  width: 360px;
+  height: 600px;
+  overflow-y:unset;
+  overflow-x: hidden;
+  display: flex; flex-direction: column;
+}
+
 /* Change the white to any color */
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
