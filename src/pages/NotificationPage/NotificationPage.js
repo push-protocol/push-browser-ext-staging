@@ -13,6 +13,7 @@ import * as EpnsAPI from "@epnsproject/sdk-restapi";
 import { convertAddressToAddrCaip } from "../../utils/utils";
 import Topbar from "../../components/Topbar";
 import styled from "styled-components";
+import Config from "../../config";
 
 const Loader = (props) => {
   const { load } = props;
@@ -142,7 +143,7 @@ export default function NotificationPage() {
       const results = await EpnsAPI.user.getFeeds({
         user: user, // user address in CAIP
         raw: true,
-        env: "staging",
+        env: Config.env,
         page: page,
         limit: NOTIFICATIONS_PER_PAGE,
       });
@@ -165,7 +166,7 @@ export default function NotificationPage() {
       const results = await EpnsAPI.user.getFeeds({
         user: user, // user address in CAIP
         raw: true,
-        env: "staging",
+        env: Config.env,
         page: pageSpam,
         limit: NOTIFICATIONS_PER_PAGE,
         spam: true,
@@ -190,7 +191,7 @@ export default function NotificationPage() {
       const results = await EpnsAPI.user.getFeeds({
         user: user, // user address in CAIP
         raw: true,
-        env: "staging",
+        env: Config.env,
         page: 1,
         limit: NOTIFICATIONS_PER_PAGE,
       });
@@ -227,7 +228,7 @@ export default function NotificationPage() {
       const results = await EpnsAPI.user.getFeeds({
         user: user, // user address in CAIP
         raw: true,
-        env: "staging",
+        env: Config.env,
         page: 1,
         limit: NOTIFICATIONS_PER_PAGE,
         spam: true,
