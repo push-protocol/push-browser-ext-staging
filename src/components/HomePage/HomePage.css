@@ -5,7 +5,7 @@
   left: 124px;
   top: 200px;
 
-  font-family: Roboto;
+  font-family: "Strawford";
   font-style: normal;
   font-weight: 500;
   font-size: 24px;
@@ -35,7 +35,7 @@
 
 
 #ethereum-text {
-  font-family: Roboto;
+  font-family: "Strawford";
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -44,7 +44,7 @@
 }
 
 #push-text {
-  font-family: Roboto;
+  font-family: "Strawford";
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -53,7 +53,7 @@
 }
 
 #notification-text {
-  font-family: Roboto;
+  font-family: "Strawford";
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -62,7 +62,7 @@
 }
 
 #service-text {
-  font-family: Roboto;
+  font-family: "Strawford";
   font-style: normal;
   font-weight: 500;
   font-size: 14px;

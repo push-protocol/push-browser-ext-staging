@@ -20,7 +20,7 @@
   left: 40px;
   top: 258px;
 
-  font-family: Roboto;
+  font-family: "Strawford";
   font-style: normal;
   font-weight: 500;
   font-size: 20px;
@@ -43,7 +43,7 @@
   left: 80px;
   top: 447px;
   /* identical to box height */
-  font-family: Roboto;
+  font-family: "Strawford";
   font-style: normal;
   font-weight: 300;
   font-size: 12px;
@@ -51,7 +51,7 @@
   color: #000000;
 }
 #term-text {
-  font-family: Roboto;
+  font-family: "Strawford";
   font-style: normal;
   font-weight: 300;
   font-size: 12px;
@@ -70,7 +70,7 @@
 }
 
 #create-text {
-  font-family: Roboto;
+  font-family: "Strawford";
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
