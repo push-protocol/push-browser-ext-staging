@@ -11,7 +11,7 @@ import Circle3 from "../../components/Circle/Circle3";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
 import { BsArrowRight } from "react-icons/bs";
-import Image from "../../assests/epnslogo.svg";
+import Image from "../../assests/pushlogo.png";
 import gsap from "gsap";
 import { getToken } from "../../components/firebase";
 import styled from "styled-components";
@@ -73,7 +73,7 @@ export default function Home() {
       </div>
       <div>
         <IconPage>
-          <img src={Image} style={{ width: "40px" }} alt="" />
+          <img src={Image} style={{ width: "55px" }} alt="" />
         </IconPage>
 
         <div className="text-corner regular">

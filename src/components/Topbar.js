@@ -5,7 +5,7 @@ import { Link } from "react-chrome-extension-router";
 import AddressPage from "../pages/AddressPage/AddressPage";
 import { AiOutlineUserSwitch } from "react-icons/ai";
 import Blockies from "react-blockies";
-import Image from "../assests/epnslogo.svg";
+import Image from "../assests/pushlogo.png";
 import Tooltip from "../pages/NotificationPage/Tooltip";
 // import NotificationPage from "../pages/NotificationPage/NotificationPage";
 import styled from "styled-components";

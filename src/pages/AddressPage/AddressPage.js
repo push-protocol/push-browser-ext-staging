@@ -7,12 +7,13 @@ import LastPage from "./LastPage/LastPage";
 import { BsX } from "react-icons/bs";
 import "./Address.css";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import Image from "../../assests/epnslogo.svg";
+import Image from "../../assests/pushlogo.png";
 import Transitions from "../../components/Transitions/Transitions";
 import Tooltip from "../NotificationPage/Tooltip";
 import gsap from "gsap";
 import WAValidator from "wallet-address-validator";
 import styled from "styled-components";
+// import Push from "../../assests/push.png";
 
 const useStyles = makeStyles((theme) => ({
   input: {
@@ -140,7 +141,8 @@ export default function AddressPage(props) {
           className="wallet-decription-text regular"
           id="wallet-description-text"
         >
-          <b>EPNS</b> requires your wallet address to deliver
+          {/* <ImageArea src={Push} alt="" /> */}
+          <b>Push (EPNS)</b> requires your wallet address to deliver
           <span className="notification-text"> notifications</span> meant for
           you!
         </div>
@@ -172,6 +174,13 @@ export default function AddressPage(props) {
     </>
   );
 }
+
+const ImageArea = styled.img`
+  height: 12px;
+  width: 36px;
+  margin-right: 5px;
+  margin-top: 5px;
+`;
 
 const TopBar = styled.div`
   width: 320px;
