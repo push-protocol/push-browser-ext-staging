@@ -11,6 +11,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import Transitions2 from "../../../components/Transitions/Transitions2";
 import gsap from "gsap";
 import Spinner from "../../../assests/Spinner.svg";
+import Config from "../../../config";
 
 const useStyles = makeStyles((theme) => ({
   loader: {
@@ -42,7 +43,7 @@ export default function LastPage(props) {
 
     const registerNoAuth = async (object) => {
       const response = await axios.post(
-        "https://backend-kovan.epns.io/apis/pushtokens/register_no_auth",
+        `${Config.baseURL}/pushtokens/register_no_auth`,
         object
       );
       setLoader(false);
