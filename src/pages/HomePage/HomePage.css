@@ -32,6 +32,11 @@
   font-weight: bold;
 }
 
+.push-color{
+  height: 20px;
+  /* width: 45px; */
+}
+
 
 
 #ethereum-text {

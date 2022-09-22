@@ -16,6 +16,7 @@ import gsap from "gsap";
 import { getToken } from "../../components/firebase";
 import styled from "styled-components";
 import { StandardSize } from "../../utils/SharedStyling";
+import Push from "../../assests/push.png";
 
 const useStyles = makeStyles((theme) => ({
   loader: {
@@ -74,27 +75,8 @@ export default function Home() {
       <div>
         <IconPage>
           <img src={Image} style={{ width: "55px" }} alt="" />
+          <img src={Push} className="push-color" alt="" />
         </IconPage>
-
-        <div className="text-corner regular">
-          <span>
-            <span style={{ padding: "4px" }}>
-              <span className="colored-text" style={{ color: "#e20880" }}>
-                Ethereum{" "}
-              </span>
-              <span className="colored-text" style={{ color: "#674c9f" }}>
-                Push{" "}
-              </span>
-              <br></br>
-              <span className="colored-text" style={{ color: "#674c9f" }}>
-                Notification{" "}
-              </span>
-              <span className="colored-text" style={{ color: "#35c5f3" }}>
-                Service{" "}
-              </span>
-            </span>
-          </span>
-        </div>
       </div>
 
       <Info />
@@ -121,7 +103,9 @@ export default function Home() {
 const IconPage = styled.div`
   position: absolute;
   width: 360px;
-  top: 200px;
+  top: 250px;
   display: flex;
+  flex-direction: row;
   justify-content: center;
+  align-items: center;
 `;
