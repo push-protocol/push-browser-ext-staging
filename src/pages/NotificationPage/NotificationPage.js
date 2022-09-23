@@ -142,12 +142,12 @@ export default function NotificationPage() {
     try {
       const results = await EpnsAPI.user.getFeeds({
         user: user, // user address in CAIP
-        raw: true,
+        // raw: true,
         env: Config.env,
         page: page,
         limit: NOTIFICATIONS_PER_PAGE,
       });
-      const parsedResponse = EpnsAPI.utils.parseApiResponse(results);
+      const parsedResponse = await results;
       setNotifs((x) => [...x, ...parsedResponse]);
     } catch (err) {
       console.log(err);
@@ -165,14 +165,12 @@ export default function NotificationPage() {
     try {
       const results = await EpnsAPI.user.getFeeds({
         user: user, // user address in CAIP
-        raw: true,
         env: Config.env,
         page: pageSpam,
         limit: NOTIFICATIONS_PER_PAGE,
         spam: true,
       });
-      const parsedResponse = EpnsAPI.utils.parseApiResponse(results);
-
+      const parsedResponse = await results;
       setNotifs((x) => [...x, ...parsedResponse]);
     } catch (err) {
       console.log(err);
@@ -190,7 +188,6 @@ export default function NotificationPage() {
     try {
       const results = await EpnsAPI.user.getFeeds({
         user: user, // user address in CAIP
-        raw: true,
         env: Config.env,
         page: 1,
         limit: NOTIFICATIONS_PER_PAGE,
@@ -198,18 +195,7 @@ export default function NotificationPage() {
       if (!notifs.length) {
         setPage(page + 1);
       }
-      const parsedResponse = EpnsAPI.utils.parseApiResponse(results);
-      const map1 = new Map();
-      const map2 = new Map();
-      results.forEach((each) => {
-        map1.set(each.payload.data.sid, each.epoch);
-        map2.set(each.payload.data.sid, each.channel);
-      });
-      parsedResponse.forEach((each) => {
-        each.date = map1.get(each.sid);
-        each.epoch = new Date(each.date).getTime() / 1000;
-        each.channel = map2.get(each.sid);
-      });
+      const parsedResponse = await results;
       setWallet(walletAddr);
       setNotifs([...parsedResponse]);
     } catch (err) {
@@ -227,7 +213,6 @@ export default function NotificationPage() {
     try {
       const results = await EpnsAPI.user.getFeeds({
         user: user, // user address in CAIP
-        raw: true,
         env: Config.env,
         page: 1,
         limit: NOTIFICATIONS_PER_PAGE,
@@ -238,18 +223,7 @@ export default function NotificationPage() {
         setPageSpam(pageSpam + 1);
       }
 
-      const parsedResponse = EpnsAPI.utils.parseApiResponse(results);
-      const map1 = new Map();
-      const map2 = new Map();
-      results.forEach((each) => {
-        map1.set(each.payload.data.sid, each.epoch);
-        map2.set(each.payload.data.sid, each.channel);
-      });
-      parsedResponse.forEach((each) => {
-        each.date = map1.get(each.sid);
-        each.epoch = new Date(each.date).getTime() / 1000;
-        each.channel = map2.get(each.sid);
-      });
+      const parsedResponse = await results;
       setWallet(walletAddr);
       setNotifs([...parsedResponse]);
     } catch (err) {
