@@ -1,6 +1,6 @@
 {
   "name": "Push (EPNS) Staging Protocol (Alpha)",
-  "description": "Receive Notifications from Web3.0.\n\nIntroducing Ethereum Push Notification Service (EPNS) - The Missing Piece of Web3.",
+  "description": "Receive Notifications from Web3.0.\n\nIntroducing Push (EPNS) - The Missing Piece of Web3.",
   "version": "0.3.3",
   "manifest_version": 2,
   "browser_action": {
