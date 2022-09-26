@@ -1,0 +1,112 @@
+#congrats {
+  position: absolute;
+  width: 360px;
+  height: 28px;
+  /* left: 128px; */
+  top: 90px;
+  text-align: center;
+}
+.congrats-text {
+  /* font-style: normal; */
+  /* font-weight: 500; */
+  font-size: 24px;
+  /* line-height: 28px; */
+  color: #657795;
+}
+
+
+.check-test {
+  position: absolute;
+  width: 360px;
+  /* left: 30px; */
+  top: 190px;
+  display: flex;
+  justify-content: center;
+}
+
+.last-epns-text {
+  position: absolute;
+  width: 360px;
+  height: 14px;
+  top: 400px;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+  color: #657795;
+  /* identical to box height */
+}
+
+#bold-epns {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.description-text {
+  position: absolute;
+  width: 300px;
+  height: 42px;
+  left: 30px;
+  top: 435px;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 16px;
+  color: #657795;
+  text-align: center;
+}
+
+#description {
+  font-family: 'Strawford' !important;;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 14px;
+
+  color: #000000;
+}
+
+#epnsio-text {
+  font-family: 'Strawford' !important;;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 14px;
+  text-decoration-line: underline;
+
+  color: #e20880;
+}
+
+#bold-text {
+  font-family: 'Strawford' !important;;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 14px;
+
+  color: #000000;
+}
+
+#complete-button {
+  position: absolute;
+  width: 300px;
+  height: 50px;
+  left: 30px;
+  top: 510px;
+
+  background: #674c9f;
+  border-radius: 4px;
+  color: white;
+}
+
+#check-icon {
+  position: absolute;
+  z-index: 4;
+  left: 40.83%;
+  right: 40.83%;
+  top: 34.83%;
+  bottom: 56.83%;
+  background: url("../../../assests/check_24px.png");
+  background-repeat: no-repeat;
+}

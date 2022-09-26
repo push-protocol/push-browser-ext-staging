@@ -1,11 +1,11 @@
 {
-  "name": "EPNS Staging Protocol (Alpha)",
-  "description": "Receive Notifications from Web3.0.\n\nIntroducing Ethereum Push Notification Service (EPNS) - The Missing Piece of Web3.",
-  "version": "0.3.2",
+  "name": "Push Staging Protocol (Alpha)",
+  "description": "Receive Notifications from Web3.0.\n\nIntroducing Push (Previously EPNS) - The Missing Piece of Web3.",
+  "version": "0.3.3",
   "manifest_version": 2,
   "browser_action": {
     "default_popup": "index.html",
-    "default_title": "EPNS Protocol Staging",
+    "default_title": "Push Protocol Staging",
     "default_icon": {
       "16": "/images/get_started16.png",
       "32": "/images/get_started32.png",

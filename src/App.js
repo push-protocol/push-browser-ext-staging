@@ -7,9 +7,9 @@ import {
   getCurrent,
   getComponentStack,
 } from "react-chrome-extension-router";
-import Home from "./components/HomePage/HomePage";
 import NotifsContext from "./context/useNotifs";
-import NotificationPage from "./components/NotificationPage/NotificationPage";
+import NotificationPage from "./pages/NotificationPage/NotificationPage";
+import Home from "./pages/HomePage/HomePage";
 
 console.log = function () {};
 function App() {
