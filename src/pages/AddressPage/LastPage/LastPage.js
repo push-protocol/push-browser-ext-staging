@@ -125,7 +125,7 @@ export default function LastPage(props) {
             </div>
             <div>
               <span className="slide-left last-epns-text regular">
-                <b>EPNS </b>
+                <b>PUSH </b>
                 is all setup and ready to rock!
               </span>
             </div>
@@ -133,12 +133,12 @@ export default function LastPage(props) {
               <p id="decription">
                 Visit{" "}
                 <a
-                  href="https://app.epns.io/"
+                  href="https://app.push.org/"
                   target="_blank"
                   rel="noreferrer"
                   className="link-home"
                 >
-                  app.epns.io
+                  app.push.org
                 </a>{" "}
                 from a <b>Web3 Enabled Browser</b> to opt-ins to your favorite{" "}
                 <b>channels</b> and start receiving <b>notifications</b>.

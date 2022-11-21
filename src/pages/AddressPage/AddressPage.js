@@ -142,7 +142,7 @@ export default function AddressPage(props) {
           id="wallet-description-text"
         >
           {/* <ImageArea src={Push} alt="" /> */}
-          <b>Push (EPNS)</b> requires your wallet address to deliver
+          <b>Push (Previously EPNS)</b> requires your wallet address to deliver
           <span className="notification-text"> notifications</span> meant for
           you!
         </div>
