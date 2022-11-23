@@ -75,12 +75,12 @@ const Illustration = (props) => {
           <p id="decription">
             Visit{" "}
             <a
-              href="https://app.epns.io/"
+              href="https://app.push.org/"
               target="_blank"
               rel="noreferrer"
               className="link-home"
             >
-              app.epns.io
+              app.push.org
             </a>{" "}
             from a <b>Web3 Enabled Browser</b> to opt-in to your favorite{" "}
             <b>channels</b> and start receiving <b>notifications</b>.
