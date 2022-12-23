@@ -12,6 +12,7 @@ import Transitions2 from "../../../components/Transitions/Transitions2";
 import gsap from "gsap";
 import Spinner from "../../../assests/Spinner.svg";
 import Config from "../../../config";
+import { convertAddressToAddrCaip } from "../../../utils/utils";
 
 const useStyles = makeStyles((theme) => ({
   loader: {
@@ -31,9 +32,11 @@ export default function LastPage(props) {
     const address = props.address;
     // const password=props.password
     const token = props.token;
+    let user = convertAddressToAddrCaip(address, 42);
     const object = {
-      op: "register",
-      wallet: address.toLowerCase(),
+      // op: "register",
+      // wallet: address.toLowerCase(),
+      wallet: user,
       device_token: token,
       platform: "web",
     };
@@ -43,7 +46,7 @@ export default function LastPage(props) {
 
     const registerNoAuth = async (object) => {
       const response = await axios.post(
-        `${Config.baseURL}/pushtokens/register_no_auth`,
+        `${Config.baseURL}/v1/pushtokens/register`,
         object
       );
       setLoader(false);

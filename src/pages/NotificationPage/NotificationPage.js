@@ -10,7 +10,10 @@ import { Waypoint } from "react-waypoint";
 import NotifsContext from "../../context/useNotifs";
 import { NotificationItem } from "@epnsproject/sdk-uiweb";
 import * as EpnsAPI from "@epnsproject/sdk-restapi";
-import { convertAddressToAddrCaip } from "../../utils/utils";
+import {
+  convertAddrCaipToAddress,
+  convertAddressToAddrCaip,
+} from "../../utils/utils";
 import Topbar from "../../components/Topbar";
 import styled from "styled-components";
 import Config from "../../config";
@@ -91,6 +94,15 @@ const Illustration = (props) => {
   );
 };
 
+export const convertWalletAddress = async (wallet) => {
+  if (wallet.includes(":")) {
+    let walletTemp = convertAddrCaipToAddress(wallet);
+    return walletTemp;
+  } else {
+    return wallet;
+  }
+};
+
 const NavButton = (props) => {
   const { text, onClick, className } = props;
   return (
@@ -105,6 +117,7 @@ const NOTIFICATIONS_PER_PAGE = 10;
 export default function NotificationPage() {
   const [loading, setLoading] = useState(false);
   const [wallet, setWallet] = useState("");
+  const [finalWallet, setFinalWallet] = useState("");
   const [addr, setAddr] = useState("");
   const [active, setActive] = useState(false);
   const [object, setObject] = useState("");
@@ -126,8 +139,8 @@ export default function NotificationPage() {
     }
   }, [wallet]);
 
-  const updateWallet = (wallet) => {
-    let walletTemp = wallet;
+  const updateWallet = async (wallet) => {
+    let walletTemp = await convertWalletAddress(wallet);
     let fh = walletTemp.slice(0, 6);
     let sh = walletTemp.slice(-6);
     let final = fh + "...." + sh;
@@ -136,12 +149,10 @@ export default function NotificationPage() {
 
   const callNotifs = async () => {
     setBgUpdateLoading(true);
-    const walletAddr = wallet.toLowerCase();
-    let user = convertAddressToAddrCaip(walletAddr, 42);
 
     try {
       const results = await EpnsAPI.user.getFeeds({
-        user: user, // user address in CAIP
+        user: wallet, // user address in CAIP
         // raw: true,
         env: Config.env,
         page: page,
@@ -159,12 +170,10 @@ export default function NotificationPage() {
 
   const fetchSpam = async () => {
     setBgUpdateLoading(true);
-    const walletAddr = wallet.toLowerCase();
-    let user = convertAddressToAddrCaip(walletAddr, 42);
 
     try {
       const results = await EpnsAPI.user.getFeeds({
-        user: user, // user address in CAIP
+        user: wallet, // user address in CAIP
         env: Config.env,
         page: pageSpam,
         limit: NOTIFICATIONS_PER_PAGE,
@@ -182,12 +191,10 @@ export default function NotificationPage() {
 
   const callLatestNotifs = async () => {
     setLoading(true);
-    const walletAddr = wallet.toLowerCase();
-    let user = convertAddressToAddrCaip(walletAddr, 42);
 
     try {
       const results = await EpnsAPI.user.getFeeds({
-        user: user, // user address in CAIP
+        user: wallet, // user address in CAIP
         env: Config.env,
         page: 1,
         limit: NOTIFICATIONS_PER_PAGE,
@@ -196,7 +203,7 @@ export default function NotificationPage() {
         setPage(page + 1);
       }
       const parsedResponse = await results;
-      setWallet(walletAddr);
+      setWallet(wallet);
       setNotifs([...parsedResponse]);
     } catch (err) {
       console.log(err);
@@ -207,12 +214,10 @@ export default function NotificationPage() {
 
   const fetchLatestSpam = async () => {
     setLoading(true);
-    const walletAddr = wallet.toLowerCase();
-    let user = convertAddressToAddrCaip(walletAddr, 42);
 
     try {
       const results = await EpnsAPI.user.getFeeds({
-        user: user, // user address in CAIP
+        user: wallet, // user address in CAIP
         env: Config.env,
         page: 1,
         limit: NOTIFICATIONS_PER_PAGE,
@@ -224,7 +229,7 @@ export default function NotificationPage() {
       }
 
       const parsedResponse = await results;
-      setWallet(walletAddr);
+      setWallet(wallet);
       setNotifs([...parsedResponse]);
     } catch (err) {
       console.log(err);

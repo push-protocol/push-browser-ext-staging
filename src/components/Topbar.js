@@ -9,6 +9,7 @@ import Image from "../assests/pushlogo.png";
 import Tooltip from "../pages/NotificationPage/Tooltip";
 // import NotificationPage from "../pages/NotificationPage/NotificationPage";
 import styled from "styled-components";
+import { convertWalletAddress } from "../pages/NotificationPage/NotificationPage";
 
 const Topbar = () => {
   const [seen, setSeen] = useState(false);
@@ -30,8 +31,8 @@ const Topbar = () => {
     }
   }, [wallet]);
 
-  const updateWallet = (wallet) => {
-    let walletTemp = wallet;
+  const updateWallet = async (wallet) => {
+    let walletTemp = await convertWalletAddress(wallet);
     let fh = walletTemp.slice(0, 6);
     let sh = walletTemp.slice(-6);
     let final = fh + "...." + sh;

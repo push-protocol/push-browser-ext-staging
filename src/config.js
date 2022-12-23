@@ -1,5 +1,5 @@
 const Config = {
-  baseURL: "https://backend-kovan.epns.io/apis",
+  baseURL: "https://backend-staging.epns.io/apis",
   chainID: 42,
   env: "staging",
 };
