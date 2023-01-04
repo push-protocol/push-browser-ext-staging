@@ -13,6 +13,7 @@ import * as EpnsAPI from "@epnsproject/sdk-restapi";
 import {
   convertAddrCaipToAddress,
   convertAddressToAddrCaip,
+  convertAddressToAddrCaipForNotifs,
 } from "../../utils/utils";
 import Topbar from "../../components/Topbar";
 import styled from "styled-components";
@@ -147,12 +148,21 @@ export default function NotificationPage() {
     setAddr(final);
   };
 
+  chrome.extension.getBackgroundPage().console.log(wallet, "1");
+
   const callNotifs = async () => {
     setBgUpdateLoading(true);
 
+    const addressChain = convertAddressToAddrCaipForNotifs(
+      wallet,
+      Config.chainID
+    );
+
+    chrome.extension.getBackgroundPage().console.log(addressChain, "2");
+
     try {
       const results = await EpnsAPI.user.getFeeds({
-        user: wallet, // user address in CAIP
+        user: addressChain, // user address in CAIP
         // raw: true,
         env: Config.env,
         page: page,
@@ -171,9 +181,14 @@ export default function NotificationPage() {
   const fetchSpam = async () => {
     setBgUpdateLoading(true);
 
+    const addressChain = convertAddressToAddrCaipForNotifs(
+      wallet,
+      Config.chainID
+    );
+
     try {
       const results = await EpnsAPI.user.getFeeds({
-        user: wallet, // user address in CAIP
+        user: addressChain, // user address in CAIP
         env: Config.env,
         page: pageSpam,
         limit: NOTIFICATIONS_PER_PAGE,
@@ -192,9 +207,16 @@ export default function NotificationPage() {
   const callLatestNotifs = async () => {
     setLoading(true);
 
+    const addressChain = convertAddressToAddrCaipForNotifs(
+      wallet,
+      Config.chainID
+    );
+
+    chrome.extension.getBackgroundPage().console.log(addressChain, "3");
+
     try {
       const results = await EpnsAPI.user.getFeeds({
-        user: wallet, // user address in CAIP
+        user: addressChain, // user address in CAIP
         env: Config.env,
         page: 1,
         limit: NOTIFICATIONS_PER_PAGE,
@@ -215,9 +237,14 @@ export default function NotificationPage() {
   const fetchLatestSpam = async () => {
     setLoading(true);
 
+    const addressChain = convertAddressToAddrCaipForNotifs(
+      wallet,
+      Config.chainID
+    );
+
     try {
       const results = await EpnsAPI.user.getFeeds({
-        user: wallet, // user address in CAIP
+        user: addressChain, // user address in CAIP
         env: Config.env,
         page: 1,
         limit: NOTIFICATIONS_PER_PAGE,
