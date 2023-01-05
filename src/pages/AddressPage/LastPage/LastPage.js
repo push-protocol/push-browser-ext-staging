@@ -32,7 +32,7 @@ export default function LastPage(props) {
     const address = props.address;
     // const password=props.password
     const token = props.token;
-    let user = convertAddressToAddrCaip(address, 42);
+    let user = convertAddressToAddrCaip(address);
     const object = {
       // op: "register",
       // wallet: address.toLowerCase(),
