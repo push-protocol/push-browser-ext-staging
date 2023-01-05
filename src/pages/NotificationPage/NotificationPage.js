@@ -118,7 +118,6 @@ const NOTIFICATIONS_PER_PAGE = 10;
 export default function NotificationPage() {
   const [loading, setLoading] = useState(false);
   const [wallet, setWallet] = useState("");
-  const [finalWallet, setFinalWallet] = useState("");
   const [addr, setAddr] = useState("");
   const [active, setActive] = useState(false);
   const [object, setObject] = useState("");
