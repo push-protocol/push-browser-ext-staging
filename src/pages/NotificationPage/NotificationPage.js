@@ -147,8 +147,6 @@ export default function NotificationPage() {
     setAddr(final);
   };
 
-  chrome.extension.getBackgroundPage().console.log(wallet, "1");
-
   const callNotifs = async () => {
     setBgUpdateLoading(true);
 
@@ -156,8 +154,6 @@ export default function NotificationPage() {
       wallet,
       Config.chainID
     );
-
-    chrome.extension.getBackgroundPage().console.log(addressChain, "2");
 
     try {
       const results = await EpnsAPI.user.getFeeds({
@@ -210,8 +206,6 @@ export default function NotificationPage() {
       wallet,
       Config.chainID
     );
-
-    chrome.extension.getBackgroundPage().console.log(addressChain, "3");
 
     try {
       const results = await EpnsAPI.user.getFeeds({
