@@ -7,6 +7,7 @@
     "@epnsproject/sdk-uiweb": "^0.1.10",
     "@ethersproject/providers": "^5.7.1",
     "@material-ui/core": "^4.11.4",
+    "@pushprotocol/socket": "^0.2.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -28,6 +29,7 @@
     "react-waypoint": "^10.1.0",
     "rimraf": "^2.7.1",
     "styled-components": "^5.3.5",
+    "typescript": "^4.9.4",
     "wallet-address-validator": "^0.2.4",
     "web-vitals": "^1.0.1",
     "web3": "^1.8.0"

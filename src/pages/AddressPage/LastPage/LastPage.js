@@ -13,6 +13,7 @@ import gsap from "gsap";
 import Spinner from "../../../assests/Spinner.svg";
 import Config from "../../../config";
 import { convertAddressToAddrCaip } from "../../../utils/utils";
+import { useSDKSocket } from "../../../context/useSDKSocket.tsx";
 
 const useStyles = makeStyles((theme) => ({
   loader: {
@@ -147,7 +148,10 @@ export default function LastPage(props) {
                 <b>channels</b> and start receiving <b>notifications</b>.
               </p>
             </div>
-            <Link component={NotificationPage}>
+            <Link
+              component={NotificationPage}
+              props={{ wallet: props.address }}
+            >
               <button className="button hover-effect">
                 <span className="button-text bold-font">Continue</span>
                 <i className="button-icon">

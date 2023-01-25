@@ -26,6 +26,7 @@ function App() {
       }
     });
   });
+
   if (!registered)
     return (
       <NotifsContext.Provider value={[notifs, setNotifs]}>
@@ -38,7 +39,7 @@ function App() {
     return (
       <NotifsContext.Provider value={[notifs, setNotifs]}>
         <Router>
-          <NotificationPage />
+          <NotificationPage wallet={walletAddr} />
         </Router>
       </NotifsContext.Provider>
     );

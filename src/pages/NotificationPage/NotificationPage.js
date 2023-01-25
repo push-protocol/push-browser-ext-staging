@@ -18,6 +18,8 @@ import {
 import Topbar from "../../components/Topbar";
 import styled from "styled-components";
 import Config from "../../config";
+import { useSDKSocket } from "../../context/useSDKSocket.tsx";
+import { createSocketConnection, EVENTS } from "@pushprotocol/socket";
 
 const Loader = (props) => {
   const { load } = props;
@@ -104,6 +106,15 @@ export const convertWalletAddress = async (wallet) => {
   }
 };
 
+export const convertWalletAddressForSocket = async (wallet) => {
+  if (wallet.includes(":")) {
+    return wallet;
+  } else {
+    let walletTemp = await convertAddressToAddrCaip(wallet);
+    return walletTemp;
+  }
+};
+
 const NavButton = (props) => {
   const { text, onClick, className } = props;
   return (
@@ -115,7 +126,74 @@ const NavButton = (props) => {
 
 const NOTIFICATIONS_PER_PAGE = 10;
 
-export default function NotificationPage() {
+export default async function NotificationPage(props) {
+  // // enable socket notifications
+  // useSDKSocket({
+  //   account: props.wallet,
+  //   chainId: Config.chainID,
+  //   env: "staging",
+  // });
+  const [sdkSocket, setSDKSocket] = useState(null);
+  const [isConnected, setIsConnected] = useState(sdkSocket?.connected);
+
+  let address = await convertWalletAddressForSocket(props.wallet);
+  let userCaip = convertAddressToAddrCaipForNotifs(address, Config.chainID);
+
+  const addSocketEvents = () => {
+    sdkSocket?.on(EVENTS.CONNECT, () => {
+      setIsConnected(true);
+    });
+
+    sdkSocket?.on(EVENTS.DISCONNECT, () => {
+      setIsConnected(false);
+    });
+
+    sdkSocket?.on(EVENTS.USER_FEEDS, (feedItem) => {
+      /**
+       * "feedItem" is the latest notification received
+       */
+      console.log(feedItem);
+    });
+  };
+
+  const removeSocketEvents = () => {
+    sdkSocket?.off(EVENTS.CONNECT);
+    sdkSocket?.off(EVENTS.DISCONNECT);
+  };
+
+  const toggleConnection = () => {
+    if (sdkSocket?.connected) {
+      sdkSocket.disconnect();
+    } else {
+      sdkSocket.connect();
+    }
+  };
+
+  useEffect(() => {
+    if (sdkSocket) {
+      addSocketEvents();
+    }
+    return () => {
+      removeSocketEvents();
+    };
+  }, [sdkSocket]);
+
+  useEffect(() => {
+    const connectionObject = createSocketConnection({
+      user: userCaip,
+      env: "dev",
+      socketOptions: { autoConnect: false },
+    });
+
+    setSDKSocket(connectionObject);
+
+    return () => {
+      if (sdkSocket) {
+        sdkSocket.disconnect();
+      }
+    };
+  }, []);
+
   const [loading, setLoading] = useState(false);
   const [wallet, setWallet] = useState("");
   const [addr, setAddr] = useState("");
@@ -323,6 +401,12 @@ export default function NotificationPage() {
             </NavTitleButton>
           </NavHolder>
         </NavBoxHolder>
+
+        <p>Connection Status : {JSON.stringify(isConnected)}</p>
+
+        <button onClick={toggleConnection}>
+          {isConnected ? "disconnect" : "connect"}
+        </button>
 
         {active ? (
           <>
