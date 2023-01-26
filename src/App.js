@@ -32,12 +32,10 @@ function fnBrowserDetect() {
   }
 
   chrome.extension.getBackgroundPage().console.log(browserName);
-
-  // document.querySelector("h1").innerText =
-  //   "You are using " + browserName + " browser";
+  return browserName;
 }
 
-function isBrave() {
+export function isBrave() {
   if (window.navigator.brave != undefined) {
     if (window.navigator.brave.isBrave.name == "isBrave") {
       return true;
@@ -63,9 +61,6 @@ function App() {
       }
     });
   });
-  fnBrowserDetect();
-  isBrave();
-  chrome.extension.getBackgroundPage().console.log(isBrave());
   if (!registered)
     return (
       <NotifsContext.Provider value={[notifs, setNotifs]}>
