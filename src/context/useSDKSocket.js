@@ -5,22 +5,13 @@ import { useEffect, useState } from "react";
 // Internal Components
 import { createSocketConnection, EVENTS } from "@pushprotocol/socket";
 import { convertAddressToAddrCaipForNotifs } from "../utils/utils";
-import { convertWalletAddressForSocket } from "../pages/NotificationPage/NotificationPage";
 
-// Types
-export type SDKSocketHookOptions = {
-  account?: string | null;
-  env?: string;
-  chainId?: number;
-}
-
-export const useSDKSocket = async ({ account, env, chainId }: SDKSocketHookOptions) => {
-  const [sdkSocket, setSDKSocket] = useState<any>(null);
+export const useSDKSocket = ({ account, env, chainId }) => {
+  const [sdkSocket, setSDKSocket] = useState(null);
   const [isSDKSocketConnected, setIsSDKSocketConnected] = useState(
     sdkSocket?.connected
   );
-  let address = await convertWalletAddressForSocket(account);
-  let userCaip = convertAddressToAddrCaipForNotifs(address, chainId);
+  let userCaip = convertAddressToAddrCaipForNotifs(account, chainId);
 
   const addSocketEvents = () => {
     sdkSocket?.on(EVENTS.CONNECT, () => {
@@ -31,11 +22,11 @@ export const useSDKSocket = async ({ account, env, chainId }: SDKSocketHookOptio
       setIsSDKSocketConnected(false);
     });
 
-    sdkSocket?.on(EVENTS.USER_FEEDS, (feedItem: any) => {
+    sdkSocket?.on(EVENTS.USER_FEEDS, (feedItem) => {
       /**
        * We receive a feedItem
        */
-      // chrome.extension.getBackgroundPage().console.log(feedItem);
+      chrome.extension.getBackgroundPage().console.log(feedItem);
     });
   };
 

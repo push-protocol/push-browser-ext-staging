@@ -4,7 +4,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-chrome-extension-router";
 import { makeStyles } from "@material-ui/core/styles";
-import NotificationPage from "../../NotificationPage/NotificationPage";
+import NotificationPage, {
+  convertWalletAddressForSocket,
+} from "../../NotificationPage/NotificationPage";
 import "./Last.css";
 import { BsArrowRight } from "react-icons/bs";
 import { FaCheckCircle } from "react-icons/fa";
@@ -13,7 +15,6 @@ import gsap from "gsap";
 import Spinner from "../../../assests/Spinner.svg";
 import Config from "../../../config";
 import { convertAddressToAddrCaip } from "../../../utils/utils";
-import { useSDKSocket } from "../../../context/useSDKSocket.tsx";
 
 const useStyles = makeStyles((theme) => ({
   loader: {
