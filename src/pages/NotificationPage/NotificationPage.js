@@ -132,6 +132,7 @@ export default function NotificationPage() {
   const [showFilter, setShowFilter] = useState(false);
   const [search, setSearch] = useState("");
   const [allNotf, setNotif] = React.useState([]);
+  const [allSpam, setSpam] = React.useState([]);
   const [filter, setFilter] = React.useState(false);
   const [allFilter, setAllFilter] = React.useState([]);
   const toggleShowFilter = () => setShowFilter((prev) => !prev);
@@ -278,8 +279,6 @@ export default function NotificationPage() {
   };
 
   const fetchAllNotif = async () => {
-    // setLoading(true);
-
     const addressChain = convertAddressToAddrCaipForNotifs(
       wallet,
       Config.chainID
@@ -306,21 +305,59 @@ export default function NotificationPage() {
         each["epoch"] = new Date(each["date"]).getTime() / 1000;
         each["channel"] = map2.get(each.sid);
       });
+      chrome.extension
+        .getBackgroundPage()
+        .console.log(parsedResponse, "allfeeds");
       setNotif([...parsedResponse]);
     } catch (err) {
       console.log(err);
     }
   };
 
-  chrome.extension.getBackgroundPage().console.log(allNotf);
+  const fetchAllSpamNotif = async () => {
+    const addressChain = convertAddressToAddrCaipForNotifs(
+      wallet,
+      Config.chainID
+    );
+
+    try {
+      const results = await PushAPI.user.getFeeds({
+        user: addressChain, // user address in CAIP
+        env: Config.env,
+        limit: 100000,
+        page: 1,
+        raw: true,
+        spam: true,
+      });
+
+      const parsedResponse = PushAPI.utils.parseApiResponse(results);
+      const map1 = new Map();
+      const map2 = new Map();
+      results.forEach((each) => {
+        map1.set(each.payload.data.sid, each.epoch);
+        map2.set(each.payload.data.sid, each.sender);
+      });
+      parsedResponse.forEach((each) => {
+        each["date"] = map1.get(each.sid);
+        each["epoch"] = new Date(each["date"]).getTime() / 1000;
+        each["channel"] = map2.get(each.sid);
+      });
+      chrome.extension
+        .getBackgroundPage()
+        .console.log(parsedResponse, "allspam");
+      setNotif([...parsedResponse]);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
-    fetchAllNotif();
-
     if (active) {
       if (wallet) fetchLatestSpam();
+      fetchAllSpamNotif();
     } else {
       if (wallet) callLatestNotifs();
+      fetchAllNotif();
     }
   }, [active]);
 
@@ -380,9 +417,9 @@ export default function NotificationPage() {
     if (channels.length == 0) delete Filter.channels;
 
     setFilteredNotifications([]);
-    chrome.extension.getBackgroundPage().console.log(allNotf, "1");
     try {
       let filterNotif = [];
+      chrome.extension.getBackgroundPage().console.log(allNotf, "allitems");
       for (const notif of allNotf) {
         let timestamp;
         const matches = notif.message.match(/\[timestamp:(.*?)\]/);
@@ -401,13 +438,13 @@ export default function NotificationPage() {
           filterNotif.push(notif);
       }
       const newNotifs = filterNotif;
-      chrome.extension.getBackgroundPage().console.log(newNotifs, "2");
+      chrome.extension.getBackgroundPage().console.log(newNotifs, "allsearch");
       setAllFilter(newNotifs);
     } catch (err) {
       console.log(err);
     } finally {
       setLoading(false);
-      // setBgUpdateLoading(false);
+      setShowFilter(false);
     }
   };
 
@@ -470,6 +507,8 @@ export default function NotificationPage() {
             setSearch={setSearch}
           />
         </div>
+
+        {!loading && filter && allFilter.length === 0 && <div>no item</div>}
 
         {filter ? (
           <NotifItem

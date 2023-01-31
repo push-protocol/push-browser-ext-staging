@@ -276,7 +276,7 @@ const LabelText = styled.div`
 `;
 
 const SelectChannel = styled.div`
-  border: #bac4d6;
+  border: 1px solid #bac4d6;
   border-radius: 5px;
   font-family: Strawford, Source Sans Pro;
   font-style: normal;
