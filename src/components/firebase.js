@@ -3,6 +3,9 @@ import firebase from "firebase/app";
 
 import * as dotenv from "dotenv";
 import "firebase/messaging";
+import { isBrave } from "../App";
+import { goTo } from "react-chrome-extension-router";
+import DisplayNotice from "../pages/DisplayNoticePage/DisplayNotice";
 dotenv.config();
 
 var firebaseConfig = {
@@ -45,6 +48,10 @@ export const getToken = () => {
       } catch (err) {
         if (tries > numOfAttempts) {
           attempting = false;
+          chrome.extension.getBackgroundPage().console.log(isBrave(), tries);
+          if (isBrave() && tries > 1) {
+            goTo(DisplayNotice);
+          }
           console.error("FCM | Request retries failed, Error: ", err);
         } else {
           console.log(
