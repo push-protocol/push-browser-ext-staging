@@ -508,7 +508,9 @@ export default function NotificationPage() {
           />
         </div>
 
-        {!loading && filter && allFilter.length === 0 && <div>no item</div>}
+        {!loading && filter && allFilter.length === 0 && (
+          <div className="no-item">No items match your search</div>
+        )}
 
         {filter ? (
           <NotifItem
