@@ -508,17 +508,22 @@ export default function NotificationPage() {
           />
         </div>
 
-        {!loading && filter && allFilter.length === 0 && (
-          <div className="no-item">No items match your search</div>
-        )}
-
         {filter ? (
-          <NotifItem
-            notifs={filteredNotifications}
-            load="bottom"
-            showWayPoint={showWayPoint}
-            // bgUpdateLoading={bgUpdateLoading}
-          />
+          <>
+            {filter && !loading ? (
+              filter?.length > 0 ? (
+                <NotifItem
+                  notifs={filteredNotifications}
+                  load="bottom"
+                  showWayPoint={showWayPoint}
+                />
+              ) : (
+                <div className="no-item">No items match your search</div>
+              )
+            ) : (
+              <Loader load="top" />
+            )}
+          </>
         ) : active ? (
           <>
             {notifs && !loading ? (

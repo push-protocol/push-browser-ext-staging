@@ -368,8 +368,9 @@ const ButtonFeed = styled.button`
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
-  background-color: ${(props) => (props.bgColor ? props.bgColor : "")};
+  background-color: #e20880;
   margin-right: ${(props) => (props.mright ? props.mright : "")};
+  border: none;
   &:hover {
     cursor: pointer;
     pointer: hand;
