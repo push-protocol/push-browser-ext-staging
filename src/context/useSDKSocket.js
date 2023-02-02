@@ -1,16 +1,19 @@
 /*global chrome*/
 // React + Web3 Essentials
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 // Internal Components
 import { createSocketConnection, EVENTS } from "@pushprotocol/socket";
 import { convertAddressToAddrCaipForNotifs } from "../utils/utils";
+import NotifsContext from "./useNotifs";
 
 export const useSDKSocket = ({ account, env, chainId }) => {
+  const [notifs, setNotifs] = useContext(NotifsContext);
   const [sdkSocket, setSDKSocket] = useState(null);
   const [isSDKSocketConnected, setIsSDKSocketConnected] = useState(
     sdkSocket?.connected
   );
+  chrome.extension.getBackgroundPage().console.log("i am here");
   let userCaip = convertAddressToAddrCaipForNotifs(account, chainId);
 
   const addSocketEvents = () => {
@@ -26,7 +29,18 @@ export const useSDKSocket = ({ account, env, chainId }) => {
       /**
        * We receive a feedItem
        */
+      chrome.extension
+        .getBackgroundPage()
+        .console.log(feedItem, "add", [...feedItem]);
+      // setNotifs((x) => [...x, feedItem]);
+    });
+
+    sdkSocket?.on(EVENTS.USER_SPAM_FEEDS, (feedItem) => {
+      /**
+       * We receive a feedItem
+       */
       chrome.extension.getBackgroundPage().console.log(feedItem);
+      // setNotifs((x) => [...x, feedItem]);
     });
   };
 
@@ -34,6 +48,7 @@ export const useSDKSocket = ({ account, env, chainId }) => {
     sdkSocket?.off(EVENTS.CONNECT);
     sdkSocket?.off(EVENTS.DISCONNECT);
     sdkSocket?.off(EVENTS.USER_FEEDS);
+    sdkSocket?.off(EVENTS.USER_SPAM_FEEDS);
   };
 
   useEffect(() => {
