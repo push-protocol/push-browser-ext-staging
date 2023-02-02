@@ -363,6 +363,8 @@ export default function NotificationPage() {
 
   useEffect(() => {
     if (search.length === 0) {
+      // setNotif([]);
+      reset();
       if (active) {
         if (wallet) fetchLatestSpam();
       } else {
@@ -511,7 +513,7 @@ export default function NotificationPage() {
         {filter ? (
           <>
             {filter && !loading ? (
-              filter?.length > 0 ? (
+              allFilter?.length > 0 ? (
                 <NotifItem
                   notifs={filteredNotifications}
                   load="bottom"
