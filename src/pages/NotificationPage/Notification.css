@@ -214,7 +214,7 @@
 
 .channelTitle {
   font-size: 14px;
-  color: #9CA3AF;
+  color: #657795;
 }
 
 .channelMessage {
@@ -239,7 +239,7 @@
 
 .channelNew div {
 margin-left: 20px;
-color: #9CA3AF;
+color: #657795;
 }
 
 .mr-2{
@@ -341,7 +341,7 @@ color: #9CA3AF;
 
 }
 
-.empty-body{
+.empty-body {
   position: absolute;
   top: 100px;
 }
@@ -352,7 +352,7 @@ color: #9CA3AF;
 }
 .icon-empty{
   position: absolute;
-  top: 150px;
+  top: 220px;
   margin: 0 auto;;
 }
 
@@ -361,7 +361,7 @@ color: #9CA3AF;
   width: 300px;
   height: 42px;
   left: 30px;
-  top: 330px;
+  top: 390px;
   font-weight: 300;
   font-size: 12px;
   line-height: 16px;
@@ -396,7 +396,7 @@ font-size: 14px;
  height: 100%;
  cursor: pointer;
 }
-.twin-button .none{
+.twin-button .none {
   width: 150px;
   border:none;
   color: #6b7280;
@@ -406,4 +406,18 @@ font-size: 14px;
   height: auto;
   padding: 0.6rem;
   cursor: pointer;
+}
+
+.no-item {
+  width: max-content;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  margin: 50px auto;
+  background-color: #f4f5fa;;
+  color: #657795;
+  border-radius: 4px;
+  font-size: 14px;
+  padding: 3px;
 }
