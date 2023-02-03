@@ -3,11 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@epnsproject/sdk-restapi": "^0.1.13",
-    "@epnsproject/sdk-uiweb": "^0.1.10",
+    "@epnsproject/sdk-restapi": "^0.1.20",
+    "@epnsproject/sdk-uiweb": "^0.1.11",
     "@ethersproject/providers": "^5.7.1",
     "@material-ui/core": "^4.11.4",
     "@pushprotocol/socket": "^0.3.0",
+    "@pushprotocol/restapi": "^0.3.1",
+    "@pushprotocol/socket": "^0.3.0",
+    "@pushprotocol/uiweb": "^0.4.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -22,10 +25,13 @@
     "react-blockies": "^1.4.1",
     "react-chrome-extension-router": "^1.2.0",
     "react-dom": "^18.2.0",
+    "react-datetime-picker": "^4.2.0",
     "react-icons": "^4.3.1",
     "react-moment": "^1.1.2",
+    "react-multi-select-component": "^4.3.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-use": "^17.4.0",
     "react-waypoint": "^10.1.0",
     "rimraf": "^2.7.1",
     "styled-components": "^5.3.5",
@@ -34,9 +40,9 @@
     "web3": "^1.8.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "rimraf ./build && react-scripts build",
-    "test": "react-scripts test",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -52,9 +58,11 @@
   },
   "browserslist": {
     "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+      "chrome >= 67",
+      "edge >= 79",
+      "firefox >= 68",
+      "opera >= 54",
+      "safari >= 14"
     ],
     "development": [
       "last 1 chrome version",
@@ -63,6 +71,7 @@
     ]
   },
   "devDependencies": {
+    "react-app-rewired": "^2.2.1",
     "react-error-overlay": "6.0.9"
   }
 }
