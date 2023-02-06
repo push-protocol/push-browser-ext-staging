@@ -1,5 +1,3 @@
-import { user } from "@epnsproject/sdk-restapi";
-
 /*global chrome*/
 export const convertAddressToAddrCaip = (userAddress) => {
   return `eip155:${userAddress}`;

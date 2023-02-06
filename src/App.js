@@ -10,6 +10,7 @@ import {
 import NotifsContext from "./context/useNotifs";
 import NotificationPage from "./pages/NotificationPage/NotificationPage";
 import Home from "./pages/HomePage/HomePage";
+import RefreshContext from "./context/useRefresh";
 
 console.log = function () {};
 
@@ -31,7 +32,6 @@ function fnBrowserDetect() {
     browserName = "No browser detection";
   }
 
-  chrome.extension.getBackgroundPage().console.log(browserName);
   return browserName;
 }
 
@@ -51,6 +51,7 @@ function App() {
   const [registered, setRegistered] = useState(false);
   const [walletAddr, setWalletAddr] = useState(null);
   const [notifs, setNotifs] = useState([]);
+  const [refresh, setRefresh] = useState(false);
   useEffect(() => {
     const { component, props } = getCurrent();
     const components = getComponentStack();
@@ -65,17 +66,21 @@ function App() {
   if (!registered)
     return (
       <NotifsContext.Provider value={[notifs, setNotifs]}>
-        <Router>
-          <Home />
-        </Router>
+        <RefreshContext.Provider value={[refresh, setRefresh]}>
+          <Router>
+            <Home />
+          </Router>
+        </RefreshContext.Provider>
       </NotifsContext.Provider>
     );
   else
     return (
-      <NotifsContext.Provider value={[notifs, setNotifs]}>
-        <Router>
-          <NotificationPage wallet={walletAddr} />
-        </Router>
+      <NotifsContext.Provider value={[refresh, setRefresh]}>
+        <RefreshContext.Provider value={[notifs, setNotifs]}>
+          <Router>
+            <NotificationPage wallet={walletAddr} />
+          </Router>
+        </RefreshContext.Provider>
       </NotifsContext.Provider>
     );
 }

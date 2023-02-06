@@ -4,16 +4,18 @@ import { useContext, useEffect, useState } from "react";
 
 // Internal Components
 import { createSocketConnection, EVENTS } from "@pushprotocol/socket";
+import * as PushAPI from "@pushprotocol/restapi";
 import { convertAddressToAddrCaipForNotifs } from "../utils/utils";
 import NotifsContext from "./useNotifs";
+import RefreshContext from "./useRefresh";
 
 export const useSDKSocket = ({ account, env, chainId }) => {
   const [notifs, setNotifs] = useContext(NotifsContext);
+  const [refresh, setRefresh] = useContext(RefreshContext);
   const [sdkSocket, setSDKSocket] = useState(null);
   const [isSDKSocketConnected, setIsSDKSocketConnected] = useState(
     sdkSocket?.connected
   );
-  chrome.extension.getBackgroundPage().console.log("i am here");
   let userCaip = convertAddressToAddrCaipForNotifs(account, chainId);
 
   const addSocketEvents = () => {
@@ -29,18 +31,16 @@ export const useSDKSocket = ({ account, env, chainId }) => {
       /**
        * We receive a feedItem
        */
-      chrome.extension
-        .getBackgroundPage()
-        .console.log(feedItem, "add", [...feedItem]);
-      // setNotifs((x) => [...x, feedItem]);
+      // const parsedResponse = PushAPI.utils.parseApiResponse([feedItem]);
+      setRefresh(true);
     });
 
     sdkSocket?.on(EVENTS.USER_SPAM_FEEDS, (feedItem) => {
       /**
        * We receive a feedItem
        */
-      chrome.extension.getBackgroundPage().console.log(feedItem);
-      // setNotifs((x) => [...x, feedItem]);
+      // chrome.extension.getBackgroundPage().console.log(feedItem);
+      setRefresh(true);
     });
   };
 

@@ -12,6 +12,7 @@ import * as PushAPI from "@pushprotocol/restapi";
 import { NotificationItem } from "@pushprotocol/uiweb";
 import {
   convertAddrCaipToAddress,
+  convertAddressToAddrCaip,
   convertAddressToAddrCaipForNotifs,
 } from "../../utils/utils";
 import Topbar from "../../components/Topbar";
@@ -22,6 +23,7 @@ import { FiSearch, FiSliders } from "react-icons/fi";
 import { Item } from "../../utils/SharedStyling";
 import { useClickAway } from "react-use";
 import SearchFilter from "../../components/SearchFilter";
+import RefreshContext from "../../context/useRefresh";
 
 const Loader = (props) => {
   const { load } = props;
@@ -151,6 +153,7 @@ export default function NotificationPage(props) {
   const [filteredNotifications, setFilteredNotifications] = React.useState([]);
   // eslint-disable-next-line
   const [notifs, setNotifs] = useContext(NotifsContext);
+  const [refresh, setRefresh] = useContext(RefreshContext);
   useEffect(() => {
     chrome.storage.local.get(["epns"], function (result) {
       if (result.epns) {
@@ -322,9 +325,6 @@ export default function NotificationPage(props) {
         each["epoch"] = new Date(each["date"]).getTime() / 1000;
         each["channel"] = map2.get(each.sid);
       });
-      chrome.extension
-        .getBackgroundPage()
-        .console.log(parsedResponse, "allfeeds");
       setNotif([...parsedResponse]);
     } catch (err) {
       console.log(err);
@@ -359,9 +359,6 @@ export default function NotificationPage(props) {
         each["epoch"] = new Date(each["date"]).getTime() / 1000;
         each["channel"] = map2.get(each.sid);
       });
-      chrome.extension
-        .getBackgroundPage()
-        .console.log(parsedResponse, "allspam");
       setNotif([...parsedResponse]);
     } catch (err) {
       console.log(err);
@@ -438,7 +435,6 @@ export default function NotificationPage(props) {
     setFilteredNotifications([]);
     try {
       let filterNotif = [];
-      chrome.extension.getBackgroundPage().console.log(allNotf, "allitems");
       for (const notif of allNotf) {
         let timestamp;
         const matches = notif.message.match(/\[timestamp:(.*?)\]/);
@@ -457,7 +453,6 @@ export default function NotificationPage(props) {
           filterNotif.push(notif);
       }
       const newNotifs = filterNotif;
-      chrome.extension.getBackgroundPage().console.log(newNotifs, "allsearch");
       setAllFilter(newNotifs);
     } catch (err) {
       console.log(err);
@@ -470,6 +465,17 @@ export default function NotificationPage(props) {
   React.useEffect(() => {
     setFilteredNotifications(allFilter);
   }, [allFilter]);
+
+  React.useEffect(() => {
+    if (refresh) {
+      if (active) {
+        if (wallet) fetchLatestSpam();
+      } else {
+        if (wallet) callLatestNotifs();
+      }
+    }
+    setRefresh(false);
+  }, [refresh]);
 
   return (
     <>
