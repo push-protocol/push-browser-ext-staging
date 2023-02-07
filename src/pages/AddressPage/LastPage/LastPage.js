@@ -4,7 +4,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-chrome-extension-router";
 import { makeStyles } from "@material-ui/core/styles";
-import NotificationPage from "../../NotificationPage/NotificationPage";
+import NotificationPage, {
+  convertWalletAddressForSocket,
+} from "../../NotificationPage/NotificationPage";
 import "./Last.css";
 import { BsArrowRight } from "react-icons/bs";
 import { FaCheckCircle } from "react-icons/fa";
@@ -147,7 +149,10 @@ export default function LastPage(props) {
                 <b>channels</b> and start receiving <b>notifications</b>.
               </p>
             </div>
-            <Link component={NotificationPage}>
+            <Link
+              component={NotificationPage}
+              props={{ wallet: props.address }}
+            >
               <button className="button hover-effect">
                 <span className="button-text bold-font">Continue</span>
                 <i className="button-icon">

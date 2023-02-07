@@ -12,15 +12,18 @@ import * as PushAPI from "@pushprotocol/restapi";
 import { NotificationItem } from "@pushprotocol/uiweb";
 import {
   convertAddrCaipToAddress,
+  convertAddressToAddrCaip,
   convertAddressToAddrCaipForNotifs,
 } from "../../utils/utils";
 import Topbar from "../../components/Topbar";
 import styled from "styled-components";
 import Config from "../../config";
+import { useSDKSocket } from "../../context/useSDKSocket.js";
 import { FiSearch, FiSliders } from "react-icons/fi";
 import { Item } from "../../utils/SharedStyling";
 import { useClickAway } from "react-use";
 import SearchFilter from "../../components/SearchFilter";
+import RefreshContext from "../../context/useRefresh";
 
 const Loader = (props) => {
   const { load } = props;
@@ -107,6 +110,15 @@ export const convertWalletAddress = async (wallet) => {
   }
 };
 
+export const convertWalletAddressForSocket = async (wallet) => {
+  if (wallet.includes(":")) {
+    return wallet;
+  } else {
+    let walletTemp = convertAddressToAddrCaip(wallet);
+    return walletTemp;
+  }
+};
+
 const NavButton = (props) => {
   const { text, onClick, className } = props;
   return (
@@ -118,7 +130,7 @@ const NavButton = (props) => {
 
 const NOTIFICATIONS_PER_PAGE = 10;
 
-export default function NotificationPage() {
+export default function NotificationPage(props) {
   const [loading, setLoading] = useState(false);
   const [wallet, setWallet] = useState("");
   const [addr, setAddr] = useState("");
@@ -141,6 +153,7 @@ export default function NotificationPage() {
   const [filteredNotifications, setFilteredNotifications] = React.useState([]);
   // eslint-disable-next-line
   const [notifs, setNotifs] = useContext(NotifsContext);
+  const [refresh, setRefresh] = useContext(RefreshContext);
   useEffect(() => {
     chrome.storage.local.get(["epns"], function (result) {
       if (result.epns) {
@@ -162,6 +175,13 @@ export default function NotificationPage() {
     let final = fh + "...." + sh;
     setAddr(final);
   };
+
+  // enable socket notifications
+  useSDKSocket({
+    account: props.wallet,
+    chainId: Config.chainID,
+    env: "staging",
+  });
 
   const callNotifs = async () => {
     setBgUpdateLoading(true);
@@ -305,9 +325,6 @@ export default function NotificationPage() {
         each["epoch"] = new Date(each["date"]).getTime() / 1000;
         each["channel"] = map2.get(each.sid);
       });
-      chrome.extension
-        .getBackgroundPage()
-        .console.log(parsedResponse, "allfeeds");
       setNotif([...parsedResponse]);
     } catch (err) {
       console.log(err);
@@ -342,9 +359,6 @@ export default function NotificationPage() {
         each["epoch"] = new Date(each["date"]).getTime() / 1000;
         each["channel"] = map2.get(each.sid);
       });
-      chrome.extension
-        .getBackgroundPage()
-        .console.log(parsedResponse, "allspam");
       setNotif([...parsedResponse]);
     } catch (err) {
       console.log(err);
@@ -421,7 +435,6 @@ export default function NotificationPage() {
     setFilteredNotifications([]);
     try {
       let filterNotif = [];
-      chrome.extension.getBackgroundPage().console.log(allNotf, "allitems");
       for (const notif of allNotf) {
         let timestamp;
         const matches = notif.message.match(/\[timestamp:(.*?)\]/);
@@ -440,7 +453,6 @@ export default function NotificationPage() {
           filterNotif.push(notif);
       }
       const newNotifs = filterNotif;
-      chrome.extension.getBackgroundPage().console.log(newNotifs, "allsearch");
       setAllFilter(newNotifs);
     } catch (err) {
       console.log(err);
@@ -453,6 +465,17 @@ export default function NotificationPage() {
   React.useEffect(() => {
     setFilteredNotifications(allFilter);
   }, [allFilter]);
+
+  React.useEffect(() => {
+    if (refresh) {
+      if (active) {
+        if (wallet) fetchLatestSpam();
+      } else {
+        if (wallet) callLatestNotifs();
+      }
+    }
+    setRefresh(false);
+  }, [refresh]);
 
   return (
     <>
