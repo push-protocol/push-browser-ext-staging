@@ -75,8 +75,8 @@ function App() {
     );
   else
     return (
-      <NotifsContext.Provider value={[refresh, setRefresh]}>
-        <RefreshContext.Provider value={[notifs, setNotifs]}>
+      <NotifsContext.Provider value={[notifs, setNotifs]}>
+        <RefreshContext.Provider value={[refresh, setRefresh]}>
           <Router>
             <NotificationPage wallet={walletAddr} />
           </Router>
