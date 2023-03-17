@@ -327,7 +327,9 @@ const RangeSection = styled.div`
 `;
 
 const Container = styled.div`
-  width: -webkit-fill-available;
+  // width: -webkit-fill-available;
+  max-width: 300px;
+  min-width: 300px;
   display: flex;
   flex-direction: column;
   background: #f4f5fa;
@@ -337,6 +339,7 @@ const Container = styled.div`
   position: absolute;
   z-index: 2;
   top: 43px;
+  left: 15px;
   padding: 0;
   @media (max-width: 600px) {
     margin-left: 0.5rem;

@@ -50,7 +50,11 @@ export function isBrave() {
 function App() {
   const [registered, setRegistered] = useState(false);
   const [walletAddr, setWalletAddr] = useState(null);
-  const [notifs, setNotifs] = useState([]);
+  const [notifs, setNotifs] = useState({
+    inbox: [],
+    spam: [],
+  });
+
   const [refresh, setRefresh] = useState(false);
   useEffect(() => {
     const { component, props } = getCurrent();

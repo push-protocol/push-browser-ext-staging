@@ -36,9 +36,8 @@ export default function LastPage(props) {
     const token = props.token;
     let user = convertAddressToAddrCaip(address);
     const object = {
-      // op: "register",
-      // wallet: address.toLowerCase(),
-      wallet: user,
+      op: "register",
+      wallet: address.toLowerCase(),
       device_token: token,
       platform: "web",
     };
@@ -48,7 +47,7 @@ export default function LastPage(props) {
 
     const registerNoAuth = async (object) => {
       const response = await axios.post(
-        `${Config.baseURL}/v1/pushtokens/register`,
+        `${Config.baseURL}/pushtokens/register_no_auth`,
         object
       );
       setLoader(false);

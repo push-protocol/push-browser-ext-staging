@@ -43,16 +43,27 @@ body {
 .standard{
   width: 360px;
   height: 600px;
-  overflow-y:unset;
+  overflow-y: unset;
   overflow-x: hidden;
 }
 
 .standard-page{
   width: 360px;
   height: 600px;
-  overflow-y:unset;
+  overflow-y: hidden;
   overflow-x: hidden;
-  display: flex; flex-direction: column;
+  display: flex; 
+  flex-direction: column;
+}
+
+.feed-content {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  flex: 1;
+  align-self: stretch;
+  display: flex; 
+  flex-direction: column;
+
 }
 
 /* Change the white to any color */
@@ -87,3 +98,4 @@ input:-webkit-autofill:active{
 									   color-stop(0.72, #35b0f3),
 									   color-stop(0.86, #35a1f3));
 }
+

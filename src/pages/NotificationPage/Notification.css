@@ -421,3 +421,9 @@ font-size: 14px;
   font-size: 14px;
   padding: 3px;
 }
+
+.new-space{
+  flex: 1;
+  align-self: stretch;
+  padding: 5px 30px;
+}
